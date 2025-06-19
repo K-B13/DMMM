@@ -1,0 +1,97 @@
+[
+    {
+        "name": "Burning Hands",
+        "attack": 2
+    },
+    {
+        "name": "Burning Hands",
+        "attack": 2
+    },
+    {
+        "name": "Burning Hands",
+        "attack": 2
+    },
+    {
+        "name": "Evil Sneer",
+        "heal": 1,
+        "extra": 1
+    },
+    {
+        "name": "Evil Sneer",
+        "heal": 1,
+        "extra": 1
+    },
+    {
+        "name": "Knowledge is Power",
+        "draw": 3
+    },
+    {
+        "name": "Knowledge is Power",
+        "draw": 3
+    },
+    {
+        "name": "Knowledge is Power",
+        "draw": 3
+    },
+    {
+        "name": "Lightning Bolt",
+        "attack": 3
+    },
+    {
+        "name": "Lightning Bolt",
+        "attack": 3
+    },
+    {
+        "name": "Lightning Bolt",
+        "attack": 3
+    },
+    {
+        "name": "Lightning Bolt",
+        "attack": 3
+    },
+    {
+        "name": "Stoneskin",
+        "shield": 2
+    },
+    {
+        "name": "Speed of Thought",
+        "extra": 2
+    },
+    {
+        "name": "Speed of Thought",
+        "extra": 2
+    },
+    {
+        "name": "Speed of Thought",
+        "extra": 2
+    },
+    {
+        "name": "Shield",
+        "draw": 1,
+        "shield": 1
+    },
+    {
+        "name": "Shield",
+        "draw": 1,
+        "shield": 1
+    },
+    {
+        "name": "Mirror Image",
+        "shield": 3
+    },
+    {
+        "name": "Magic Missile",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Magic Missile",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Magic Missile",
+        "extra": 1,
+        "attack": 1
+    }
+]

@@ -1,0 +1,102 @@
+[
+    {
+        "name": "Crushing Hug",
+        "heal": 2,
+        "attack": 2
+    },
+    {
+        "name": "Crushing Hug",
+        "heal": 2,
+        "attack": 2
+    },
+    {
+        "name": "Grand Finale",
+        "attack": 3
+    },
+    {
+        "name": "Grand Finale",
+        "attack": 3
+    },
+    {
+        "name": "The Hoots Fan Club",
+        "shield": 2
+    },
+    {
+        "name": "The Hoots Fan Club",
+        "shield": 2
+    },
+    {
+        "name": "Intermission",
+        "draw": 2
+    },
+    {
+        "name": "Look Out Below!",
+        "attack": 2
+    },
+    {
+        "name": "Look Out Below!",
+        "attack": 2
+    },
+    {
+        "name": "Made You Look",
+        "draw": 2,
+        "extra": 1
+    },
+    {
+        "name": "Wise as an Owl",
+        "draw": 3
+    },
+    {
+        "name": "Very Very Fast",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Very Very Fast",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Very Very Fast",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Very Very Fast",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Talk to my Agent",
+        "shield": 3
+    },
+    {
+        "name": "Talk to my Agent",
+        "shield": 3
+    },
+    {
+        "name": "Strong as a Bear",
+        "heal": 1,
+        "attack": 2
+    },
+    {
+        "name": "Strong as a Bear",
+        "heal": 1,
+        "attack": 2
+    },
+    {
+        "name": "Send in the Clowns",
+        "extra": 1,
+        "shield": 1
+    },
+    {
+        "name": "Send in the Clowns",
+        "extra": 1,
+        "shield": 1
+    },
+    {
+        "name": "Send in the Clowns",
+        "extra": 1,
+        "shield": 1
+    }
+]

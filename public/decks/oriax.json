@@ -1,0 +1,100 @@
+[
+    {
+        "name": "All the Thrown Daggers",
+        "attack": 3
+    },
+    {
+        "name": "All the Thrown Daggers",
+        "attack": 3
+    },
+    {
+        "name": "All the Thrown Daggers",
+        "attack": 3
+    },
+    {
+        "name": "Cunning Action",
+        "extra": 2
+    },
+    {
+        "name": "Cunning Action",
+        "extra": 2
+    },
+    {
+        "name": "Even More Daggers",
+        "draw": 2,
+        "heal": 1
+    },
+    {
+        "name": "The Goon Squad",
+        "shield": 2
+    },
+    {
+        "name": "The Goon Squad",
+        "shield": 2
+    },
+    {
+        "name": "My Little Friend",
+        "shield": 3
+    },
+    {
+        "name": "Winged Serpent",
+        "draw": 1,
+        "shield": 1
+    },
+    {
+        "name": "Winged Serpent",
+        "draw": 1,
+        "shield": 1
+    },
+    {
+        "name": "Two Thrown Daggers",
+        "attack": 2
+    },
+    {
+        "name": "Two Thrown Daggers",
+        "attack": 2
+    },
+    {
+        "name": "Two Thrown Daggers",
+        "attack": 2
+    },
+    {
+        "name": "Two Thrown Daggers",
+        "attack": 2
+    },
+    {
+        "name": "Stolen Potion",
+        "heal": 1,
+        "extra": 1
+    },
+    {
+        "name": "Stolen Potion",
+        "heal": 1,
+        "extra": 1
+    },
+    {
+        "name": "One Thrown Dagger",
+        "attack": 1,
+        "extra": 1
+    },
+    {
+        "name": "One Thrown Dagger",
+        "attack": 1,
+        "extra": 1
+    },
+    {
+        "name": "One Thrown Dagger",
+        "attack": 1,
+        "extra": 1
+    },
+    {
+        "name": "One Thrown Dagger",
+        "attack": 1,
+        "extra": 1
+    },
+    {
+        "name": "One Thrown Dagger",
+        "attack": 1,
+        "extra": 1
+    }
+]

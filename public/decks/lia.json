@@ -1,0 +1,114 @@
+[
+    {
+        "name": "Cure Wounds",
+        "draw": 2,
+        "heal": 1
+    },
+    {
+        "name": "Divine Shield",
+        "shield": 3
+    },
+    {
+        "name": "Divine Shield",
+        "shield": 3
+    },
+    {
+        "name": "Divine Smite",
+        "attack": 3,
+        "heal": 1
+    },
+    {
+        "name": "Divine Smite",
+        "attack": 3,
+        "heal": 1
+    },
+    {
+        "name": "Divine Smite",
+        "attack": 3,
+        "heal": 1
+    },
+    {
+        "name": "Fighting Words",
+        "attack": 2,
+        "heal": 1
+    },
+    {
+        "name": "Fighting Words",
+        "attack": 2,
+        "heal": 1
+    },
+    {
+        "name": "Fighting Words",
+        "attack": 2,
+        "heal": 1
+    },
+    {
+        "name": "Finger-Wag of Judgement",
+        "extra": 2
+    },
+    {
+        "name": "Finger-Wag of Judgement",
+        "extra": 2
+    },
+    {
+        "name": "Spinning Parry",
+        "draw": 1,
+        "shield": 1
+    },
+    {
+        "name": "Spinning Parry",
+        "draw": 1,
+        "shield": 1
+    },
+    {
+        "name": "High Charisma",
+        "draw": 2
+    },
+    {
+        "name": "High Charisma",
+        "draw": 2
+    },
+    {
+        "name": "For the Most Justice",
+        "attack": 3
+    },
+    {
+        "name": "For the Most Justice",
+        "attack": 3
+    },
+    {
+        "name": "For the More Justice",
+        "attack": 2
+    },
+    {
+        "name": "For the More Justice",
+        "attack": 2
+    },
+    {
+        "name": "For the More Justice",
+        "attack": 2
+    },
+    {
+        "name": "For the More Justice",
+        "attack": 2
+    },
+    {
+        "name": "For Justice",
+        "attack": 1,
+        "extra": 1
+    },
+    {
+        "name": "For Justice",
+        "attack": 1,
+        "extra": 1
+    },
+    {
+        "name": "For Justice",
+        "attack": 1,
+        "extra": 1
+    },
+    {
+        "name": "Fluffy",
+        "shield": 2
+    }
+]

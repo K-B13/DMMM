@@ -1,0 +1,96 @@
+[
+    {
+        "name": "Beauty Barrage",
+        "attack": 3
+    },
+    {
+        "name": "Beauty Barrage",
+        "attack": 3
+    },
+    {
+        "name": "Beauty Barrage",
+        "attack": 3
+    },
+    {
+        "name": "Cuter Than You",
+        "draw": 2
+    },
+    {
+        "name": "Double Trouble",
+        "attack": 2
+    },
+    {
+        "name": "Double Trouble",
+        "attack": 2
+    },
+    {
+        "name": "Fashion Police",
+        "shield": 3
+    },
+    {
+        "name": "Fashion Police",
+        "shield": 3
+    },
+    {
+        "name": "Laser Show!",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Laser Show!",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Laser Show!",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Tyranny of Beauty",
+        "extra": 1,
+        "attack": 1,
+        "heal": 1
+    },
+    {
+        "name": "Rays for Days",
+        "extra": 2
+    },
+    {
+        "name": "Rays for Days",
+        "extra": 2
+    },
+    {
+        "name": "Multitask",
+        "attack": 2,
+        "heal": 1
+    },
+    {
+        "name": "Multitask",
+        "attack": 2,
+        "heal": 1
+    },
+    {
+        "name": "Mirror Mirror",
+        "shield": 2
+    },
+    {
+        "name": "Mirror Mirror",
+        "shield": 2
+    },
+    {
+        "name": "Me, Myself and Eye",
+        "draw": 1,
+        "heal": 1
+    },
+    {
+        "name": "Make it Work!",
+        "draw": 1,
+        "heal": 2
+    },
+    {
+        "name": "Make it Work!",
+        "draw": 1,
+        "heal": 2
+    }
+]

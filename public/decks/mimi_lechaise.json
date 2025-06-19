@@ -1,0 +1,89 @@
+[
+    {
+        "name": "Actually an Empty Chest",
+        "draw": 1,
+        "shield": 1
+    },
+    {
+        "name": "Actually an Empty Chest",
+        "draw": 1,
+        "shield": 1
+    },
+    {
+        "name": "Completely Safe Sooe",
+        "extra": 2
+    },
+    {
+        "name": "Completely Safe Sooe",
+        "extra": 2
+    },
+    {
+        "name": "Definitely Not a Trap",
+        "attack": 2
+    },
+    {
+        "name": "Definitely Not a Trap",
+        "attack": 2
+    },
+    {
+        "name": "Definitely Not a Trap",
+        "attack": 2
+    },
+    {
+        "name": "A Delicious Pie",
+        "attack": 2,
+        "draw": 1
+    },
+    {
+        "name": "A Delicious Pie",
+        "attack": 2,
+        "draw": 1
+    },
+    {
+        "name": "Harmless Pile of Rocks",
+        "attack": 2,
+        "extra": 1
+    },
+    {
+        "name": "A Well-Fitted Hat",
+        "attack": 1,
+        "extra": 1
+    },
+    {
+        "name": "A Well-Fitted Hat",
+        "attack": 1,
+        "extra": 1
+    },
+    {
+        "name": "Probably Just Dirty Socks",
+        "draw": 3
+    },
+    {
+        "name": "Probably Just Dirty Socks",
+        "draw": 3
+    },
+    {
+        "name": "A Potted Plant (Honest!)",
+        "attack": 1,
+        "shield": 1
+    },
+    {
+        "name": "A Potted Plant (Honest!)",
+        "attack": 1,
+        "shield": 1
+    },
+    {
+        "name": "Not a Mimic (Really)",
+        "shield": 2
+    },
+    {
+        "name": "Non-Carnivorous Couch",
+        "attack": 2,
+        "heal": 1
+    },
+    {
+        "name": "Non-Carnivorous Couch",
+        "attack": 2,
+        "heal": 1
+    }
+]

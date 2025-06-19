@@ -1,0 +1,96 @@
+[
+    {
+        "name": "Bag of Rats",
+        "draw": 1,
+        "shield": 1
+    },
+    {
+        "name": "Big Axe is Best Axe",
+        "attack": 3
+    },
+    {
+        "name": "Big Axe is Best Axe",
+        "attack": 3
+    },
+    {
+        "name": "Big Axe is Best Axe",
+        "attack": 3
+    },
+    {
+        "name": "Big Axe is Best Axe",
+        "attack": 3
+    },
+    {
+        "name": "Big Axe is Best Axe",
+        "attack": 3
+    },
+    {
+        "name": "Brutal Punch",
+        "attack": 2
+    },
+    {
+        "name": "Brutal Punch",
+        "attack": 2
+    },
+    {
+        "name": "Flex",
+        "draw": 1,
+        "heal": 1
+    },
+    {
+        "name": "Flex",
+        "draw": 1,
+        "heal": 1
+    },
+    {
+        "name": "Head Butt",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Head Butt",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Open the Armoury",
+        "draw": 2
+    },
+    {
+        "name": "Open the Armoury",
+        "draw": 2
+    },
+    {
+        "name": "Riff",
+        "shield": 3
+    },
+    {
+        "name": "Raff",
+        "shield": 3
+    },
+    {
+        "name": "Rage",
+        "attack": 4
+    },
+    {
+        "name": "Rage",
+        "attack": 4
+    },
+    {
+        "name": "Snack Time",
+        "draw": 2,
+        "heal": 1
+    },
+    {
+        "name": "Spike Shield",
+        "shield": 2
+    },
+    {
+        "name": "Two Axes are Better Tahn One",
+        "extra": 2
+    },
+    {
+        "name": "Two Axes are Better Tahn One",
+        "extra": 2
+    }
+]

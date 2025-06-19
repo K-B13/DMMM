@@ -1,0 +1,95 @@
+[
+    {
+        "name": "Ancient Anger",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Ancient Anger",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Ancient Anger",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Bull Market",
+        "extra": 2
+    },
+    {
+        "name": "Bull Market",
+        "extra": 2
+    },
+    {
+        "name": "Eviler Sneer",
+        "extra": 1,
+        "heal": 1
+    },
+    {
+        "name": "Eviler Sneer",
+        "extra": 1,
+        "heal": 1
+    },
+    {
+        "name": "Investment Opportunity",
+        "draw": 1,
+        "heal": 1
+    },
+    {
+        "name": "Investment Opportunity",
+        "draw": 1,
+        "heal": 1
+    },
+    {
+        "name": "Kobold Maid",
+        "attack": 1,
+        "shield": 1
+    },
+    {
+        "name": "Kobold Maid",
+        "attack": 1,
+        "shield": 1
+    },
+    {
+        "name": "Wisdom of Ages",
+        "draw": 2
+    },
+    {
+        "name": "Wisdom of Ages",
+        "draw": 2
+    },
+    {
+        "name": "Wing Buffet",
+        "attack": 2
+    },
+    {
+        "name": "Wing Buffet",
+        "attack": 2
+    },
+    {
+        "name": "Wall of Money",
+        "shield": 2
+    },
+    {
+        "name": "Wall of Money",
+        "shield": 2
+    },
+    {
+        "name": "Tooth and Claw",
+        "attack": 3
+    },
+    {
+        "name": "Tooth and Claw",
+        "attack": 3
+    },
+    {
+        "name": "Peaceful Nap",
+        "draw": 3
+    },
+    {
+        "name": "Mob of Lawyers",
+        "shield": 3
+    }
+]

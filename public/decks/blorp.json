@@ -1,0 +1,105 @@
+[
+    {
+        "name": "Acid Burp",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Acid Burp",
+        "extra": 1,
+        "attack": 1
+    },
+    {
+        "name": "Arcane Appetizer",
+        "draw": 1,
+        "attack": 2
+    },
+    {
+        "name": "Arcane Appetizer",
+        "draw": 1,
+        "attack": 2
+    },
+    {
+        "name": "Cleric A La Slime",
+        "heal": 1,
+        "attack": 2
+    },
+    {
+        "name": "Cleric A La Slime",
+        "heal": 1,
+        "attack": 2
+    },
+    {
+        "name": "Combat Cubed",
+        "attack": 3
+    },
+    {
+        "name": "Combat Cubed",
+        "attack": 3
+    },
+    {
+        "name": "Combat Cubed",
+        "attack": 3
+    },
+    {
+        "name": "Cubes Have Feelings Too",
+        "heal": 1,
+        "extra": 1
+    },
+    {
+        "name": "Cubes Have Feelings Too",
+        "heal": 1,
+        "extra": 1
+    },
+    {
+        "name": "D6 of Doom",
+        "attack": 2
+    },
+    {
+        "name": "D6 of Doom",
+        "attack": 2
+    },
+    {
+        "name": "Sugar Rush",
+        "draw": 2
+    },
+    {
+        "name": "Sugar Rush",
+        "draw": 2
+    },
+    {
+        "name": "Slime Time",
+        "extra": 2
+    },
+    {
+        "name": "Slime Time",
+        "extra": 2
+    },
+    {
+        "name": "Open Wide",
+        "draw": 2,
+        "extra": 1
+    },
+    {
+        "name": "Former Friends",
+        "shield": 2
+    },
+    {
+        "name": "Fastest Cube Alive",
+        "draw": 1,
+        "heal": 1,
+        "attack": 1
+    },
+    {
+        "name": "Fastest Cube Alive",
+        "draw": 1,
+        "heal": 1,
+        "attack": 1
+    },
+    {
+        "name": "Fastest Cube Alive",
+        "draw": 1,
+        "heal": 1,
+        "attack": 1
+    }
+]

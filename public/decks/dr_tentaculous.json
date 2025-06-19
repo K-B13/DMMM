@@ -1,0 +1,101 @@
+[
+    {
+        "name": "Diagnosis Evil",
+        "draw": 1,
+        "attack": 2
+    },
+    {
+        "name": "Diagnosis Evil",
+        "draw": 1,
+        "attack": 2
+    },
+    {
+        "name": "Diagnosis Evil",
+        "draw": 1,
+        "attack": 2
+    },
+    {
+        "name": "Ego Whip",
+        "attack": 2
+    },
+    {
+        "name": "Ego Whip",
+        "attack": 2
+    },
+    {
+        "name": "Entrhalled Thrall",
+        "attack": 2
+    },
+    {
+        "name": "Entrhalled Thrall",
+        "attack": 2
+    },
+    {
+        "name": "ID Insinuation",
+        "shield": 2
+    },
+    {
+        "name": "ID Insinuation",
+        "shield": 2
+    },
+    {
+        "name": "ID Insinuation",
+        "shield": 2
+    },
+    {
+        "name": "Just a Nibble",
+        "draw": 1,
+        "heal": 1,
+        "extra": 1
+    },
+    {
+        "name": "Superego Whip",
+        "attack": 3
+    },
+    {
+        "name": "Superego Whip",
+        "attack": 3
+    },
+    {
+        "name": "Sip Tea",
+        "draw": 1,
+        "heal": 2
+    },
+    {
+        "name": "Sip Tea",
+        "draw": 1,
+        "heal": 2
+    },
+    {
+        "name": "Relax After Work",
+        "draw": 3
+    },
+    {
+        "name": "Relax After Work",
+        "draw": 3
+    },
+    {
+        "name": "Receptionist",
+        "attack": 1,
+        "shield": 1
+    },
+    {
+        "name": "Puppet Therapy",
+        "attack": 2,
+        "shield": 1
+    },
+    {
+        "name": "Puppet Therapy",
+        "attack": 2,
+        "shield": 1
+    },
+    {
+        "name": "Puppet Therapy",
+        "attack": 2,
+        "shield": 1
+    },
+    {
+        "name": "PHD in Psychology",
+        "extra": 2
+    }
+]
