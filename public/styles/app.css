@@ -1,0 +1,15 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+  /* min-height: 100vh; */
+  /* min-width: 100vw; */
+}
+
+* {
+  box-sizing: border-box;
+  color: #f4e3d7;
+}
+
+body {
+    margin: 0;
+}

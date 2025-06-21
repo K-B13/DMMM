@@ -1,0 +1,248 @@
+main {
+    /* background-image: url('/images/parchment2.jpg'); */
+    /* background-size: cover; */
+    background-image: url('/images/dungeon_walls.jpg');
+    background-size: cover;
+    min-height: 100vh;
+}
+
+
+.heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0.2rem 2rem;
+    text-align: center;
+    font-family: 'Bangers', cursive; 
+    font-size: 1.4rem;
+    z-index: 100;
+    border-bottom: 2px solid #444;
+    position: relative;
+    gap: 2rem;
+}
+
+h1 {
+    margin: 0;
+    padding: 1rem;
+    background-image: url('/images/parchment2.jpg');
+    background-size: cover;
+    border-radius: 12px;
+    color: #444;
+}
+
+.torch {
+  height: 60px;
+  animation: flicker 1.2s infinite alternate;
+  filter: drop-shadow(0 0 10px orange);
+  
+}
+
+@keyframes flicker {
+    0%   { filter: drop-shadow(0 0 2px orange); }
+    100% { filter: drop-shadow(0 0 20px gold); }
+}
+
+.selection-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    gap: 1.5rem;
+    min-height: 100vh;
+}
+
+.entryBoard {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 80%;
+    gap: 1rem;
+    background-image: url('/images/parchment2.jpg');
+    background-size: cover;
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+.status-div {
+    /* flex-grow: 1; */
+    display: flex;
+    justify-content: flex-start;
+}
+
+.player-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.characterRow {
+    display: grid;
+    grid-template-columns: 100px 1fr 200px;
+    align-items: center;
+    /* justify-content: space-between; */
+    gap: 1rem;
+    background-color: #f4e3d7;
+    border: 2px solid #382e1c;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    width: 100%;
+}
+
+.player-position-entry-screen{
+    display: flex;
+    align-items: center;
+}
+
+.player-name p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    color: #444;
+}
+
+.player-name button {
+    margin-left: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: #fffbe6;
+    cursor: pointer;
+    color: #382e1c;
+}
+
+.player-name button:hover {
+    color: #fffbe6;
+}
+
+.player-name button,
+.player-name input {
+  max-width: 12rem;
+  min-width: 8rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.player-name input {
+    font-size: 1rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: #fffbe6;
+    color: #382e1c;
+}
+
+.player-name input:focus {
+    outline: none;
+    border-color: #7a5f3d;
+    box-shadow: 0 0 4px #7a5f3d;
+}
+
+.firstPageBlocker {
+    /* flex-grow: 1.25; */
+    width: 100px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.select-character-div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.remove-player-btn {
+    padding: 0.3rem 0.6rem;
+    background-color: #aa4444;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    border: 1px solid #662222;
+}
+
+.remove-player-btn:hover {
+  background-color: #883333;
+}
+
+.choose-whose-first-div {
+    width: 100%;
+}
+
+select {
+    padding: 0.4rem 0.5rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: #fffbe6;
+    color: #444;
+}
+
+button {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #7a5f3d;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+button:hover {
+    background-color: #5d472d;
+}
+
+.choose-whose-first {
+    background-color: #e8d1b0;
+    padding: 1rem;
+    border: 2px solid #382e1c;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.choose-whose-first-para {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+
+}
+
+.choose-whose-first p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1.2rem;
+    font-family: 'Rubik', sans-serif;
+    color: #382e1c;
+}
+
+.whose-first-selection {
+    margin: 0.2rem 0 0 0;
+}
+
+.start-btn {
+    position: relative;
+    font-size: 1.2rem;
+    padding: 0.75rem 2rem;
+    background-color: #c9b78c;
+    border: 2px solid #5a4733;
+    box-shadow: inset 0 0 0 rgba(0,0,0,0);
+    transition: box-shadow 0.2s, transform 0.2s ease;
+    font-family: 'Bangers', cursive;
+    letter-spacing: 1px;
+}
+
+.start-btn:hover {
+    box-shadow: inset 0 0 20px rgba(255, 230, 160, 0.8);
+    transform: scale(1.05);
+}
