@@ -1,114 +1,139 @@
 [
     {
         "name": "Cure Wounds",
+        "character": "Lia",
         "draw": 2,
         "heal": 1
     },
     {
         "name": "Divine Shield",
+        "character": "Lia",
         "shield": 3
     },
     {
         "name": "Divine Shield",
+        "character": "Lia",
         "shield": 3
     },
     {
         "name": "Divine Smite",
+        "character": "Lia",
         "attack": 3,
         "heal": 1
     },
     {
         "name": "Divine Smite",
+        "character": "Lia",
         "attack": 3,
         "heal": 1
     },
     {
         "name": "Divine Smite",
+        "character": "Lia",
         "attack": 3,
         "heal": 1
     },
     {
         "name": "Fighting Words",
+        "character": "Lia",
         "attack": 2,
         "heal": 1
     },
     {
         "name": "Fighting Words",
+        "character": "Lia",
         "attack": 2,
         "heal": 1
     },
     {
         "name": "Fighting Words",
+        "character": "Lia",
         "attack": 2,
         "heal": 1
     },
     {
         "name": "Finger-Wag of Judgement",
+        "character": "Lia",
         "extra": 2
     },
     {
         "name": "Finger-Wag of Judgement",
+        "character": "Lia",
         "extra": 2
     },
     {
         "name": "Spinning Parry",
+        "character": "Lia",
         "draw": 1,
         "shield": 1
     },
     {
         "name": "Spinning Parry",
+        "character": "Lia",
         "draw": 1,
         "shield": 1
     },
     {
         "name": "High Charisma",
+        "character": "Lia",
         "draw": 2
     },
     {
         "name": "High Charisma",
+        "character": "Lia",
         "draw": 2
     },
     {
         "name": "For the Most Justice",
+        "character": "Lia",
         "attack": 3
     },
     {
         "name": "For the Most Justice",
+        "character": "Lia",
         "attack": 3
     },
     {
         "name": "For the More Justice",
+        "character": "Lia",
         "attack": 2
     },
     {
         "name": "For the More Justice",
+        "character": "Lia",
         "attack": 2
     },
     {
         "name": "For the More Justice",
+        "character": "Lia",
         "attack": 2
     },
     {
         "name": "For the More Justice",
+        "character": "Lia",
         "attack": 2
     },
     {
         "name": "For Justice",
+        "character": "Lia",
         "attack": 1,
         "extra": 1
     },
     {
         "name": "For Justice",
+        "character": "Lia",
         "attack": 1,
         "extra": 1
     },
     {
         "name": "For Justice",
+        "character": "Lia",
         "attack": 1,
         "extra": 1
     },
     {
         "name": "Fluffy",
+        "character": "Lia",
         "shield": 2
     }
 ]

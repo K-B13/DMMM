@@ -1,99 +1,121 @@
 [
     {
         "name": "All the Thrown Daggers",
+        "character": "Oriax",
         "attack": 3
     },
     {
         "name": "All the Thrown Daggers",
+        "character": "Oriax",
         "attack": 3
     },
     {
         "name": "All the Thrown Daggers",
+        "character": "Oriax",
         "attack": 3
     },
     {
         "name": "Cunning Action",
+        "character": "Oriax",
         "extra": 2
     },
     {
         "name": "Cunning Action",
+        "character": "Oriax",
         "extra": 2
     },
     {
         "name": "Even More Daggers",
+        "character": "Oriax",
         "draw": 2,
         "heal": 1
     },
     {
         "name": "The Goon Squad",
+        "character": "Oriax",
         "shield": 2
     },
     {
         "name": "The Goon Squad",
+        "character": "Oriax",
         "shield": 2
     },
     {
         "name": "My Little Friend",
+        "character": "Oriax",
         "shield": 3
     },
     {
         "name": "Winged Serpent",
+        "character": "Oriax",
         "draw": 1,
         "shield": 1
     },
     {
         "name": "Winged Serpent",
+        "character": "Oriax",
         "draw": 1,
         "shield": 1
     },
     {
         "name": "Two Thrown Daggers",
+        "character": "Oriax",
         "attack": 2
     },
     {
         "name": "Two Thrown Daggers",
+        "character": "Oriax",
         "attack": 2
     },
     {
         "name": "Two Thrown Daggers",
+        "character": "Oriax",
         "attack": 2
     },
     {
         "name": "Two Thrown Daggers",
+        "character": "Oriax",
         "attack": 2
     },
     {
         "name": "Stolen Potion",
+        "character": "Oriax",
         "heal": 1,
         "extra": 1
     },
     {
         "name": "Stolen Potion",
+        "character": "Oriax",
         "heal": 1,
         "extra": 1
     },
     {
         "name": "One Thrown Dagger",
+        "character": "Oriax",
         "attack": 1,
         "extra": 1
     },
     {
         "name": "One Thrown Dagger",
+        "character": "Oriax",
         "attack": 1,
         "extra": 1
     },
     {
         "name": "One Thrown Dagger",
+        "character": "Oriax",
         "attack": 1,
         "extra": 1
     },
     {
         "name": "One Thrown Dagger",
+        "character": "Oriax",
         "attack": 1,
         "extra": 1
     },
     {
         "name": "One Thrown Dagger",
+        "character": "Oriax",
         "attack": 1,
         "extra": 1
     }

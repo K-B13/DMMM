@@ -1,103 +1,125 @@
 [
     {
         "name": "Acid Burp",
+        "character": "Blorp",
         "extra": 1,
         "attack": 1
     },
     {
         "name": "Acid Burp",
+        "character": "Blorp",
         "extra": 1,
         "attack": 1
     },
     {
         "name": "Arcane Appetizer",
+        "character": "Blorp",
         "draw": 1,
         "attack": 2
     },
     {
         "name": "Arcane Appetizer",
+        "character": "Blorp",
         "draw": 1,
         "attack": 2
     },
     {
         "name": "Cleric A La Slime",
+        "character": "Blorp",
         "heal": 1,
         "attack": 2
     },
     {
         "name": "Cleric A La Slime",
+        "character": "Blorp",
         "heal": 1,
         "attack": 2
     },
     {
         "name": "Combat Cubed",
+        "character": "Blorp",
         "attack": 3
     },
     {
         "name": "Combat Cubed",
+        "character": "Blorp",
         "attack": 3
     },
     {
         "name": "Combat Cubed",
+        "character": "Blorp",
         "attack": 3
     },
     {
         "name": "Cubes Have Feelings Too",
+        "character": "Blorp",
         "heal": 1,
         "extra": 1
     },
     {
         "name": "Cubes Have Feelings Too",
+        "character": "Blorp",
         "heal": 1,
         "extra": 1
     },
     {
         "name": "D6 of Doom",
+        "character": "Blorp",
         "attack": 2
     },
     {
         "name": "D6 of Doom",
+        "character": "Blorp",
         "attack": 2
     },
     {
         "name": "Sugar Rush",
+        "character": "Blorp",
         "draw": 2
     },
     {
         "name": "Sugar Rush",
+        "character": "Blorp",
         "draw": 2
     },
     {
         "name": "Slime Time",
+        "character": "Blorp",
         "extra": 2
     },
     {
         "name": "Slime Time",
+        "character": "Blorp",
         "extra": 2
     },
     {
         "name": "Open Wide",
+        "character": "Blorp",
         "draw": 2,
         "extra": 1
     },
     {
         "name": "Former Friends",
+        "character": "Blorp",
         "shield": 2
     },
     {
         "name": "Fastest Cube Alive",
+        "character": "Blorp",
         "draw": 1,
         "heal": 1,
         "attack": 1
     },
     {
         "name": "Fastest Cube Alive",
+        "character": "Blorp",
         "draw": 1,
         "heal": 1,
         "attack": 1
     },
     {
         "name": "Fastest Cube Alive",
+        "character": "Blorp",
         "draw": 1,
         "heal": 1,
         "attack": 1

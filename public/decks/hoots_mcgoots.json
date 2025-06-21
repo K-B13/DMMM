@@ -1,101 +1,123 @@
 [
     {
         "name": "Crushing Hug",
+        "character": "Hoots McGoots",
         "heal": 2,
         "attack": 2
     },
     {
         "name": "Crushing Hug",
+        "character": "Hoots McGoots",
         "heal": 2,
         "attack": 2
     },
     {
         "name": "Grand Finale",
+        "character": "Hoots McGoots",
         "attack": 3
     },
     {
         "name": "Grand Finale",
+        "character": "Hoots McGoots",
         "attack": 3
     },
     {
         "name": "The Hoots Fan Club",
+        "character": "Hoots McGoots",
         "shield": 2
     },
     {
         "name": "The Hoots Fan Club",
+        "character": "Hoots McGoots",
         "shield": 2
     },
     {
         "name": "Intermission",
+        "character": "Hoots McGoots",
         "draw": 2
     },
     {
         "name": "Look Out Below!",
+        "character": "Hoots McGoots",
         "attack": 2
     },
     {
         "name": "Look Out Below!",
+        "character": "Hoots McGoots",
         "attack": 2
     },
     {
         "name": "Made You Look",
+        "character": "Hoots McGoots",
         "draw": 2,
         "extra": 1
     },
     {
         "name": "Wise as an Owl",
+        "character": "Hoots McGoots",
         "draw": 3
     },
     {
         "name": "Very Very Fast",
+        "character": "Hoots McGoots",
         "extra": 1,
         "attack": 1
     },
     {
         "name": "Very Very Fast",
+        "character": "Hoots McGoots",
         "extra": 1,
         "attack": 1
     },
     {
         "name": "Very Very Fast",
+        "character": "Hoots McGoots",
         "extra": 1,
         "attack": 1
     },
     {
         "name": "Very Very Fast",
+        "character": "Hoots McGoots",
         "extra": 1,
         "attack": 1
     },
     {
         "name": "Talk to my Agent",
+        "character": "Hoots McGoots",
         "shield": 3
     },
     {
         "name": "Talk to my Agent",
+        "character": "Hoots McGoots",
         "shield": 3
     },
     {
         "name": "Strong as a Bear",
+        "character": "Hoots McGoots",
         "heal": 1,
         "attack": 2
     },
     {
         "name": "Strong as a Bear",
+        "character": "Hoots McGoots",
         "heal": 1,
         "attack": 2
     },
     {
         "name": "Send in the Clowns",
+        "character": "Hoots McGoots",
         "extra": 1,
         "shield": 1
     },
     {
         "name": "Send in the Clowns",
+        "character": "Hoots McGoots",
         "extra": 1,
         "shield": 1
     },
     {
         "name": "Send in the Clowns",
+        "character": "Hoots McGoots",
         "extra": 1,
         "shield": 1
     }

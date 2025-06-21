@@ -1,95 +1,116 @@
 [
     {
         "name": "Ancient Anger",
+        "character": "Lord Cinderpuff",
         "extra": 1,
         "attack": 1
     },
     {
         "name": "Ancient Anger",
+        "character": "Lord Cinderpuff",
         "extra": 1,
         "attack": 1
     },
     {
         "name": "Ancient Anger",
+        "character": "Lord Cinderpuff",
         "extra": 1,
         "attack": 1
     },
     {
         "name": "Bull Market",
+        "character": "Lord Cinderpuff",
         "extra": 2
     },
     {
         "name": "Bull Market",
+        "character": "Lord Cinderpuff",
         "extra": 2
     },
     {
         "name": "Eviler Sneer",
+        "character": "Lord Cinderpuff",
         "extra": 1,
         "heal": 1
     },
     {
         "name": "Eviler Sneer",
+        "character": "Lord Cinderpuff",
         "extra": 1,
         "heal": 1
     },
     {
         "name": "Investment Opportunity",
+        "character": "Lord Cinderpuff",
         "draw": 1,
         "heal": 1
     },
     {
         "name": "Investment Opportunity",
+        "character": "Lord Cinderpuff",
         "draw": 1,
         "heal": 1
     },
     {
         "name": "Kobold Maid",
+        "character": "Lord Cinderpuff",
         "attack": 1,
         "shield": 1
     },
     {
         "name": "Kobold Maid",
+        "character": "Lord Cinderpuff",
         "attack": 1,
         "shield": 1
     },
     {
         "name": "Wisdom of Ages",
+        "character": "Lord Cinderpuff",
         "draw": 2
     },
     {
         "name": "Wisdom of Ages",
+        "character": "Lord Cinderpuff",
         "draw": 2
     },
     {
         "name": "Wing Buffet",
+        "character": "Lord Cinderpuff",
         "attack": 2
     },
     {
         "name": "Wing Buffet",
+        "character": "Lord Cinderpuff",
         "attack": 2
     },
     {
         "name": "Wall of Money",
+        "character": "Lord Cinderpuff",
         "shield": 2
     },
     {
         "name": "Wall of Money",
+        "character": "Lord Cinderpuff",
         "shield": 2
     },
     {
         "name": "Tooth and Claw",
+        "character": "Lord Cinderpuff",
         "attack": 3
     },
     {
         "name": "Tooth and Claw",
+        "character": "Lord Cinderpuff",
         "attack": 3
     },
     {
         "name": "Peaceful Nap",
+        "character": "Lord Cinderpuff",
         "draw": 3
     },
     {
         "name": "Mob of Lawyers",
+        "character": "Lord Cinderpuff",
         "shield": 3
     }
 ]

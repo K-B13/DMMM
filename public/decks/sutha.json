@@ -1,96 +1,118 @@
 [
     {
         "name": "Bag of Rats",
+        "character": "Sutha",
         "draw": 1,
         "shield": 1
     },
     {
         "name": "Big Axe is Best Axe",
+        "character": "Sutha",
         "attack": 3
     },
     {
         "name": "Big Axe is Best Axe",
+        "character": "Sutha",
         "attack": 3
     },
     {
         "name": "Big Axe is Best Axe",
+        "character": "Sutha",
         "attack": 3
     },
     {
         "name": "Big Axe is Best Axe",
+        "character": "Sutha",
         "attack": 3
     },
     {
         "name": "Big Axe is Best Axe",
+        "character": "Sutha",
         "attack": 3
     },
     {
         "name": "Brutal Punch",
+        "character": "Sutha",
         "attack": 2
     },
     {
         "name": "Brutal Punch",
+        "character": "Sutha",
         "attack": 2
     },
     {
         "name": "Flex",
+        "character": "Sutha",
         "draw": 1,
         "heal": 1
     },
     {
         "name": "Flex",
+        "character": "Sutha",
         "draw": 1,
         "heal": 1
     },
     {
         "name": "Head Butt",
+        "character": "Sutha",
         "extra": 1,
         "attack": 1
     },
     {
         "name": "Head Butt",
+        "character": "Sutha",
         "extra": 1,
         "attack": 1
     },
     {
         "name": "Open the Armoury",
+        "character": "Sutha",
         "draw": 2
     },
     {
         "name": "Open the Armoury",
+        "character": "Sutha",
         "draw": 2
     },
     {
         "name": "Riff",
+        "character": "Sutha",
         "shield": 3
     },
     {
         "name": "Raff",
+        "character": "Sutha",
         "shield": 3
     },
     {
         "name": "Rage",
+        "character": "Sutha",
         "attack": 4
     },
     {
         "name": "Rage",
+        "character": "Sutha",
         "attack": 4
     },
     {
         "name": "Snack Time",
+        "character": "Sutha",
         "draw": 2,
         "heal": 1
     },
     {
         "name": "Spike Shield",
+        "character": "Sutha",
         "shield": 2
     },
     {
         "name": "Two Axes are Better Tahn One",
+        "character": "Sutha",
         "extra": 2
     },
     {
         "name": "Two Axes are Better Tahn One",
+        "character": "Sutha",
         "extra": 2
     }
 ]

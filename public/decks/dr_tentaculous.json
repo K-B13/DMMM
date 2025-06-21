@@ -1,101 +1,123 @@
 [
     {
         "name": "Diagnosis Evil",
+        "character": "Dr Tentaculous",
         "draw": 1,
         "attack": 2
     },
     {
         "name": "Diagnosis Evil",
+        "character": "Dr Tentaculous",
         "draw": 1,
         "attack": 2
     },
     {
         "name": "Diagnosis Evil",
+        "character": "Dr Tentaculous",
         "draw": 1,
         "attack": 2
     },
     {
         "name": "Ego Whip",
+        "character": "Dr Tentaculous",
         "attack": 2
     },
     {
         "name": "Ego Whip",
+        "character": "Dr Tentaculous",
         "attack": 2
     },
     {
         "name": "Entrhalled Thrall",
+        "character": "Dr Tentaculous",
         "attack": 2
     },
     {
         "name": "Entrhalled Thrall",
+        "character": "Dr Tentaculous",
         "attack": 2
     },
     {
         "name": "ID Insinuation",
+        "character": "Dr Tentaculous",
         "shield": 2
     },
     {
         "name": "ID Insinuation",
+        "character": "Dr Tentaculous",
         "shield": 2
     },
     {
         "name": "ID Insinuation",
+        "character": "Dr Tentaculous",
         "shield": 2
     },
     {
         "name": "Just a Nibble",
+        "character": "Dr Tentaculous",
         "draw": 1,
         "heal": 1,
         "extra": 1
     },
     {
         "name": "Superego Whip",
+        "character": "Dr Tentaculous",
         "attack": 3
     },
     {
         "name": "Superego Whip",
+        "character": "Dr Tentaculous",
         "attack": 3
     },
     {
         "name": "Sip Tea",
+        "character": "Dr Tentaculous",
         "draw": 1,
         "heal": 2
     },
     {
         "name": "Sip Tea",
+        "character": "Dr Tentaculous",
         "draw": 1,
         "heal": 2
     },
     {
         "name": "Relax After Work",
+        "character": "Dr Tentaculous",
         "draw": 3
     },
     {
         "name": "Relax After Work",
+        "character": "Dr Tentaculous",
         "draw": 3
     },
     {
         "name": "Receptionist",
+        "character": "Dr Tentaculous",
         "attack": 1,
         "shield": 1
     },
     {
         "name": "Puppet Therapy",
+        "character": "Dr Tentaculous",
         "attack": 2,
         "shield": 1
     },
     {
         "name": "Puppet Therapy",
+        "character": "Dr Tentaculous",
         "attack": 2,
         "shield": 1
     },
     {
         "name": "Puppet Therapy",
+        "character": "Dr Tentaculous",
         "attack": 2,
         "shield": 1
     },
     {
         "name": "PHD in Psychology",
+        "character": "Dr Tentaculous",
         "extra": 2
     }
 ]

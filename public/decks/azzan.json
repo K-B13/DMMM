@@ -1,96 +1,118 @@
 [
     {
         "name": "Burning Hands",
+        "character": "Azzan",
         "attack": 2
     },
     {
         "name": "Burning Hands",
+        "character": "Azzan",
         "attack": 2
     },
     {
         "name": "Burning Hands",
+        "character": "Azzan",
         "attack": 2
     },
     {
         "name": "Evil Sneer",
+        "character": "Azzan",
         "heal": 1,
         "extra": 1
     },
     {
         "name": "Evil Sneer",
+        "character": "Azzan",
         "heal": 1,
         "extra": 1
     },
     {
         "name": "Knowledge is Power",
+        "character": "Azzan",
         "draw": 3
     },
     {
         "name": "Knowledge is Power",
+        "character": "Azzan",
         "draw": 3
     },
     {
         "name": "Knowledge is Power",
+        "character": "Azzan",
         "draw": 3
     },
     {
         "name": "Lightning Bolt",
+        "character": "Azzan",
         "attack": 3
     },
     {
         "name": "Lightning Bolt",
+        "character": "Azzan",
         "attack": 3
     },
     {
         "name": "Lightning Bolt",
+        "character": "Azzan",
         "attack": 3
     },
     {
         "name": "Lightning Bolt",
+        "character": "Azzan",
         "attack": 3
     },
     {
         "name": "Stoneskin",
+        "character": "Azzan",
         "shield": 2
     },
     {
         "name": "Speed of Thought",
+        "character": "Azzan",
         "extra": 2
     },
     {
         "name": "Speed of Thought",
+        "character": "Azzan",
         "extra": 2
     },
     {
         "name": "Speed of Thought",
+        "character": "Azzan",
         "extra": 2
     },
     {
         "name": "Shield",
+        "character": "Azzan",
         "draw": 1,
         "shield": 1
     },
     {
         "name": "Shield",
+        "character": "Azzan",
         "draw": 1,
         "shield": 1
     },
     {
         "name": "Mirror Image",
+        "character": "Azzan",
         "shield": 3
     },
     {
         "name": "Magic Missile",
+        "character": "Azzan",
         "extra": 1,
         "attack": 1
     },
     {
         "name": "Magic Missile",
+        "character": "Azzan",
         "extra": 1,
         "attack": 1
     },
     {
         "name": "Magic Missile",
+        "character": "Azzan",
         "extra": 1,
         "attack": 1
     }

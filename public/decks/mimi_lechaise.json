@@ -1,88 +1,107 @@
 [
     {
         "name": "Actually an Empty Chest",
+        "character": "Mimi LeChaise",
         "draw": 1,
         "shield": 1
     },
     {
         "name": "Actually an Empty Chest",
+        "character": "Mimi LeChaise",
         "draw": 1,
         "shield": 1
     },
     {
         "name": "Completely Safe Sooe",
+        "character": "Mimi LeChaise",
         "extra": 2
     },
     {
         "name": "Completely Safe Sooe",
+        "character": "Mimi LeChaise",
         "extra": 2
     },
     {
         "name": "Definitely Not a Trap",
+        "character": "Mimi LeChaise",
         "attack": 2
     },
     {
         "name": "Definitely Not a Trap",
+        "character": "Mimi LeChaise",
         "attack": 2
     },
     {
         "name": "Definitely Not a Trap",
+        "character": "Mimi LeChaise",
         "attack": 2
     },
     {
         "name": "A Delicious Pie",
+        "character": "Mimi LeChaise",
         "attack": 2,
         "draw": 1
     },
     {
         "name": "A Delicious Pie",
+        "character": "Mimi LeChaise",
         "attack": 2,
         "draw": 1
     },
     {
         "name": "Harmless Pile of Rocks",
+        "character": "Mimi LeChaise",
         "attack": 2,
         "extra": 1
     },
     {
         "name": "A Well-Fitted Hat",
+        "character": "Mimi LeChaise",
         "attack": 1,
         "extra": 1
     },
     {
         "name": "A Well-Fitted Hat",
+        "character": "Mimi LeChaise",
         "attack": 1,
         "extra": 1
     },
     {
         "name": "Probably Just Dirty Socks",
+        "character": "Mimi LeChaise",
         "draw": 3
     },
     {
         "name": "Probably Just Dirty Socks",
+        "character": "Mimi LeChaise",
         "draw": 3
     },
     {
         "name": "A Potted Plant (Honest!)",
+        "character": "Mimi LeChaise",
         "attack": 1,
         "shield": 1
     },
     {
         "name": "A Potted Plant (Honest!)",
+        "character": "Mimi LeChaise",
         "attack": 1,
         "shield": 1
     },
     {
         "name": "Not a Mimic (Really)",
+        "character": "Mimi LeChaise",
         "shield": 2
     },
     {
         "name": "Non-Carnivorous Couch",
+        "character": "Mimi LeChaise",
         "attack": 2,
         "heal": 1
     },
     {
         "name": "Non-Carnivorous Couch",
+        "character": "Mimi LeChaise",
         "attack": 2,
         "heal": 1
     }
