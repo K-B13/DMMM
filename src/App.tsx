@@ -1,8 +1,10 @@
-import { onAuthStateChanged } from "firebase/auth";
+import { signInAnonymously } from "firebase/auth";
+import { ref, set } from "firebase/database"
+import { auth, db } from "./firebaseConfig";
 import { useState, useEffect } from "react";
-import { auth } from "./firebaseConfig";
 import { NameInput } from "./NameInput";
 import { SetupScreen } from "./SetupScreen";
+import { Player } from "./classes/Player";
 
 export interface PlayerState {
     name: string;
@@ -15,6 +17,7 @@ export interface PlayerState {
 export const App = () => {
     const [ playerSetup, setPlayerSetup ] = useState<PlayerState[]>([])
     const [ showNameInput, setShowNameInput ] = useState(true)
+    const [ allPlayers, setAllPlayers ] = useState<Player[]>([])
 
     // useEffect(() => {
     //     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -27,6 +30,11 @@ export const App = () => {
     // const handleChange = () => {
 
     // }
+
+
+    const acquireAllPlayerData = (players: Player[]) => {
+        setAllPlayers([ ...players ])
+    }
 
     const addPlayer = (name: string) => {
         if(!name) return
@@ -52,7 +60,11 @@ export const App = () => {
                 showNameInput ?
                 <NameInput addPlayer={addPlayer} playerSetup={playerSetup}/>:
                 <div>
-                    <SetupScreen playerSetup={playerSetup} setPlayerSetup={setPlayerSetup}/>
+                    <SetupScreen 
+                    playerSetup={playerSetup} 
+                    setPlayerSetup={setPlayerSetup}
+                    acquireAllPlayerData={acquireAllPlayerData}
+                    />
                 </div>
             }
         </main>

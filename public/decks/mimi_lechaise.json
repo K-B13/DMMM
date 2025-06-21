@@ -104,5 +104,16 @@
         "character": "Mimi LeChaise",
         "attack": 2,
         "heal": 1
+    },
+    {
+        "name": "Just Another Coat Rack",
+        "character": "Mimi LeChaise",
+        "heal": 2
+    },
+    {
+        "name": "Just Another Coat Rack",
+        "character": "Mimi LeChaise",
+        "heal": 2
     }
+
 ]
