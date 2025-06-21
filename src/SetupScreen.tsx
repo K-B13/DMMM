@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react"
 import { PlayerState } from "./App"
 import { EntryPlayer } from "./EntryPlayer"
+import { FirstTurn } from "./FirstTurn"
 
 export const SetupScreen = ({ playerSetup, setPlayerSetup }: { playerSetup: PlayerState[], setPlayerSetup: Dispatch<SetStateAction<PlayerState[]>> }) => {
     const [ firstTurnPlayer, setFirstTurnPlayer ] = useState(0)
@@ -60,6 +61,7 @@ export const SetupScreen = ({ playerSetup, setPlayerSetup }: { playerSetup: Play
 
             <button
                 onClick={() => {
+                    if (playerSetup.length >= 6) return
                     const playerToAdd = {
                         name: 'Player',
                         character: '',
@@ -73,7 +75,17 @@ export const SetupScreen = ({ playerSetup, setPlayerSetup }: { playerSetup: Play
                 }}
             >Add Player</button>
 
-
+            <FirstTurn handleFirstPlayerSelect={handleFirstPlayerSelect} playerSetup={playerSetup} />
+            
+            {
+                playerSetup.filter(player => {
+                    console.log(player.ready)
+                    return player.ready === false
+                }).length > 0 ?
+                <p>Not all players are ready</p>
+                :
+                <button>Start</button>
+            }
         </div>
     )
 }
