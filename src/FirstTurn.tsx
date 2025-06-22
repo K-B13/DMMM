@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { PlayerState } from "./App"
-import { getUid } from "./utility/getUid"
+import { isCurrentPlayerHost } from "./utility/checkCurrentPlayerHost"
 
 export const FirstTurn = ({
     handleFirstPlayerSelect,
@@ -22,15 +22,11 @@ export const FirstTurn = ({
         return playerCharacter ? playerCharacter : 'Not Chosen'
     }
 
-    const isCurrentPlayerHost = () => {
-        const uid = getUid();
-        const hostPlayer = playerSetup.find(p => p.host);
-        return uid && hostPlayer?.uid === uid;
-    }
+    
     return (
         <div className="choose-whose-first-div">
             {
-                isCurrentPlayerHost() &&
+                isCurrentPlayerHost(playerSetup) &&
                 <div className="choose-whose-first">
                     <div className="choose-whose-first-para">
                         <p>Choose who goes first</p>

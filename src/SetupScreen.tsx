@@ -6,8 +6,8 @@ import { loadCharacterData } from "./utility/load"
 import { CharacterName } from "./utility/characterBible"
 import { createDeck } from "./classes/Deck"
 import { createPlayer, Player } from "./classes/Player"
-import { writeValue } from "./utility/firebaseActions"
-import { firstPlayer, playerCharacterPath, playerReadyPath } from "./utility/firebasePaths"
+import { removeValue, writeValue } from "./utility/firebaseActions"
+import { firstPlayer, playerCharacterPath, playerPath, playerReadyPath } from "./utility/firebasePaths"
 import { getUid } from "./utility/getUid"
 import { onValue, ref } from "@firebase/database"
 import { db } from "./firebaseConfig"
@@ -70,7 +70,8 @@ export const SetupScreen = ({
         })
     }
 
-    const handlePlayerRemoval = (player: PlayerState) => {
+    const handlePlayerRemoval = async (player: PlayerState) => {
+        await removeValue(playerPath(player.uid))
         setPlayerSetup((prevState: PlayerState[]) => {
             const newPlayers = [...prevState].filter((singlePlayer: PlayerState) => {
                 return singlePlayer !== player
@@ -153,6 +154,7 @@ export const SetupScreen = ({
                     handleCheckbox={handleCheckbox}
                     getDisabledCharacters={getDisabledCharacters}
                     handlePlayerRemoval={handlePlayerRemoval}
+                    playerSetup={playerSetup}
                     />
                 })}
             </div>

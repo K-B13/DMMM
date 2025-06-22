@@ -1,10 +1,12 @@
 import { signInAnonymously } from "firebase/auth";
-import { get, onValue, ref, set } from "firebase/database"
+import { get, onDisconnect, onValue, ref, set } from "firebase/database"
 import { auth, db } from "./firebaseConfig";
 import { useState, useEffect } from "react";
 import { NameInput } from "./NameInput";
 import { SetupScreen } from "./SetupScreen";
 import { Player } from "./classes/Player";
+import { updateValue } from "./utility/firebaseActions";
+import { playerPath } from "./utility/firebasePaths";
 
 export interface PlayerState {
     name: string;
@@ -49,7 +51,9 @@ export const App = () => {
             }
 
             // Write to /setup/players/{uid} 
-            await set(ref(db, `setup/players/${uid}`), newPlayer)
+            const playerRef = ref(db, `setup/players/${uid}`)
+            await set(playerRef, newPlayer)
+            onDisconnect(playerRef).remove()
             setShowNameInput(false)
         } catch (err) {
             console.error('Failed to Join lobby:', err)
@@ -58,12 +62,18 @@ export const App = () => {
 
     useEffect(() => {
         const playerRef = ref(db, 'setup/players');
-        const unsubscribe = onValue(playerRef, (snapshot) => {
+        const unsubscribe = onValue(playerRef, async (snapshot) => {
             const data = snapshot.val() as Record<string, PlayerState>
-            if (data) {
-                const playerList: PlayerState[] = Object.values(data).sort((a, b) => a.joinedAt - b.joinedAt)
-                setPlayerSetup(playerList)
+            if (!data) return
+            const playerList: PlayerState[] = Object.values(data).sort((a, b) => a.joinedAt - b.joinedAt)
+
+            const hasHost = playerList.some(p => p.host === true);
+
+            if(!hasHost && playerList.length > 0) {
+                const firstPlayerUid = playerList[0].uid;
+                await updateValue(playerPath(firstPlayerUid), { host: true })
             }
+            setPlayerSetup(playerList)
         });
         return () => unsubscribe()
     }, [])

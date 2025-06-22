@@ -1,6 +1,7 @@
 import { PlayerState } from "./App"
 import { CharacterSelection } from "./CharacterSelection"
 import { auth } from "./firebaseConfig"
+import { isCurrentPlayerHost } from "./utility/checkCurrentPlayerHost"
 import { getUid } from "./utility/getUid"
 
 export const EntryPlayer = ({ 
@@ -10,7 +11,8 @@ export const EntryPlayer = ({
     handleChange,
     handleCheckbox,
     handlePlayerRemoval,
-    getDisabledCharacters 
+    getDisabledCharacters,
+    playerSetup 
 }: { 
     player: PlayerState, 
     position: number, 
@@ -18,7 +20,8 @@ export const EntryPlayer = ({
     handleChange: (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => void,
     handleCheckbox: (readyStatus: boolean) => void,
     handlePlayerRemoval: (player: PlayerState) => void,
-    getDisabledCharacters: (index: number) => string[] 
+    getDisabledCharacters: (index: number) => string[],
+    playerSetup: PlayerState[] 
 }) => {
 
     
@@ -57,13 +60,13 @@ export const EntryPlayer = ({
                     <p className="character-para">{player.character ? player.character: 'Random'}</p>
                 }
                 {/* Check the uid of the host rather than who is host. */}
-                {/* {
-                    player.host ?
+                {
+                    isCurrentPlayerHost(playerSetup) && !player.host ?
                     <button onClick={() => handlePlayerRemoval(player)}
                     className="remove-player-btn"
                     >X</button> :
                     null
-                } */}
+                }
             </div>
         </div>
     )
