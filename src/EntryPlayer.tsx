@@ -1,6 +1,7 @@
 import { PlayerState } from "./App"
 import { CharacterSelection } from "./CharacterSelection"
 import { auth } from "./firebaseConfig"
+import { getUid } from "./utility/getUid"
 
 export const EntryPlayer = ({ 
     player, 
@@ -14,7 +15,7 @@ export const EntryPlayer = ({
     player: PlayerState, 
     position: number, 
     allCharacters: string[], 
-    handleChange: (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>, p: number) => void,
+    handleChange: (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => void,
     handleCheckbox: (readyStatus: boolean) => void,
     handlePlayerRemoval: (player: PlayerState) => void,
     getDisabledCharacters: (index: number) => string[] 
@@ -45,7 +46,11 @@ export const EntryPlayer = ({
 
             </div>
             <div className="select-character-div">
-                <CharacterSelection allCharacters={allCharacters} handleChange={handleChange} disabledCharacters={getDisabledCharacters(position)} position={position} selectedCharacter={player.character}/>
+                {
+                    getUid() === player.uid ?
+                    <CharacterSelection allCharacters={allCharacters} handleChange={handleChange} disabledCharacters={getDisabledCharacters(position)} position={position} selectedCharacter={player.character}/>:
+                    <p className="character-para">{player.character ? player.character: 'Random'}</p>
+                }
                 {/* Check the uid of the host rather than who is host. */}
                 {/* {
                     player.host ?

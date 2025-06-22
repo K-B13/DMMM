@@ -6,10 +6,10 @@ import { loadCharacterData } from "./utility/load"
 import { CharacterName } from "./utility/characterBible"
 import { createDeck } from "./classes/Deck"
 import { createPlayer, Player } from "./classes/Player"
-import { auth, db } from "./firebaseConfig"
-import { ref, set, update } from "@firebase/database"
+import { auth } from "./firebaseConfig"
 import { writeValue } from "./utility/firebaseActions"
-import { playerReadyPath } from "./utility/firebasePaths"
+import { playerCharacterPath, playerReadyPath } from "./utility/firebasePaths"
+import { getUid } from "./utility/getUid"
 
 export const SetupScreen = ({ 
     playerSetup, 
@@ -25,12 +25,16 @@ export const SetupScreen = ({
     const [ intervalId, setIntervalId ] = useState(0)
     const allCharacters = ["Azzan", "Blorp", "Delilah Deathray", "Dr Tentaculous", "Hoots McGoots", "Lia", "Lord Cinderpuff", "Mimi LeChaise", "Oriax", "Sutha"]
 
-    const handleChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>, position: number) => {
-        setPlayerSetup((prevState: PlayerState[]) => {
-            const updated = [...prevState]
-            updated[position] = {... updated[position], [e.target.name]: e.target.value}
-            return updated
-    })}
+    const handleCharacterChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
+        const uid = getUid()
+        if(!uid) return;
+        writeValue(playerCharacterPath(uid), e.target.value)
+        setPlayerSetup(prevState => {
+            return prevState.map(indivPrevState => {
+                return indivPrevState.uid === uid ? { ...indivPrevState, character: e.target.value } : indivPrevState
+            })
+        })
+    }
 
      const handleFirstPlayerSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setFirstTurnPlayer(parseInt(e.target.value))
@@ -44,7 +48,7 @@ export const SetupScreen = ({
     }
 
     const handleCheckbox = async (readyStatus: boolean) => {
-        const uid = auth.currentUser?.uid;
+        const uid = getUid();
         if(!uid) return;
         await writeValue(playerReadyPath(uid), !readyStatus)
         setPlayerSetup(prevState => {
@@ -132,7 +136,7 @@ export const SetupScreen = ({
                     key={index} 
                     position={index} 
                     allCharacters={allCharacters} 
-                    handleChange={handleChange} 
+                    handleChange={handleCharacterChange} 
                     handleCheckbox={handleCheckbox}
                     getDisabledCharacters={getDisabledCharacters}
                     handlePlayerRemoval={handlePlayerRemoval}

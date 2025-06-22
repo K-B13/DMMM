@@ -153,6 +153,7 @@ h1 {
     box-shadow: 0 0 4px #7a5f3d;
 }
 
+
 .firstPageBlocker {
     /* flex-grow: 1.25; */
     width: 100px;
@@ -164,6 +165,10 @@ h1 {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+.character-para {
+    color: black;
 }
 
 .remove-player-btn {
