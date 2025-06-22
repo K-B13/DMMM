@@ -8,7 +8,7 @@ export const NameInput = ({ addPlayer, playerSetup }: { addPlayer: (name: string
     }
     return (
         <div>
-            <input value={nameInput} onChange={handleChange}/>
+            <input className="name-input" value={nameInput} onChange={handleChange}/>
             <button disabled={!(playerSetup.length < 6)} onClick={()=> addPlayer(nameInput)}>Join</button>
             {
                 playerSetup.length < 6 ?

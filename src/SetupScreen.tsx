@@ -1,4 +1,4 @@
-import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { PlayerState } from "./App"
 import { EntryPlayer } from "./EntryPlayer"
 import { FirstTurn } from "./FirstTurn"
@@ -20,10 +20,6 @@ export const SetupScreen = ({
     const [ countDown, setCountDown ] = useState(4)
     const [ intervalId, setIntervalId ] = useState(0)
     const allCharacters = ["Azzan", "Blorp", "Delilah Deathray", "Dr Tentaculous", "Hoots McGoots", "Lia", "Lord Cinderpuff", "Mimi LeChaise", "Oriax", "Sutha"]
-
-    // const intervalRef = useRef({
-    //     current: 0
-    // })
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>, position: number) => {
         setPlayerSetup((prevState: PlayerState[]) => {
@@ -136,22 +132,6 @@ export const SetupScreen = ({
                     />
                 })}
             </div>
-
-            <button
-                onClick={() => {
-                    if (playerSetup.length >= 6) return
-                    const playerToAdd = {
-                        name: 'Player',
-                        character: '',
-                        ready: false,
-                        host: playerSetup.length === 0
-                    }
-
-                    setPlayerSetup(prevSetup => {
-                        return [ ...prevSetup, playerToAdd ]
-                    })
-                }}
-            >Add Player</button>
 
             <FirstTurn handleFirstPlayerSelect={handleFirstPlayerSelect} playerSetup={playerSetup} />
             

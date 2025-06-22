@@ -1,5 +1,5 @@
 import { signInAnonymously } from "firebase/auth";
-import { ref, set } from "firebase/database"
+import { get, onValue, ref, set } from "firebase/database"
 import { auth, db } from "./firebaseConfig";
 import { useState, useEffect } from "react";
 import { NameInput } from "./NameInput";
@@ -10,7 +10,7 @@ export interface PlayerState {
     name: string;
     character: string;
     ready: boolean,
-    // uid: string,
+    uid: string,
     host: boolean
 }
 
@@ -19,34 +19,62 @@ export const App = () => {
     const [ showNameInput, setShowNameInput ] = useState(true)
     const [ allPlayers, setAllPlayers ] = useState<Player[]>([])
 
-    // useEffect(() => {
-    //     const unsubscribe = onAuthStateChanged(auth, (user) => {
-    //         if (user) {
-    //         }
-    //     })
-    //     return () => unsubscribe()
-    // }, [])
-
-    // const handleChange = () => {
-
-    // }
-
-
     const acquireAllPlayerData = (players: Player[]) => {
         setAllPlayers([ ...players ])
     }
 
-    const addPlayer = (name: string) => {
-        if(!name) return
-        const newPlayer: PlayerState = {
-            name: name,
-            character: '',
-            ready: false,
-            host: playerSetup.length === 0
-        }
-        setPlayerSetup([...playerSetup, newPlayer])
-        setShowNameInput(false)
+    const checkHost = async () => {
+        const snapshot = await get(ref(db, 'setup/players'));
+        const isFirst = !snapshot.exists();
+        return isFirst
     }
+
+    const addPlayer = async (name: string) => {
+        if(!name) return
+        try {
+            // first we try to sign in anonymously
+            const userCredentials = await signInAnonymously(auth)
+            const uid = userCredentials.user.uid
+
+            const isHost = await checkHost()
+            // create a new player
+            const newPlayer: PlayerState = {
+                name: name,
+                character: '',
+                ready: false,
+                uid: uid,
+                host: isHost
+            }
+
+            // Write to /setup/players/{uid} 
+            await set(ref(db, `setup/players/${uid}`), newPlayer)
+            setShowNameInput(false)
+        } catch (err) {
+            console.error('Failed to Join lobby:', err)
+        }
+    }
+
+    useEffect(() => {
+        const playerRef = ref(db, 'setup/players');
+        const unsubscribe = onValue(playerRef, (snapshot) => {
+            const data = snapshot.val()
+            if (data) {
+                const playerList: PlayerState[] = Object.values(data)
+                setPlayerSetup(playerList)
+            }
+        });
+        return () => unsubscribe()
+    }, [])
+
+    // for development only
+    const clearLobby = async () => {
+        try {
+          await set(ref(db, 'setup/players'), null);
+          console.log('Lobby cleared!');
+        } catch (err) {
+          console.error('Failed to clear lobby:', err);
+        }
+    };
     
     return (
         <main>
@@ -58,7 +86,13 @@ export const App = () => {
 
             {
                 showNameInput ?
-                <NameInput addPlayer={addPlayer} playerSetup={playerSetup}/>:
+                <div>
+                    <NameInput addPlayer={addPlayer} playerSetup={playerSetup}/>
+                    <button onClick={clearLobby}>
+                    🧹 Clear Lobby
+                    </button>
+                </div>    
+                :
                 <div>
                     <SetupScreen 
                     playerSetup={playerSetup} 
