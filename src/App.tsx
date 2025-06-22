@@ -11,7 +11,8 @@ export interface PlayerState {
     character: string;
     ready: boolean,
     uid: string,
-    host: boolean
+    host: boolean,
+    joinedAt: number
 }
 
 export const App = () => {
@@ -43,7 +44,8 @@ export const App = () => {
                 character: '',
                 ready: false,
                 uid: uid,
-                host: isHost
+                host: isHost,
+                joinedAt: Date.now()
             }
 
             // Write to /setup/players/{uid} 
@@ -57,9 +59,9 @@ export const App = () => {
     useEffect(() => {
         const playerRef = ref(db, 'setup/players');
         const unsubscribe = onValue(playerRef, (snapshot) => {
-            const data = snapshot.val()
+            const data = snapshot.val() as Record<string, PlayerState>
             if (data) {
-                const playerList: PlayerState[] = Object.values(data)
+                const playerList: PlayerState[] = Object.values(data).sort((a, b) => a.joinedAt - b.joinedAt)
                 setPlayerSetup(playerList)
             }
         });

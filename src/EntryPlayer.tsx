@@ -1,5 +1,6 @@
 import { PlayerState } from "./App"
 import { CharacterSelection } from "./CharacterSelection"
+import { auth } from "./firebaseConfig"
 
 export const EntryPlayer = ({ 
     player, 
@@ -14,7 +15,7 @@ export const EntryPlayer = ({
     position: number, 
     allCharacters: string[], 
     handleChange: (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>, p: number) => void,
-    handleCheckbox: (readyStatus: boolean, position: number) => void,
+    handleCheckbox: (readyStatus: boolean) => void,
     handlePlayerRemoval: (player: PlayerState) => void,
     getDisabledCharacters: (index: number) => string[] 
 }) => {
@@ -24,13 +25,17 @@ export const EntryPlayer = ({
     return (
         <div className="characterRow">
             <div className="checkbox">
-                <input onChange={() => {
-                    handleCheckbox(player.ready, position)
-                }} 
-                name='ready' 
-                type='checkbox'
-                
-                />
+                {
+                    auth.currentUser?.uid === player.uid ?
+                    <input 
+                    onChange={() => {
+                        handleCheckbox(player.ready)
+                    }} 
+                    name='ready' 
+                    type='checkbox'
+                    />:
+                    <p className="player-ready-text">{player.ready ? 'Ready': 'Not Ready'}</p>
+                }
             </div>
             <div className="player-name">
                 <div className="player-position-entry-screen">

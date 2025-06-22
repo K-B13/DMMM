@@ -6,6 +6,10 @@ import { loadCharacterData } from "./utility/load"
 import { CharacterName } from "./utility/characterBible"
 import { createDeck } from "./classes/Deck"
 import { createPlayer, Player } from "./classes/Player"
+import { auth, db } from "./firebaseConfig"
+import { ref, set, update } from "@firebase/database"
+import { writeValue } from "./utility/firebaseActions"
+import { playerReadyPath } from "./utility/firebasePaths"
 
 export const SetupScreen = ({ 
     playerSetup, 
@@ -39,11 +43,14 @@ export const SetupScreen = ({
         .filter(Boolean)
     }
 
-    const handleCheckbox = (readyStatus: boolean, position: number) => {
+    const handleCheckbox = async (readyStatus: boolean) => {
+        const uid = auth.currentUser?.uid;
+        if(!uid) return;
+        await writeValue(playerReadyPath(uid), !readyStatus)
         setPlayerSetup(prevState => {
-            const updated = [...prevState]
-            updated[position] = {... updated[position], ['ready']: !readyStatus}
-            return updated
+            return prevState.map(indivPrevState => {
+                return indivPrevState.uid === uid ? { ...indivPrevState, ready: !readyStatus } : indivPrevState
+            })
         })
     }
 

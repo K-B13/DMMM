@@ -83,6 +83,10 @@ h1 {
     text-align: center;
 }
 
+.player-ready-text {
+    color: black;
+}
+
 .characterRow {
     display: grid;
     grid-template-columns: 100px 1fr 200px;
