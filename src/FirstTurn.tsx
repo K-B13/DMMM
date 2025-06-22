@@ -1,13 +1,16 @@
 import { useState } from "react"
 import { PlayerState } from "./App"
+import { getUid } from "./utility/getUid"
 
 export const FirstTurn = ({
     handleFirstPlayerSelect,
-    playerSetup
+    playerSetup,
+    firstTurnPlayer
 
 }: {
     handleFirstPlayerSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void,
-    playerSetup: PlayerState[]
+    playerSetup: PlayerState[],
+    firstTurnPlayer: number
 }) => {
     const [ selectTurnOrder, setSelectTurnOrder ] = useState(false)
 
@@ -18,20 +21,32 @@ export const FirstTurn = ({
     const characterSelectionDisplay = (playerCharacter: string) => {
         return playerCharacter ? playerCharacter : 'Not Chosen'
     }
+
+    const isCurrentPlayerHost = () => {
+        const uid = getUid();
+        const hostPlayer = playerSetup.find(p => p.host);
+        return uid && hostPlayer?.uid === uid;
+    }
     return (
         <div className="choose-whose-first-div">
-            <div className="choose-whose-first">
-                <div className="choose-whose-first-para">
-                    <p>Choose who goes first</p>
+            {
+                isCurrentPlayerHost() &&
+                <div className="choose-whose-first">
+                    <div className="choose-whose-first-para">
+                        <p>Choose who goes first</p>
+                    </div>
+                    <button onClick={handleClick}>
+                        Select
+                    </button>
                 </div>
-                <button onClick={handleClick}>
-                    Select
-                </button>
-            </div>
+            }
+                <div>
+                    <p>{playerSetup[firstTurnPlayer].name} is going first.</p>
+                </div>
             {
                 selectTurnOrder?
                 <div className="whose-first-selection">
-                    <select>
+                    <select onChange={handleFirstPlayerSelect}>
                         <option>Please Select..</option>
                         {
                             playerSetup.map((player: PlayerState, index: number) => {

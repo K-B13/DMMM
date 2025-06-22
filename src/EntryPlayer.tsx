@@ -48,7 +48,12 @@ export const EntryPlayer = ({
             <div className="select-character-div">
                 {
                     getUid() === player.uid ?
-                    <CharacterSelection allCharacters={allCharacters} handleChange={handleChange} disabledCharacters={getDisabledCharacters(position)} position={position} selectedCharacter={player.character}/>:
+                    <CharacterSelection 
+                    allCharacters={allCharacters} 
+                    handleChange={handleChange} 
+                    disabledCharacters={getDisabledCharacters(position)} 
+                    selectedCharacter={player.character}/>
+                    :
                     <p className="character-para">{player.character ? player.character: 'Random'}</p>
                 }
                 {/* Check the uid of the host rather than who is host. */}

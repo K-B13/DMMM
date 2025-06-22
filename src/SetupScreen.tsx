@@ -6,10 +6,11 @@ import { loadCharacterData } from "./utility/load"
 import { CharacterName } from "./utility/characterBible"
 import { createDeck } from "./classes/Deck"
 import { createPlayer, Player } from "./classes/Player"
-import { auth } from "./firebaseConfig"
 import { writeValue } from "./utility/firebaseActions"
-import { playerCharacterPath, playerReadyPath } from "./utility/firebasePaths"
+import { firstPlayer, playerCharacterPath, playerReadyPath } from "./utility/firebasePaths"
 import { getUid } from "./utility/getUid"
+import { onValue, ref } from "@firebase/database"
+import { db } from "./firebaseConfig"
 
 export const SetupScreen = ({ 
     playerSetup, 
@@ -25,10 +26,20 @@ export const SetupScreen = ({
     const [ intervalId, setIntervalId ] = useState(0)
     const allCharacters = ["Azzan", "Blorp", "Delilah Deathray", "Dr Tentaculous", "Hoots McGoots", "Lia", "Lord Cinderpuff", "Mimi LeChaise", "Oriax", "Sutha"]
 
-    const handleCharacterChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
+    useEffect(() => {
+        const unsubscribe = onValue(ref(db, firstPlayer()), (snapshot) => {
+        const index = snapshot.val();
+        if (typeof index === 'number') {
+            setFirstTurnPlayer(index);
+        }
+    });
+    return () => unsubscribe();
+    }, [])
+
+    const handleCharacterChange = async (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
         const uid = getUid()
         if(!uid) return;
-        writeValue(playerCharacterPath(uid), e.target.value)
+        await writeValue(playerCharacterPath(uid), e.target.value)
         setPlayerSetup(prevState => {
             return prevState.map(indivPrevState => {
                 return indivPrevState.uid === uid ? { ...indivPrevState, character: e.target.value } : indivPrevState
@@ -36,7 +47,8 @@ export const SetupScreen = ({
         })
     }
 
-     const handleFirstPlayerSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+     const handleFirstPlayerSelect = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+        await writeValue(firstPlayer(), parseInt(e.target.value))
         setFirstTurnPlayer(parseInt(e.target.value))
     }
 
@@ -91,6 +103,7 @@ export const SetupScreen = ({
                     const randomIndex = Math.floor(Math.random() * available.length)
                     const assigned = available.splice(randomIndex, 1)[0]
                     player.character = assigned
+                    writeValue(playerCharacterPath(player.uid), assigned)
                 }
                 const playerDeck = await createDecks(player.character as CharacterName)
                 const createdPlayer = createPlayer({ name: player.name, host: player.host, deck: playerDeck })
@@ -144,7 +157,11 @@ export const SetupScreen = ({
                 })}
             </div>
 
-            <FirstTurn handleFirstPlayerSelect={handleFirstPlayerSelect} playerSetup={playerSetup} />
+            <FirstTurn 
+            handleFirstPlayerSelect={handleFirstPlayerSelect} 
+            playerSetup={playerSetup} 
+            firstTurnPlayer={firstTurnPlayer}
+            />
             
             {
                 checkReadyToStart() ?
