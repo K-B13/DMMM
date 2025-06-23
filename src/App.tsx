@@ -1,12 +1,14 @@
 import { signInAnonymously } from "firebase/auth";
 import { get, onDisconnect, onValue, ref, set } from "firebase/database"
 import { auth, db } from "./firebaseConfig";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { NameInput } from "./NameInput";
 import { SetupScreen } from "./SetupScreen";
 import { Player } from "./classes/Player";
 import { updateValue } from "./utility/firebaseActions";
-import { playerPath } from "./utility/firebasePaths";
+import { countdownStart, playerPath } from "./utility/firebasePaths";
+import { getUid } from "./utility/getUid";
+import { GameScreen } from "./GameScreen";
 
 export interface PlayerState {
     name: string;
@@ -21,9 +23,11 @@ export const App = () => {
     const [ playerSetup, setPlayerSetup ] = useState<PlayerState[]>([])
     const [ showNameInput, setShowNameInput ] = useState(true)
     const [ allPlayers, setAllPlayers ] = useState<Player[]>([])
+    const [ gameSetup, setGameSetup ] = useState(true)
 
     const acquireAllPlayerData = (players: Player[]) => {
         setAllPlayers([ ...players ])
+        setGameSetup(false)
     }
 
     const checkHost = async () => {
@@ -51,9 +55,15 @@ export const App = () => {
             }
 
             // Write to /setup/players/{uid} 
-            const playerRef = ref(db, `setup/players/${uid}`)
+            const playerRef = ref(db, playerPath(uid))
             await set(playerRef, newPlayer)
+            // if (countDown !== 6) {
+            //     await set(countDownRef, 6)
+            // }
+            const countDownRef = ref(db, countdownStart())
             onDisconnect(playerRef).remove()
+            onDisconnect(countDownRef).remove()
+
             setShowNameInput(false)
         } catch (err) {
             console.error('Failed to Join lobby:', err)
@@ -77,6 +87,17 @@ export const App = () => {
         });
         return () => unsubscribe()
     }, [])
+
+    useEffect(() => {
+        const uid = getUid()
+        if (!uid) return;
+
+        const stillExists = playerSetup.some(player => player.uid === uid);
+
+        if (!stillExists) {
+            setShowNameInput(true)
+        }
+    }, [playerSetup])
 
     // for development only
     const clearLobby = async () => {
@@ -106,11 +127,16 @@ export const App = () => {
                 </div>    
                 :
                 <div>
-                    <SetupScreen 
-                    playerSetup={playerSetup} 
-                    setPlayerSetup={setPlayerSetup}
-                    acquireAllPlayerData={acquireAllPlayerData}
-                    />
+                {
+                    gameSetup ?
+                        <SetupScreen 
+                        playerSetup={playerSetup} 
+                        setPlayerSetup={setPlayerSetup}
+                        acquireAllPlayerData={acquireAllPlayerData}
+                        />
+                        :
+                        <GameScreen allPlayers={allPlayers} setAllPlayers={setAllPlayers} />
+                }
                 </div>
             }
         </main>

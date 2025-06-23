@@ -37,6 +37,7 @@ export const EntryPlayer = ({
                     }} 
                     name='ready' 
                     type='checkbox'
+                    checked={player.ready}
                     />:
                     <p className="player-ready-text">{player.ready ? 'Ready': 'Not Ready'}</p>
                 }

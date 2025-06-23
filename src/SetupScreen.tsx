@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
 import { PlayerState } from "./App"
 import { EntryPlayer } from "./EntryPlayer"
 import { FirstTurn } from "./FirstTurn"
@@ -7,7 +7,7 @@ import { CharacterName } from "./utility/characterBible"
 import { createDeck } from "./classes/Deck"
 import { createPlayer, Player } from "./classes/Player"
 import { removeValue, writeValue } from "./utility/firebaseActions"
-import { firstPlayer, playerCharacterPath, playerPath, playerReadyPath } from "./utility/firebasePaths"
+import { countdownStart, firstPlayer, playerCharacterPath, playerPath, playerReadyPath } from "./utility/firebasePaths"
 import { getUid } from "./utility/getUid"
 import { onValue, ref } from "@firebase/database"
 import { db } from "./firebaseConfig"
@@ -22,10 +22,12 @@ export const SetupScreen = ({
     acquireAllPlayerData: (players: Player[]) => void 
 }) => {
     const [ firstTurnPlayer, setFirstTurnPlayer ] = useState(0)
-    const [ countDown, setCountDown ] = useState(4)
-    const [ intervalId, setIntervalId ] = useState(0)
+    const [ countDown, setCountDown ] = useState(6)
+
+    const intervalIdRef = useRef<number | null>(null)
     const allCharacters = ["Azzan", "Blorp", "Delilah Deathray", "Dr Tentaculous", "Hoots McGoots", "Lia", "Lord Cinderpuff", "Mimi LeChaise", "Oriax", "Sutha"]
 
+    // Conecting the the firstPlayer Index in firebase
     useEffect(() => {
         const unsubscribe = onValue(ref(db, firstPlayer()), (snapshot) => {
         const index = snapshot.val();
@@ -35,6 +37,43 @@ export const SetupScreen = ({
     });
     return () => unsubscribe();
     }, [])
+
+    useEffect(() => {
+        const unsubscribe = onValue(ref(db, countdownStart()), (snapshot) => {
+            const started = snapshot.val();
+            if(started) {
+                const timer = setInterval(() => {
+                    setCountDown((prev) => {
+                        if (prev === 1) {
+                            clearInterval(timer)
+                            return 0
+                        }
+                        return prev - 1
+                    })
+                }, 1000)
+                intervalIdRef.current = timer
+            } else {
+                if (intervalIdRef) {
+                    clearInterval(intervalIdRef.current!)
+                    intervalIdRef.current = null
+                }
+                setCountDown(6)
+            }
+        })
+        return () => unsubscribe()
+    }, [])
+
+    useEffect(() => {
+        if (countDown === 1) {
+            createPlayers()
+        }
+    }, [countDown])
+
+    useEffect(() => {
+        if (playerSetup.length > 1 && playerSetup.some(p => !p.ready)) {
+            writeValue(countdownStart(), null);
+        }
+    }, [playerSetup])
 
     const handleCharacterChange = async (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
         const uid = getUid()
@@ -113,25 +152,21 @@ export const SetupScreen = ({
         acquireAllPlayerData([...createdPlayers])
     }
 
-    const handleCountDown = () => {
-        const timer = setInterval(countDownFunction, 1000)
-        setIntervalId(timer)
-        
+    const handleCountDown = async () => {
+        await writeValue(countdownStart(), true) 
     }
 
-    useEffect(() => {
-        if (countDown === 0) {
-            clearInterval(intervalId)
-            createPlayers()
-        }
-    }, [countDown])
+    const cancelCountDown = async () => {
+        const uid = getUid()
+        if (!uid) return;
 
-    const countDownFunction = () => {
-            setCountDown(prevState => {
-                console.log(prevState)
-                const newState = prevState - 1
-                return newState
-            })
+        await writeValue(countdownStart(), null)
+        await writeValue(playerReadyPath(uid), false)
+        setPlayerSetup(prevState => {
+            return prevState.map(indiv => 
+                indiv.uid === uid ? { ...indiv, ready: false } : indiv
+            );
+        });
     }
 
     const checkReadyToStart = () => {
@@ -172,7 +207,7 @@ export const SetupScreen = ({
             }
                 <div>                 
                     {
-                        countDown === 4 ?
+                        countDown === 6 ?
                         (
                             playerSetup.length > 1 &&
                                 <button
@@ -181,7 +216,14 @@ export const SetupScreen = ({
                                     Start
                                 </button>):
                         <p>{countDown}</p>  
-                    }                     
+                    }            
+                    {
+                        countDown < 6 && countDown > 1 && (
+                            <button onClick={cancelCountDown}>
+                                Cancel Countdown
+                            </button>
+                        )
+                    }         
                 </div>
         </div>
     )

@@ -8,3 +8,5 @@ export const playerReadyPath = (uid: string) => `setup/players/${uid}/ready`
 export const playerCharacterPath = (uid: string) => `setup/players/${uid}/character`
 // Which player is going first based on index
 export const firstPlayer = () => `setup/firstPlayer`
+// Countdown for game start
+export const countdownStart = () => `setup/countdownStart`
