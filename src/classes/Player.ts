@@ -15,11 +15,12 @@ export interface Player {
     deck: Deck;
     hand: Card[];
     active: boolean;
+    uid: string;
 }
 
-export type PlayerCreationType = ({ name, host, deck }: { name: string, host?: boolean, deck: Deck }) => Player
+export type PlayerCreationType = ({ name, host, deck, uid }: { name: string, host?: boolean, deck: Deck, uid: string }) => Player
 
-export const createPlayer: PlayerCreationType = ({ name, host, deck }) => {
+export const createPlayer: PlayerCreationType = ({ name, host, deck, uid }) => {
 
     const newPlayer = {
         name: name,
@@ -30,6 +31,7 @@ export const createPlayer: PlayerCreationType = ({ name, host, deck }) => {
         deck: deck,
         hand: [],
         active: true,
+        uid: uid
     }
 
     return newPlayer

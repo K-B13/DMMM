@@ -22,7 +22,8 @@ describe('Player Object', () => {
             deck = createDeck({...deckComponents})
             player = createPlayer({
                 name: 'Player One',
-                deck: deck 
+                deck: deck,
+                uid: 'It41jd13mk' 
             })
         })
 

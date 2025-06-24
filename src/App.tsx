@@ -5,8 +5,8 @@ import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { NameInput } from "./NameInput";
 import { SetupScreen } from "./SetupScreen";
 import { Player } from "./classes/Player";
-import { updateValue } from "./utility/firebaseActions";
-import { countdownStart, playerPath } from "./utility/firebasePaths";
+import { updateValue, writeValue } from "./utility/firebaseActions";
+import { allPlayersPath, countdownStart, gameplayPlayerPath, playerPath, startDoor } from "./utility/firebasePaths";
 import { getUid } from "./utility/getUid";
 import { GameScreen } from "./GameScreen";
 
@@ -25,13 +25,17 @@ export const App = () => {
     const [ allPlayers, setAllPlayers ] = useState<Player[]>([])
     const [ gameSetup, setGameSetup ] = useState(true)
 
-    const acquireAllPlayerData = (players: Player[]) => {
+    const acquireAllPlayerData = async (players: Player[]) => {
+        players.map(async (player: Player) => {
+            await writeValue(gameplayPlayerPath(player.uid), player)
+
+        })
         setAllPlayers([ ...players ])
         setGameSetup(false)
     }
 
     const checkHost = async () => {
-        const snapshot = await get(ref(db, 'setup/players'));
+        const snapshot = await get(ref(db, allPlayersPath()));
         const isFirst = !snapshot.exists();
         return isFirst
     }
@@ -57,12 +61,11 @@ export const App = () => {
             // Write to /setup/players/{uid} 
             const playerRef = ref(db, playerPath(uid))
             await set(playerRef, newPlayer)
-            // if (countDown !== 6) {
-            //     await set(countDownRef, 6)
-            // }
             const countDownRef = ref(db, countdownStart())
+            const doorOpenRef = ref(db, startDoor())
             onDisconnect(playerRef).remove()
             onDisconnect(countDownRef).remove()
+            onDisconnect(doorOpenRef).remove()
 
             setShowNameInput(false)
         } catch (err) {

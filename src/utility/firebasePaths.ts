@@ -10,3 +10,10 @@ export const playerCharacterPath = (uid: string) => `setup/players/${uid}/charac
 export const firstPlayer = () => `setup/firstPlayer`
 // Countdown for game start
 export const countdownStart = () => `setup/countdownStart`
+// Door to enter game screen
+export const startDoor = () => `setup/startDoor`
+
+// The players post setup phase
+export const allGameplayPlayers = () => `gameState/players`
+// Specific player post setup phase
+export const gameplayPlayerPath = (uid: string) => `gameState/players/${uid}`

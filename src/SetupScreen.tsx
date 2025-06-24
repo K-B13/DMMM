@@ -64,7 +64,7 @@ export const SetupScreen = ({
     }, [])
 
     useEffect(() => {
-        if (countDown === 1) {
+        if (countDown === 0) {
             createPlayers()
         }
     }, [countDown])
@@ -146,10 +146,10 @@ export const SetupScreen = ({
                     writeValue(playerCharacterPath(player.uid), assigned)
                 }
                 const playerDeck = await createDecks(player.character as CharacterName)
-                const createdPlayer = createPlayer({ name: player.name, host: player.host, deck: playerDeck })
+                const createdPlayer = createPlayer({ name: player.name, host: player.host, deck: playerDeck, uid: player.uid })
                 return createdPlayer
         }))
-        acquireAllPlayerData([...createdPlayers])
+        await acquireAllPlayerData([...createdPlayers])
     }
 
     const handleCountDown = async () => {
