@@ -13,12 +13,6 @@ export const GameScreen = ({ allPlayers, setAllPlayers }: { allPlayers: Player[]
     const startedRef = useRef(false)
 
     const handleGameStart = () => {
-        const updated = allPlayers.map((player: Player) => {
-            shuffle(player.deck)
-            startingHand({ player })
-            return player
-        });
-        setAllPlayers([ ...updated ]);
         setGameStart(true)
     }
 
@@ -51,7 +45,10 @@ export const GameScreen = ({ allPlayers, setAllPlayers }: { allPlayers: Player[]
             {
                 startGame ?
                 <div>
-                    <Arena players={allPlayers} />
+                    <Arena 
+                    players={allPlayers} 
+                    setPlayers={setAllPlayers}
+                    />
                 </div>
                 :
                 <div>

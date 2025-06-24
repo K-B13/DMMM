@@ -39,6 +39,7 @@ export const createPlayer: PlayerCreationType = ({ name, host, deck, uid }) => {
 
 export const startingHand = ({ player }: { player: Player }) => {
     shuffle(player.deck)
+    console.log('called for', player)
     for(let i = 0; i < 3; i++) {
         const drawnCard = draw(player.deck)
         if (drawnCard) {
