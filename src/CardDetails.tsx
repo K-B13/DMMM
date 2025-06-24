@@ -2,7 +2,7 @@ import { Card } from "./classes/Card"
 
 export const CardDetails = ({ card }: { card: Card }) => {
     return (
-        <div className="card-details">
+        <div>
             {card.extra ? [...Array(card.extra).keys()].map((_, index: number) => {
                 return <img key={index} src={'images/extra.png'} width='30rem' height='30rem'/>
             }): null}

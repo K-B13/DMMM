@@ -1,12 +1,12 @@
 import { signInAnonymously } from "firebase/auth";
 import { get, onDisconnect, onValue, ref, set } from "firebase/database"
 import { auth, db } from "./firebaseConfig";
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useState, useEffect } from "react";
 import { NameInput } from "./NameInput";
 import { SetupScreen } from "./SetupScreen";
 import { Player } from "./classes/Player";
 import { updateValue, writeValue } from "./utility/firebaseActions";
-import { allPlayersPath, countdownStart, gameplayPlayerPath, playerPath, startDoor } from "./utility/firebasePaths";
+import { allPlayersPath, countdownStart, playerPath, startDoor, turnIndexPath } from "./utility/firebasePaths";
 import { getUid } from "./utility/getUid";
 import { GameScreen } from "./GameScreen";
 
@@ -25,12 +25,7 @@ export const App = () => {
     const [ allPlayers, setAllPlayers ] = useState<Player[]>([])
     const [ gameSetup, setGameSetup ] = useState(true)
 
-    const acquireAllPlayerData = async (players: Player[]) => {
-        players.map(async (player: Player) => {
-            await writeValue(gameplayPlayerPath(player.uid), player)
-
-        })
-        setAllPlayers([ ...players ])
+    const exitSetupScreen = () => {
         setGameSetup(false)
     }
 
@@ -135,7 +130,7 @@ export const App = () => {
                         <SetupScreen 
                         playerSetup={playerSetup} 
                         setPlayerSetup={setPlayerSetup}
-                        acquireAllPlayerData={acquireAllPlayerData}
+                        exitSetupScreen={exitSetupScreen}
                         />
                         :
                         <GameScreen allPlayers={allPlayers} setAllPlayers={setAllPlayers} />

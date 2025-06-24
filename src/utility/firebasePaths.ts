@@ -17,3 +17,19 @@ export const startDoor = () => `setup/startDoor`
 export const allGameplayPlayers = () => `gameState/players`
 // Specific player post setup phase
 export const gameplayPlayerPath = (uid: string) => `gameState/players/${uid}`
+// Players hand
+export const gameplayPlayerHand = (uid: string) => `gameState/players/${uid}/hand`
+// Players discard pile
+export const gameplayPlayerDiscardPile = (uid: string) => `gameState/players/${uid}/deck/discardPile`
+// Player hitpoints
+export const gameplayPlayerHitpoints = (uid: string) => `gameState/players/${uid}/hitpoints`
+// Player active
+export const gameplayPlayerActive = (uid: string) => `gameState/players/${uid}/active`
+// Player Moves
+export const gameplayPlayerMoves = (uid: string) => `gameState/players/${uid}/moves`
+// Player Decks
+export const gameplayPlayerDeck = (uid: string) => `gameState/players/${uid}/deck`
+// Player Shields
+export const gameplayPlayerActiveShields = (uid: string) => `gameState/players/${uid}/activeShields`
+// The turnIndex path
+export const turnIndexPath = () => `gameState/turnIndex`

@@ -7,7 +7,7 @@ import { CharacterName } from "./utility/characterBible"
 import { createDeck } from "./classes/Deck"
 import { createPlayer, Player } from "./classes/Player"
 import { removeValue, writeValue } from "./utility/firebaseActions"
-import { countdownStart, firstPlayer, playerCharacterPath, playerPath, playerReadyPath } from "./utility/firebasePaths"
+import { countdownStart, firstPlayer, gameplayPlayerPath, playerCharacterPath, playerPath, playerReadyPath, turnIndexPath } from "./utility/firebasePaths"
 import { getUid } from "./utility/getUid"
 import { onValue, ref } from "@firebase/database"
 import { db } from "./firebaseConfig"
@@ -15,11 +15,11 @@ import { db } from "./firebaseConfig"
 export const SetupScreen = ({ 
     playerSetup, 
     setPlayerSetup,
-    acquireAllPlayerData 
+    exitSetupScreen 
 }: { 
     playerSetup: PlayerState[], 
     setPlayerSetup: Dispatch<SetStateAction<PlayerState[]>>,
-    acquireAllPlayerData: (players: Player[]) => void 
+    exitSetupScreen: () => void
 }) => {
     const [ firstTurnPlayer, setFirstTurnPlayer ] = useState(0)
     const [ countDown, setCountDown ] = useState(6)
@@ -66,6 +66,8 @@ export const SetupScreen = ({
     useEffect(() => {
         if (countDown === 0) {
             createPlayers()
+            exitSetupScreen()
+            writeValue(turnIndexPath(), 0);
         }
     }, [countDown])
 
@@ -132,25 +134,47 @@ export const SetupScreen = ({
         return createDeck({cards: characterCards, character})
     }
 
-     const createPlayers = async () => {
-        const taken = playerSetup.map(p => p.character).filter(Boolean)
-        const available = allCharacters.filter(c => !taken.includes(c))
-        
-        const orderedPlayers = reorderBasedOnTurnOrder()
-        const createdPlayers = await Promise.all(
-            orderedPlayers.map( async (player) => {
-                if(player.character === "") {
-                    const randomIndex = Math.floor(Math.random() * available.length)
-                    const assigned = available.splice(randomIndex, 1)[0]
-                    player.character = assigned
-                    writeValue(playerCharacterPath(player.uid), assigned)
-                }
-                const playerDeck = await createDecks(player.character as CharacterName)
-                const createdPlayer = createPlayer({ name: player.name, host: player.host, deck: playerDeck, uid: player.uid })
-                return createdPlayer
-        }))
-        await acquireAllPlayerData([...createdPlayers])
-    }
+    const createPlayers = async () => {
+    const uid = getUid();
+    const currentPlayer = playerSetup.find(p => p.uid === uid);
+    if (!currentPlayer?.host) return; 
+
+    const taken = playerSetup.map(p => p.character).filter(Boolean);
+    const available = allCharacters.filter(c => !taken.includes(c));
+    const orderedPlayers = reorderBasedOnTurnOrder();
+
+    const createdPlayers = await Promise.all(
+      orderedPlayers.map(async (player) => {
+        let assignedCharacter = player.character;
+
+        if (!assignedCharacter) {
+          const randomIndex = Math.floor(Math.random() * available.length);
+          assignedCharacter = available.splice(randomIndex, 1)[0];
+          await writeValue(playerCharacterPath(player.uid), assignedCharacter);
+        }
+
+        const deck = await createDecks(assignedCharacter as CharacterName);
+        const created = createPlayer({
+          name: player.name,
+          uid: player.uid,
+          host: player.host,
+          deck,
+        });
+
+        return created;
+      })
+    );
+
+  // Host writes full players to Firebase
+  await Promise.all(
+    createdPlayers.map(player =>
+      writeValue(gameplayPlayerPath(player.uid), player)
+    )
+  );
+
+  // Optional: mark game as started
+  await writeValue('setup/gameStarted', true);
+};
 
     const handleCountDown = async () => {
         await writeValue(countdownStart(), true) 

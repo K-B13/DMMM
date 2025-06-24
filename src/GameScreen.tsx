@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction, useState, useEffect, useRef } from "react"
-import { Player, startingHand } from "./classes/Player"
-import { shuffle } from "./classes/Deck"
+import { Player } from "./classes/Player"
 import { writeValue } from "./utility/firebaseActions"
-import { startDoor } from "./utility/firebasePaths"
+import { allGameplayPlayers, startDoor } from "./utility/firebasePaths"
 import { onValue, ref } from "firebase/database"
 import { db } from "./firebaseConfig"
 import { Arena } from "./Arena"
@@ -11,6 +10,32 @@ export const GameScreen = ({ allPlayers, setAllPlayers }: { allPlayers: Player[]
     const [ startGame, setGameStart ] = useState(false)
     const [ doorOpenStep, setDoorOpenStep ] = useState(0)
     const startedRef = useRef(false)
+
+    useEffect(() => {
+        const playerRef = ref(db, allGameplayPlayers());
+        const unsubscribe = onValue(playerRef, (snapshot) => {
+          const data = snapshot.val() as Record<string, Player>;
+          if (!data) return;
+          const playerList: Player[] = Object.values(data);
+          const players = playerList.map(player => {
+            if (!player.hand) {
+                player.hand = []
+            }
+
+            if (!player.deck.discardPile) {
+                player.deck.discardPile = []
+            }
+
+            if (!player.activeShields) {
+                player.activeShields = []
+            }
+            return player
+          })
+          setAllPlayers([...players]);
+        });
+
+        return () => unsubscribe();
+    }, []);
 
     const handleGameStart = () => {
         setGameStart(true)
