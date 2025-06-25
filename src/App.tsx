@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { NameInput } from "./NameInput";
 import { SetupScreen } from "./SetupScreen";
 import { Player } from "./classes/Player";
-import { updateValue, writeValue } from "./utility/firebaseActions";
+import { updateValue } from "./utility/firebaseActions";
 import { allPlayersPath, countdownStart, playerPath, startDoor, turnIndexPath } from "./utility/firebasePaths";
 import { getUid } from "./utility/getUid";
 import { GameScreen } from "./GameScreen";
@@ -100,7 +100,8 @@ export const App = () => {
     // for development only
     const clearLobby = async () => {
         try {
-          await set(ref(db, 'setup/players'), null);
+          await set(ref(db, 'setup/'), null);
+          await set(ref(db, 'gameState/'), null);
           console.log('Lobby cleared!');
         } catch (err) {
           console.error('Failed to clear lobby:', err);

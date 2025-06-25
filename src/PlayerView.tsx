@@ -1,10 +1,11 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { CardDetails } from "./CardDetails"
 import { Card } from "./classes/Card"
-import { play, Player, startTurn } from "./classes/Player"
+import { Player, startTurn } from "./classes/Player"
 import { PlayerCard } from "./PlayerCard"
-import { writeValue } from "./utility/firebaseActions"
-import { gameplayPlayerActive, gameplayPlayerActiveShields, gameplayPlayerDeck, gameplayPlayerHand, gameplayPlayerHitpoints, gameplayPlayerMoves, turnIndexPath } from "./utility/firebasePaths"
+import { updateValue } from "./utility/firebaseActions"
+import { gameplayPlayerActive, gameplayPlayerPath, gameplayPlayerActiveShields, gameplayPlayerDeck, gameplayPlayerHand, gameplayPlayerHitpoints, turnIndexPath } from "./utility/firebasePaths"
+import { getUid } from "./utility/getUid"
 
 export const PlayerView = ({ 
     player, 
@@ -32,10 +33,23 @@ export const PlayerView = ({
     //     await writeValue(gameplayPlayerActiveShields(player.uid), player.activeShields);
 
     // }
+    const [ canDraw, setCanDraw ] = useState(false)
 
-    // useEffect(() => {
-    //     if (player.uid === currentPlayer.uid) startTurn(player)
-    // }, [turnIndex])
+    useEffect(() => {
+        startTurnFunction()
+    }, [turnIndex])
+
+    const drawCardFromDeck = async (player: Player) => {
+        startTurn(player)
+        await updateValue(gameplayPlayerPath(player.uid), player)
+        setCanDraw(false)
+    }
+
+    const startTurnFunction = async () => {
+        if (player.uid === currentPlayer.uid) {
+            setCanDraw(true)
+        }
+    }
 
     return (
         <div>            
@@ -43,31 +57,49 @@ export const PlayerView = ({
             <div className="player-hand card-array-div">
                 {
                     player.active &&
-                    player.hand.map((card: Card, index: number) => {
-                        return (
-                            <div key={index} className="card-details">
-                                <CardDetails card={card} />
-                                {
-                                    player.uid === currentPlayer.uid && ( 
-                                        card.attack ?
-                                        <div>
-                                            {/* Attack Button */}
-                                            <button>Attack</button>
-                                        </div>
-                                        :
-                                        <div>
-                                            {/* Regular Button */}
-                                            <button
-                                            // onClick={() => nonAttackClick(card)}
-                                            >
-                                                Play
-                                            </button>
-                                        </div>
-                                    )
-                                }
+                    <>
+                        {player.hand.map((card: Card, index: number) => {
+                            return (
+                                <div key={index} className="card-details">
+                                    <CardDetails card={card} />
+                                    {
+                                        player.uid === currentPlayer.uid &&
+                                        !canDraw &&
+                                         ( 
+                                            card.attack ?
+                                            <div>
+                                                {/* Attack Button */}
+                                                <button>Attack</button>
+                                            </div>
+                                            :
+                                            <div>
+                                                {/* Regular Button */}
+                                                <button
+                                                // onClick={() => nonAttackClick(card)}
+                                                >
+                                                    Play
+                                                </button>
+                                            </div>
+                                        )
+                                    }
+                                    
+                                </div>
+                            )
+                        })}
+                        {
+                            player.uid === currentPlayer.uid &&
+                            getUid() === currentPlayer.uid &&
+                            canDraw ?
+                            <button
+                             onClick={() => drawCardFromDeck(player)}
+                            >
+                            Deck (Can Draw)
+                            </button>:
+                            <div>
+                                Deck (Cannot Draw)
                             </div>
-                        )
-                    })
+                        }
+                    </>
                 }
             </div>
         </div> 
