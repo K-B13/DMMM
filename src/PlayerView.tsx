@@ -1,38 +1,40 @@
-import { useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { CardDetails } from "./CardDetails"
 import { Card } from "./classes/Card"
-import { Player, startTurn } from "./classes/Player"
+import { play, Player, startTurn } from "./classes/Player"
 import { PlayerCard } from "./PlayerCard"
 import { updateValue } from "./utility/firebaseActions"
-import { gameplayPlayerActive, gameplayPlayerPath, gameplayPlayerActiveShields, gameplayPlayerDeck, gameplayPlayerHand, gameplayPlayerHitpoints, turnIndexPath } from "./utility/firebasePaths"
+import { gameplayPlayerPath } from "./utility/firebasePaths"
 import { getUid } from "./utility/getUid"
+import { AttackButton } from "./AttackButton"
 
 export const PlayerView = ({ 
     player, 
     turnIndex,
     updateTurnIndex,
-    currentPlayer
+    currentPlayer,
+    players,
+    activeCard,
+    setActiveCard
 }: { 
     player: Player, 
     turnIndex: number,
     updateTurnIndex: () => void,
-    currentPlayer: Player
+    currentPlayer: Player,
+    players: Player[],
+    activeCard: boolean,
+    setActiveCard: Dispatch<SetStateAction<boolean>>
 }) => {
 
-    // const nonAttackClick = async (card: Card) => {
-    //     play(player, card)
+    const nonAttackClick = async (card: Card) => {
+        play(player, card)
 
-    //     if (player.moves === 0) {
-    //         updateTurnIndex()
-    //     }
-    //     await writeValue(gameplayPlayerHand(player.uid), player.hand)
-    //     await writeValue(gameplayPlayerDeck(player.uid), player.deck)
-    //     await writeValue(gameplayPlayerMoves(player.uid), player.moves);
-    //     await writeValue(gameplayPlayerHitpoints(player.uid), player.hitpoints);
-    //     await writeValue(gameplayPlayerActive(player.uid), player.active);
-    //     await writeValue(gameplayPlayerActiveShields(player.uid), player.activeShields);
+        if (player.moves === 0) {
+            updateTurnIndex()
+        }
+        await updateValue(gameplayPlayerPath(player.uid), player)
 
-    // }
+    }
     const [ canDraw, setCanDraw ] = useState(false)
 
     useEffect(() => {
@@ -69,13 +71,20 @@ export const PlayerView = ({
                                             card.attack ?
                                             <div>
                                                 {/* Attack Button */}
-                                                <button>Attack</button>
+                                                <AttackButton 
+                                                player={player} 
+                                                card={card}
+                                                players={players}
+                                                updateTurnIndex={updateTurnIndex}
+                                                activeCard={activeCard}
+                                                setActiveCard={setActiveCard}
+                                                />
                                             </div>
                                             :
                                             <div>
                                                 {/* Regular Button */}
                                                 <button
-                                                // onClick={() => nonAttackClick(card)}
+                                                onClick={() => nonAttackClick(card)}
                                                 >
                                                     Play
                                                 </button>

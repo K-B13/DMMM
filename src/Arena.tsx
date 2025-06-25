@@ -5,17 +5,19 @@ import { positionMap } from "./utility/positionMap";
 import { getUid } from "./utility/getUid";
 import { onValue, ref } from "firebase/database";
 import { db } from "./firebaseConfig";
-import { gameplayPlayerHand, turnIndexPath } from "./utility/firebasePaths";
+import { gameplayPlayerDeck, gameplayPlayerHand, turnIndexPath } from "./utility/firebasePaths";
 import { writeValue } from "./utility/firebaseActions";
 
 export const Arena = ({ players, setPlayers, startGame }: { players: Player[], setPlayers: Dispatch<SetStateAction<Player[]>>, startGame: boolean }) => {
     const [ turnIndex, setTurnIndex ] = useState(0)
+    const [ activeCard, setActiveCard ] = useState(false)
     useEffect(() => {
         const initilizeHand = async () => {
             const updated = await Promise.all(players.map(async (player: Player) => {
                 if (player.hand.length === 0) {
                     startingHand({ player })
                     await writeValue(gameplayPlayerHand(player.uid), player.hand);
+                    await writeValue(gameplayPlayerDeck(player.uid), player.deck)
                 }
                 return player
             }))
@@ -47,6 +49,7 @@ export const Arena = ({ players, setPlayers, startGame }: { players: Player[], s
 
     const updateTurnIndex = () => {
         const newIndex = (turnIndex + 1) % players.length
+        setActiveCard(false)
         writeValue(turnIndexPath(), newIndex)
     }
 
@@ -61,6 +64,9 @@ export const Arena = ({ players, setPlayers, startGame }: { players: Player[], s
                             turnIndex={turnIndex}
                             updateTurnIndex={updateTurnIndex}
                             currentPlayer={players[turnIndex]}
+                            players={players}
+                            activeCard={activeCard}
+                            setActiveCard={setActiveCard}
                             />
                         </div>
                     )
