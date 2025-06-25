@@ -58,7 +58,7 @@ export const PlayerView = ({
                                         <div>
                                             {/* Regular Button */}
                                             <button
-                                            onClick={() => nonAttackClick(card)}
+                                            // onClick={() => nonAttackClick(card)}
                                             >
                                                 Play
                                             </button>

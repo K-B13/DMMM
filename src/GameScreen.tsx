@@ -73,6 +73,7 @@ export const GameScreen = ({ allPlayers, setAllPlayers }: { allPlayers: Player[]
                     <Arena 
                     players={allPlayers} 
                     setPlayers={setAllPlayers}
+                    startGame={startGame}
                     />
                 </div>
                 :
