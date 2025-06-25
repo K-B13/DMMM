@@ -72,7 +72,7 @@ export const GameScreen = ({ allPlayers, setAllPlayers, exitGameScreen }: { allP
           if (winner) {
             console.log(`${winner.name} is the winner!`)
             // alert(`${winner} has won the game`)
-            exitGameScreen()
+            // exitGameScreen()
         }
     }, [allPlayers])
 
