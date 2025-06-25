@@ -6,9 +6,10 @@ import { onValue, ref } from "firebase/database"
 import { db } from "./firebaseConfig"
 import { Arena } from "./Arena"
 
-export const GameScreen = ({ allPlayers, setAllPlayers }: { allPlayers: Player[], setAllPlayers: Dispatch<SetStateAction<Player[]>> }) => {
+export const GameScreen = ({ allPlayers, setAllPlayers, exitGameScreen }: { allPlayers: Player[], setAllPlayers: Dispatch<SetStateAction<Player[]>>, exitGameScreen: () => void }) => {
     const [ startGame, setGameStart ] = useState(false)
     const [ doorOpenStep, setDoorOpenStep ] = useState(0)
+    const [ winner, setWinner ] = useState<Player | undefined>(undefined)
     const startedRef = useRef(false)
 
     useEffect(() => {
@@ -65,6 +66,22 @@ export const GameScreen = ({ allPlayers, setAllPlayers }: { allPlayers: Player[]
         })
         return () => unsubscribe()
     }, [])
+
+    useEffect(() => {
+        const winner = checkForWinner(allPlayers)
+          if (winner) {
+            console.log(`${winner.name} is the winner!`)
+            // alert(`${winner} has won the game`)
+            exitGameScreen()
+        }
+    }, [allPlayers])
+
+    const checkForWinner = (players: Player[]) => {
+        if (players.length === 0) return null
+        const alive = players.filter(p => p.active)
+        return alive.length === 1 ? alive[0]: null
+    }
+
     return (
         <div>
             {

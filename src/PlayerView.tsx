@@ -1,12 +1,13 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { CardDetails } from "./CardDetails"
 import { Card } from "./classes/Card"
-import { play, Player, startTurn } from "./classes/Player"
+import { play, Player, shieldDamage, startTurn, takeDamage } from "./classes/Player"
 import { PlayerCard } from "./PlayerCard"
 import { updateValue } from "./utility/firebaseActions"
 import { gameplayPlayerPath } from "./utility/firebasePaths"
 import { getUid } from "./utility/getUid"
 import { AttackButton } from "./AttackButton"
+import { PlayerTarget } from "./PlayerTarget"
 
 export const PlayerView = ({ 
     player, 
@@ -51,6 +52,18 @@ export const PlayerView = ({
         if (player.uid === currentPlayer.uid) {
             setCanDraw(true)
         }
+    }
+
+     const handleGhostShieldAttack = async (index: number, targetedPlayer: Player) => {
+        shieldDamage(index, 1, targetedPlayer)
+        await updateValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
+        updateTurnIndex()
+    }
+
+    const handleGhostAttack = async (targetedPlayer: Player) => {
+        takeDamage(1, targetedPlayer)
+        await updateValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
+        updateTurnIndex()
     }
 
     return (
@@ -110,6 +123,27 @@ export const PlayerView = ({
                         }
                     </>
                 }
+                {
+                !player.active &&
+                player.uid === currentPlayer.uid &&
+                <div>
+                    {
+                        players.filter(player => {
+                            return player.active && player.hitpoints > 1
+                        }).map((player, index: number) => {
+                            return (
+                                <div className="dead-attack-options-div" key={index}>
+                                    <PlayerTarget 
+                                    playerInfo={player} 
+                                    handleShieldAttack={handleGhostShieldAttack} 
+                                    handleAttack={handleGhostAttack}
+                                    />
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            }
             </div>
         </div> 
     )

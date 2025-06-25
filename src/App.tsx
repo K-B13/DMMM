@@ -26,7 +26,8 @@ export const App = () => {
     const [ gameSetup, setGameSetup ] = useState(true)
 
     const exitSetupScreen = () => {
-        setGameSetup(false)
+        
+        setGameSetup(!gameSetup)
     }
 
     const checkHost = async () => {
@@ -134,7 +135,11 @@ export const App = () => {
                         exitSetupScreen={exitSetupScreen}
                         />
                         :
-                        <GameScreen allPlayers={allPlayers} setAllPlayers={setAllPlayers} />
+                        <GameScreen 
+                        allPlayers={allPlayers} 
+                        setAllPlayers={setAllPlayers} 
+                        exitGameScreen={exitSetupScreen}
+                        />
                 }
                 </div>
             }
