@@ -67,20 +67,20 @@ export const GameScreen = ({ allPlayers, setAllPlayers, exitGameScreen }: { allP
         return () => unsubscribe()
     }, [])
 
-    useEffect(() => {
-        const winner = checkForWinner(allPlayers)
-          if (winner) {
-            console.log(`${winner.name} is the winner!`)
-            // alert(`${winner} has won the game`)
-            // exitGameScreen()
-        }
-    }, [allPlayers])
+    // useEffect(() => {
+    //     const winner = checkForWinner(allPlayers)
+    //       if (winner) {
+    //         console.log(`${winner.name} is the winner!`)
+    //         // alert(`${winner} has won the game`)
+    //         // exitGameScreen()
+    //     }
+    // }, [allPlayers])
 
-    const checkForWinner = (players: Player[]) => {
-        if (players.length === 0) return null
-        const alive = players.filter(p => p.active)
-        return alive.length === 1 ? alive[0]: null
-    }
+    // const checkForWinner = (players: Player[]) => {
+    //     if (players.length === 0) return null
+    //     const alive = players.filter(p => p.active)
+    //     return alive.length === 1 ? alive[0]: null
+    // }
 
     return (
         <div>
