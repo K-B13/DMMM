@@ -8,8 +8,18 @@ import { db } from "./firebaseConfig";
 import { gameplayPlayerDeck, gameplayPlayerHand, turnIndexPath } from "./utility/firebasePaths";
 import { writeValue } from "./utility/firebaseActions";
 
-export const Arena = ({ players, setPlayers, startGame }: { players: Player[], setPlayers: Dispatch<SetStateAction<Player[]>>, startGame: boolean }) => {
+export const Arena = ({ 
+    players,
+    setPlayers, 
+    startGame,
+}: { 
+    players: Player[], 
+    setPlayers: Dispatch<SetStateAction<Player[]>>, 
+    startGame: boolean,
+}) => {
     const [ turnIndex, setTurnIndex ] = useState(0)
+    
+
     useEffect(() => {
         const initilizeHand = async () => {
             const updated = await Promise.all(players.map(async (player: Player) => {
@@ -70,11 +80,6 @@ export const Arena = ({ players, setPlayers, startGame }: { players: Player[], s
             <button
             onClick={() => console.log(players)}
             >Log</button>
-            {/* <button
-            onClick={updateTurnIndex}
-            >
-                Update Turn
-            </button> */}
         </div>
     )
 }

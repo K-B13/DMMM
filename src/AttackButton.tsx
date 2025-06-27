@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
 import { play, Player, shieldDamage, takeDamage } from "./classes/Player"
 import { Card } from "./classes/Card"
-import { updateValue } from "./utility/firebaseActions"
-import { gameplayPlayerPath } from "./utility/firebasePaths"
+import { updateValue, writeValue } from "./utility/firebaseActions"
+import { gameplayPlayerPath, winnerPath } from "./utility/firebasePaths"
 import { PlayerTarget } from "./PlayerTarget"
 
 export const AttackButton = ({ 
@@ -10,19 +10,15 @@ export const AttackButton = ({
     card, 
     players, 
     updateTurnIndex,
-    activeCard,
-    setActiveCard,
     attackDamage,
-    setAttackDamage
+    setAttackDamage,
 }: { 
     player: Player, 
     card: Card, 
     players: Player[], 
     updateTurnIndex: () => void,
-    activeCard: boolean,
-    setActiveCard: Dispatch<SetStateAction<boolean>>,
     attackDamage: number,
-    setAttackDamage: Dispatch<SetStateAction<number>>
+    setAttackDamage: Dispatch<SetStateAction<number>>,
 }) => {
     
     const [ hasAttackOptions, setHasAttackOptions ] = useState(false)
@@ -71,7 +67,6 @@ export const AttackButton = ({
             const leftoverDamage = attackDamage - targetedShield.hp
             shieldDamage(index, targetedShield.hp, targetedPlayer)
             handleTargetSelectedForCard(targetedPlayer, leftoverDamage)
-            // await updateValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
         }
         else {
             const leftoverDamage = Math.max(attackDamage - targetedShield.hp, 0)
@@ -87,12 +82,19 @@ export const AttackButton = ({
     const handleAttack = async (targetedPlayer: Player) => {
         takeDamage(attackDamage, targetedPlayer)
         play(player, card)
+        await winCheck()
         await updateValue(gameplayPlayerPath(player.uid), player)
         await updateValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
-        console.log(attackDamage, 'direct attack')
         setAttackDamage(0)
         if (player.moves === 0) updateTurnIndex()
-        // else setActiveCard(false)
+    }
+
+    const winCheck = async () => {
+        const alivePlayers = players.filter(p => p.active === true)    
+        if (alivePlayers.length === 1)
+        {
+            await writeValue(winnerPath(), alivePlayers[0])
+        }
     }
 
 

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState, useEffect, useRef } from "react"
 import { Player } from "./classes/Player"
-import { writeValue } from "./utility/firebaseActions"
-import { allGameplayPlayers, startDoor } from "./utility/firebasePaths"
+import { getValue, writeValue } from "./utility/firebaseActions"
+import { allGameplayPlayers, allPlayersPath, countdownStart, gameStatePath, playerReadyPath, startDoor, winnerPath } from "./utility/firebasePaths"
 import { onValue, ref } from "firebase/database"
 import { db } from "./firebaseConfig"
 import { Arena } from "./Arena"
@@ -70,32 +70,54 @@ export const GameScreen = ({ allPlayers, setAllPlayers, exitGameScreen }: { allP
         return () => unsubscribe()
     }, [])
 
-    // useEffect(() => {
-    //     const winner = checkForWinner(allPlayers)
-    //       if (winner) {
-    //         console.log(`${winner.name} is the winner!`)
-    //         // alert(`${winner} has won the game`)
-    //         // exitGameScreen()
-    //     }
-    // }, [allPlayers])
+    useEffect(() => {
+        const unsubscribe = onValue(ref(db, winnerPath()), (snapshot) => {
+            const data = snapshot.val()
+            if (!data) return
+            setWinner(data)
+        })
+        return () => unsubscribe()
+    }, [])
 
-    // const checkForWinner = (players: Player[]) => {
-    //     if (players.length === 0) return null
-    //     const alive = players.filter(p => p.active)
-    //     return alive.length === 1 ? alive[0]: null
-    // }
+    const goToLobby = async () => {
+        await writeValue(gameStatePath(), null)
+        await writeValue(startDoor(), 0)
+        await writeValue(countdownStart(), null)
+
+        const playerSetupReadyValues = await getValue(allPlayersPath())
+        const data = await playerSetupReadyValues.val()
+        await Promise.all(
+            Object.entries(data).map(([uid]) => {
+                writeValue(playerReadyPath(uid), false)
+
+            })
+        )
+        
+        setGameStart(false)
+        startedRef.current = false
+        exitGameScreen()
+        
+    }
 
     return (
         <div>
             {
                 startGame ?
-                <div>
+                (!winner ? <div>
                     <Arena 
                     players={allPlayers} 
                     setPlayers={setAllPlayers}
                     startGame={startGame}
+                    
                     />
-                </div>
+                </div>:
+                <div>
+                    <p>{`${winner.name} - ${winner.deck.character}`} WINS</p>
+                    <button
+                    onClick={goToLobby}
+                    >Lobby</button>
+                </div>    
+                )
                 :
                 <div>
                     <div className="door-animation-container">

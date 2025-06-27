@@ -26,7 +26,6 @@ export const App = () => {
     const [ gameSetup, setGameSetup ] = useState(true)
 
     const exitSetupScreen = () => {
-        
         setGameSetup(!gameSetup)
     }
 

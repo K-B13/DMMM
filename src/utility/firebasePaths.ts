@@ -13,6 +13,8 @@ export const countdownStart = () => `setup/countdownStart`
 // Door to enter game screen
 export const startDoor = () => `setup/startDoor`
 
+// The entire gameState
+export const gameStatePath = () => `gameState/`
 // The players post setup phase
 export const allGameplayPlayers = () => `gameState/players`
 // Specific player post setup phase
@@ -33,3 +35,5 @@ export const gameplayPlayerDeck = (uid: string) => `gameState/players/${uid}/dec
 export const gameplayPlayerActiveShields = (uid: string) => `gameState/players/${uid}/activeShields`
 // The turnIndex path
 export const turnIndexPath = () => `gameState/turnIndex`
+// Winner
+export const winnerPath = () => `gameState/winner`

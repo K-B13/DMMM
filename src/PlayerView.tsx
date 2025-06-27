@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { CardDetails } from "./CardDetails"
 import { Card } from "./classes/Card"
 import { play, Player, shieldDamage, startTurn, takeDamage } from "./classes/Player"
