@@ -26,6 +26,8 @@ export const PlayerView = ({
     activeCard: boolean,
     setActiveCard: Dispatch<SetStateAction<boolean>>
 }) => {
+    const [ canDraw, setCanDraw ] = useState(false)
+    const [ attackDamage, setAttackDamage ] = useState(0)
 
     const nonAttackClick = async (card: Card) => {
         play(player, card)
@@ -36,7 +38,6 @@ export const PlayerView = ({
         await updateValue(gameplayPlayerPath(player.uid), player)
 
     }
-    const [ canDraw, setCanDraw ] = useState(false)
 
     useEffect(() => {
         startTurnFunction()
@@ -91,9 +92,12 @@ export const PlayerView = ({
                                                 updateTurnIndex={updateTurnIndex}
                                                 activeCard={activeCard}
                                                 setActiveCard={setActiveCard}
+                                                attackDamage={attackDamage}
+                                                setAttackDamage={setAttackDamage}
                                                 />
                                             </div>
                                             :
+                                            !attackDamage &&
                                             <div>
                                                 {/* Regular Button */}
                                                 <button
@@ -129,7 +133,8 @@ export const PlayerView = ({
                 <div>
                     {
                         players.filter(player => {
-                            return player.active && player.hitpoints > 1
+                            return player.active && 
+                            player.hitpoints > 1
                         }).map((player, index: number) => {
                             return (
                                 <div className="dead-attack-options-div" key={index}>

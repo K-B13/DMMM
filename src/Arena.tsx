@@ -43,13 +43,12 @@ export const Arena = ({ players, setPlayers, startGame }: { players: Player[], s
         const playerIndex = players.findIndex((player: Player) => player.uid === uid)
         const firstSection = players.slice(playerIndex)
         const secondSection = players.slice(0, playerIndex)
-        console.log([...firstSection, ...secondSection])
         return [...firstSection, ...secondSection]
     }
 
     const updateTurnIndex = () => {
         const newIndex = (turnIndex + 1) % players.length
-        setActiveCard(false)
+        // setActiveCard(false)
         writeValue(turnIndexPath(), newIndex)
     }
 

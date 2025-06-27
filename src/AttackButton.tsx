@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
 import { play, Player, shieldDamage, takeDamage } from "./classes/Player"
 import { Card } from "./classes/Card"
 import { updateValue } from "./utility/firebaseActions"
@@ -11,17 +11,21 @@ export const AttackButton = ({
     players, 
     updateTurnIndex,
     activeCard,
-    setActiveCard
+    setActiveCard,
+    attackDamage,
+    setAttackDamage
 }: { 
     player: Player, 
     card: Card, 
     players: Player[], 
     updateTurnIndex: () => void,
     activeCard: boolean,
-    setActiveCard: Dispatch<SetStateAction<boolean>>
+    setActiveCard: Dispatch<SetStateAction<boolean>>,
+    attackDamage: number,
+    setAttackDamage: Dispatch<SetStateAction<number>>
 }) => {
-    const [ attackDamage, setAttackDamage ] = useState(card.attack as number)
-    const [ attackOptions, setAttackOptions ] = useState(false)
+    
+    const [ hasAttackOptions, setHasAttackOptions ] = useState(false)
     const [ possibleTargets, setPossibleTargets ] = useState<Player[]>([])
 
     const getTargetIndexes = () => {
@@ -52,52 +56,43 @@ export const AttackButton = ({
     }, [])
 
     useEffect(() => {
-        setAttackOptions(false);
-        setAttackDamage(card.attack as number)
+        setHasAttackOptions(false);
         setPossibleTargets(getTargetIndexes())
     }, [card])
 
-    const handleTargetSelectedForCard = (target: Player) => {
+    const handleTargetSelectedForCard = (target: Player, leftoverDamage: number) => {
+        setAttackDamage(leftoverDamage)
         setPossibleTargets([target])
     }
 
     const handleShieldAttack = async (index: number, targetedPlayer: Player) => {
         const targetedShield = targetedPlayer.activeShields[index]
-        // const targetedPlayerIndex = players.findIndex(player => player === targetedPlayer)
         if (attackDamage > targetedShield.hp) {
             const leftoverDamage = attackDamage - targetedShield.hp
             shieldDamage(index, targetedShield.hp, targetedPlayer)
-            setAttackDamage(leftoverDamage)
-            handleTargetSelectedForCard(targetedPlayer)
-            // const newTargetPlayerInfo = { newPlayerInfo: targetedPlayer, playerIndex: targetedPlayerIndex}
-            await updateValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
-            setActiveCard(true)
+            handleTargetSelectedForCard(targetedPlayer, leftoverDamage)
+            // await updateValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
         }
         else {
+            const leftoverDamage = Math.max(attackDamage - targetedShield.hp, 0)
             shieldDamage(index, attackDamage, targetedPlayer)
             play(player, card)
-            // const newCurrentPlayerInfo = { newPlayerInfo: player, playerIndex: position}
-            // const newTargetPlayerInfo = { newPlayerInfo: targetedPlayer, playerIndex: targetedPlayerIndex}
-            // updatePlayer([newCurrentPlayerInfo, newTargetPlayerInfo])
             await updateValue(gameplayPlayerPath(player.uid), player)
             await updateValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
+            setAttackDamage(leftoverDamage)
             if (player.moves === 0) updateTurnIndex()
-            else setActiveCard(false)
         }
     }
 
     const handleAttack = async (targetedPlayer: Player) => {
         takeDamage(attackDamage, targetedPlayer)
-        // const targetedPlayerIndex = players.findIndex(player => player === targetedPlayer)
-        // currentPlayerInfo.play(card)
         play(player, card)
-        // const newCurrentPlayerInfo = { newPlayerInfo: currentPlayerInfo, playerIndex: currentPlayerIndex}
-        // const newTargetPlayerInfo = { newPlayerInfo: targetedPlayer, playerIndex: targetedPlayerIndex}
-        // updatePlayer([newCurrentPlayerInfo, newTargetPlayerInfo])
         await updateValue(gameplayPlayerPath(player.uid), player)
         await updateValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
+        console.log(attackDamage, 'direct attack')
+        setAttackDamage(0)
         if (player.moves === 0) updateTurnIndex()
-        else setActiveCard(false)
+        // else setActiveCard(false)
     }
 
 
@@ -106,7 +101,7 @@ export const AttackButton = ({
         <div>
 
             {
-                attackOptions ?
+                hasAttackOptions ?
                 <div>
                     <p>Attack Strength: {attackDamage}</p>
                     {
@@ -122,16 +117,30 @@ export const AttackButton = ({
                             )
                         })
                     }
-                    {!activeCard && <button onClick={() => setAttackOptions(false)}>
+                    {hasAttackOptions && <button 
+                    onClick={() => {
+                        setHasAttackOptions(false)
+                        setAttackDamage(0)
+                    }
+
+
+                    }>
                         Cancel
                     </button>}
                 </div>
                 :
-                !activeCard &&
-                <button onClick={() => setAttackOptions(true)}>
+                !attackDamage &&
+                <button onClick={() => {
+                setHasAttackOptions(true)
+                setAttackDamage((card.attack as number))
+                }
+                }>
                     Play
                 </button>
             }
+            <button
+            onClick={() => console.log(hasAttackOptions, 'attack options', attackDamage, 'attack damage', card, 'card')}
+            >Debug</button>
         </div>
     )
 }

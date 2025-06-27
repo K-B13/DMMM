@@ -59,7 +59,9 @@ export const shieldDamage = (indexOfShield: number, damage: number, player: Play
     const targetedShield = player.activeShields[indexOfShield]
         targetedShield.hp -= damage
         if (targetedShield.hp === 0) {
-            player.activeShields.splice(indexOfShield, 1)
+            const updatedShields = [...player.activeShields]
+            updatedShields.splice(indexOfShield, 1)
+            player.activeShields = [...updatedShields]
             discard(targetedShield.card, player.deck)
         }
 }

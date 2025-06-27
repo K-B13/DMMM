@@ -60,7 +60,7 @@ export const GameScreen = ({ allPlayers, setAllPlayers, exitGameScreen }: { allP
                     }
                     setTimeout(() => {
                         handleGameStart()
-                    }, 1000)
+                    }, 2000)
                 }, 100)
             }
         })

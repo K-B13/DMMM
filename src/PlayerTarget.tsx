@@ -9,6 +9,7 @@ export const PlayerTarget = ({
     playerInfo: Player,
     handleShieldAttack: (index: number, target: Player) => void,
     handleAttack: (targetedPlayer: Player) => void
+
 }) => {
     return (
         <div>
