@@ -24,6 +24,7 @@ export const App = () => {
     const [ showNameInput, setShowNameInput ] = useState(true)
     const [ allPlayers, setAllPlayers ] = useState<Player[]>([])
     const [ gameSetup, setGameSetup ] = useState(true)
+    const [ firstTurnPlayer, setFirstTurnPlayer ] = useState(0)
 
     const exitSetupScreen = () => {
         setGameSetup(!gameSetup)
@@ -69,7 +70,7 @@ export const App = () => {
     }
 
     useEffect(() => {
-        const playerRef = ref(db, 'setup/players');
+        const playerRef = ref(db, allPlayersPath());
         const unsubscribe = onValue(playerRef, async (snapshot) => {
             const data = snapshot.val() as Record<string, PlayerState>
             if (!data) return
@@ -80,6 +81,9 @@ export const App = () => {
             if(!hasHost && playerList.length > 0) {
                 const firstPlayerUid = playerList[0].uid;
                 await updateValue(playerPath(firstPlayerUid), { host: true })
+            }
+            if (!playerSetup[firstTurnPlayer]) {
+                setFirstTurnPlayer(0)
             }
             setPlayerSetup(playerList)
         });
@@ -132,6 +136,8 @@ export const App = () => {
                         playerSetup={playerSetup} 
                         setPlayerSetup={setPlayerSetup}
                         exitSetupScreen={exitSetupScreen}
+                        firstTurnPlayer={firstTurnPlayer}
+                        setFirstTurnPlayer={setFirstTurnPlayer}
                         />
                         :
                         <GameScreen 

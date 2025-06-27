@@ -11,17 +11,21 @@ import { countdownStart, firstPlayer, gameplayPlayerPath, playerCharacterPath, p
 import { getUid } from "./utility/getUid"
 import { onValue, ref } from "@firebase/database"
 import { db } from "./firebaseConfig"
+import { isCurrentPlayerHost } from "./utility/checkCurrentPlayerHost"
 
 export const SetupScreen = ({ 
     playerSetup, 
     setPlayerSetup,
-    exitSetupScreen 
+    exitSetupScreen,
+    firstTurnPlayer,
+    setFirstTurnPlayer 
 }: { 
     playerSetup: PlayerState[], 
     setPlayerSetup: Dispatch<SetStateAction<PlayerState[]>>,
-    exitSetupScreen: () => void
+    exitSetupScreen: () => void,
+    firstTurnPlayer: number,
+    setFirstTurnPlayer: Dispatch<SetStateAction<number>>
 }) => {
-    const [ firstTurnPlayer, setFirstTurnPlayer ] = useState(0)
     const [ countDown, setCountDown ] = useState(6)
 
     const intervalIdRef = useRef<number | null>(null)
@@ -171,9 +175,7 @@ export const SetupScreen = ({
       writeValue(gameplayPlayerPath(player.uid), player)
     )
   );
-
-  // Optional: mark game as started
-  await writeValue('setup/gameStarted', true);
+//   await writeValue('setup/gameStarted', true);
 };
 
     const handleCountDown = async () => {
@@ -234,11 +236,14 @@ export const SetupScreen = ({
                         countDown === 6 ?
                         (
                             playerSetup.length > 1 &&
+                            isCurrentPlayerHost(playerSetup) &&
                                 <button
                                 disabled={checkReadyToStart()}
                                 onClick={handleCountDown}>
                                     Start
-                                </button>):
+                                </button>
+                        )
+                        :
                         <p>{countDown}</p>  
                     }            
                     {
