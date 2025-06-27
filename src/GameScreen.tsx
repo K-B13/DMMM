@@ -30,6 +30,9 @@ export const GameScreen = ({ allPlayers, setAllPlayers, exitGameScreen }: { allP
             if (!player.activeShields) {
                 player.activeShields = []
             }
+             if (!player.deck.cards) {
+                player.deck.cards = []
+            }
             return player
           })
           setAllPlayers([...players]);

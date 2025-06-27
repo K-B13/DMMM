@@ -10,7 +10,6 @@ import { writeValue } from "./utility/firebaseActions";
 
 export const Arena = ({ players, setPlayers, startGame }: { players: Player[], setPlayers: Dispatch<SetStateAction<Player[]>>, startGame: boolean }) => {
     const [ turnIndex, setTurnIndex ] = useState(0)
-    const [ activeCard, setActiveCard ] = useState(false)
     useEffect(() => {
         const initilizeHand = async () => {
             const updated = await Promise.all(players.map(async (player: Player) => {
@@ -48,7 +47,6 @@ export const Arena = ({ players, setPlayers, startGame }: { players: Player[], s
 
     const updateTurnIndex = () => {
         const newIndex = (turnIndex + 1) % players.length
-        // setActiveCard(false)
         writeValue(turnIndexPath(), newIndex)
     }
 
@@ -64,8 +62,6 @@ export const Arena = ({ players, setPlayers, startGame }: { players: Player[], s
                             updateTurnIndex={updateTurnIndex}
                             currentPlayer={players[turnIndex]}
                             players={players}
-                            activeCard={activeCard}
-                            setActiveCard={setActiveCard}
                             />
                         </div>
                     )
@@ -74,11 +70,11 @@ export const Arena = ({ players, setPlayers, startGame }: { players: Player[], s
             <button
             onClick={() => console.log(players)}
             >Log</button>
-            <button
+            {/* <button
             onClick={updateTurnIndex}
             >
                 Update Turn
-            </button>
+            </button> */}
         </div>
     )
 }

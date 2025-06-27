@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { CardDetails } from "./CardDetails"
 import { Card } from "./classes/Card"
 import { play, Player, shieldDamage, startTurn, takeDamage } from "./classes/Player"
@@ -15,16 +15,12 @@ export const PlayerView = ({
     updateTurnIndex,
     currentPlayer,
     players,
-    activeCard,
-    setActiveCard
 }: { 
     player: Player, 
     turnIndex: number,
     updateTurnIndex: () => void,
     currentPlayer: Player,
     players: Player[],
-    activeCard: boolean,
-    setActiveCard: Dispatch<SetStateAction<boolean>>
 }) => {
     const [ canDraw, setCanDraw ] = useState(false)
     const [ attackDamage, setAttackDamage ] = useState(0)
@@ -57,12 +53,14 @@ export const PlayerView = ({
 
      const handleGhostShieldAttack = async (index: number, targetedPlayer: Player) => {
         shieldDamage(index, 1, targetedPlayer)
+        console.log(`${player} is targeting ${targetedPlayer}'s shield`)
         await updateValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
         updateTurnIndex()
     }
 
     const handleGhostAttack = async (targetedPlayer: Player) => {
         takeDamage(1, targetedPlayer)
+        console.log(`${player} is targeting ${targetedPlayer}`)
         await updateValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
         updateTurnIndex()
     }
@@ -77,7 +75,14 @@ export const PlayerView = ({
                         {player.hand.map((card: Card, index: number) => {
                             return (
                                 <div key={index} className="card-details">
-                                    <CardDetails card={card} />
+                                    {
+                                        getUid() === player.uid ?
+                                        <CardDetails card={card} />:
+                                        <div>
+                                            <p>Dungeon Mayhehm</p>
+                                            <p>Monster Madness</p>
+                                        </div>
+                                    }
                                     {
                                         player.uid === currentPlayer.uid &&
                                         !canDraw &&
@@ -90,8 +95,6 @@ export const PlayerView = ({
                                                 card={card}
                                                 players={players}
                                                 updateTurnIndex={updateTurnIndex}
-                                                activeCard={activeCard}
-                                                setActiveCard={setActiveCard}
                                                 attackDamage={attackDamage}
                                                 setAttackDamage={setAttackDamage}
                                                 />
@@ -130,6 +133,7 @@ export const PlayerView = ({
                 {
                 !player.active &&
                 player.uid === currentPlayer.uid &&
+                getUid() === currentPlayer.uid &&
                 <div>
                     {
                         players.filter(player => {

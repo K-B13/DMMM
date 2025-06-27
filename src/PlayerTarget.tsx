@@ -28,8 +28,12 @@ export const PlayerTarget = ({
                         return (
                             <div key={index} className="card-details">
                                 <p>{shield.card.name}</p>
-                                <p>Starting: {shield.card.shield}</p>
-                                <p>Current: {shield.hp}</p>
+                                {[...Array(shield.card.shield).keys()].map(num => {
+                                    if (num < shield.hp) {
+                                        return <img key={num} src={`images/shield_alive.png`} height='30rem' width='30rem' />
+                                    }
+                                return <img key={num} src={`images/shield_dead.png`} height='30rem' width='30rem' />
+                                })}
                                     <button
                                     onClick={() => handleShieldAttack(index, playerInfo)}
                                     >Attack</button>

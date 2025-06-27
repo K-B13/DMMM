@@ -7,7 +7,7 @@ export const loadCharacterData = async (character: CharacterName) => {
     if (!response.ok) throw new Error(`Could not load deck for ${character}`);
 
     const rawCards = await response.json();
-    return rawCards.map((cardData: any, index: number) => {
+    return rawCards.map((cardData: Card, index: number) => {
         const newCard = {
             ...cardData,
             id: index
