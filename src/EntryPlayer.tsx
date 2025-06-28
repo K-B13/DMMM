@@ -27,7 +27,7 @@ export const EntryPlayer = ({
     
     
     return (
-        <div className="characterRow">
+        <div className={`characterRow ${player.ready ? 'ready': 'unready'}`}>
             <div className="checkbox">
                 {
                     auth.currentUser?.uid === player.uid ?

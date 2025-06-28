@@ -94,11 +94,19 @@ h1 {
     /* justify-content: space-between; */
     gap: 1rem;
     background-color: #f4e3d7;
-    border: 2px solid #382e1c;
+    /* border: 2px solid #382e1c; */
     border-radius: 12px;
     padding: 0.75rem 1rem;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
     width: 100%;
+}
+
+.ready {
+    border: 2px solid #36ed11;
+}
+
+.unready {
+    border: 2px solid #f02b08;
 }
 
 .player-position-entry-screen{
@@ -211,6 +219,10 @@ button {
 
 button:hover {
     background-color: #5d472d;
+}
+
+button:disabled {
+    background-color: #494745;
 }
 
 .choose-whose-first {
