@@ -47,7 +47,6 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto auto auto;
   width: 100%;
-  /* height: 100vh; */
   position: relative;
   place-items: center;
 }
@@ -79,4 +78,52 @@
 .center {
   grid-area: center;
 }
+
+.current-player-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-window {
+  display: flex;
+  justify-content: space-around;
+}
+
+.card-area-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-array-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0.5rem 0;
+    flex-grow: 1;
+}
+
+.card-details {
+    border: 1px solid black;
+    margin: 0.2rem 0.5rem;
+    padding: 0.3rem;
+}
+
+.dead-attack-options-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.discard-pile-div {
+  border: 2px black solid;
+  display: flex;
+}
+
+.deck-div {
+  border: 2px black solid;
+  display: flex;
+}
+
+
 

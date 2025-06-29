@@ -3,8 +3,9 @@ import { ActiveShields, Player } from "./classes/Player"
 export const PlayerCard = ({ player }: { player: Player }) => {
     return (
         <div>
-            <p>{`${player.name} - ${player.deck.character}`}</p>
-            <p>{player.active ? `HP: ${player.hitpoints}`: 'Dead' }/  Moves: {player.moves}</p>
+            <h4>{`${player.name} - ${player.deck.character}`}</h4>
+            <p>{player.active ? `HP: ${player.hitpoints}`: 'Dead' }</p>
+            <p>Moves: {player.moves}</p>
             {
                 player.activeShields.map((shield: ActiveShields, index: number) => {
                     return (
