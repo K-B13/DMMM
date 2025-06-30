@@ -94,7 +94,7 @@ export const CurrentPlayerView = ({
                             player.uid === currentPlayer.uid &&
                             canDraw ?
                             <button
-                            className="deck"
+                            className={`deck deck-button-animate`}
                              onClick={() => drawCardFromDeck(player)}
                             >
                             Draw

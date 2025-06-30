@@ -104,6 +104,18 @@
   justify-content: space-around;
 }
 
+.player-info {
+  padding: 0.4rem;
+  border-radius: 1.2rem;
+  background-color: rgba(128, 128, 128, 0.8);
+}
+
+.shield-display {
+  background-color: rgba(128, 128, 128, 0.8);
+  padding: 0.4rem;
+  border-radius: 1.2rem;
+}
+
 
 .card-array-div {
     display: flex;
@@ -133,9 +145,9 @@
 }
 
 .card-details {
-    border: 1px solid black;
     margin: 0.2rem 0.5rem;
     padding: 0.3rem;
+    border-radius: 1rem;
 }
 
 .card-details-player {
@@ -144,6 +156,7 @@
     padding: 0.3rem;
     min-width: 160px;
     max-width: 160px;
+    border-radius: 1rem;
 }
 
 .card-details p {
@@ -181,7 +194,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid black;
+  background-color: rgba(128, 128, 128, 0.8);
   padding: 0 0.3rem 0.3rem 0.3rem;
   margin: 0.5rem 0;
 }
@@ -191,7 +204,6 @@
 }
 
 .deck-div {
-  border: 2px black solid;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -224,7 +236,6 @@
 }
 
 .player-target {
-  /* background-color:#5a4733; */
   border-radius: 1.2rem;  
   padding: 0.6rem;
   height: 50vh;
@@ -253,12 +264,38 @@
   margin-bottom: 0.5rem;
 }
 
+.deck-button-animate {
+  animation: pulse-border 2.0s infinite;
+  border: 2px solid var(--pulse-color, white);
+  transition: box-shadow 0.6s ease;
+}
+
+@keyframes pulse-border {
+  0% {
+    box-shadow: 0 0 0 0 var(--pulse-color, rgba(255, 255, 255, 0.6));
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(255, 255, 255, 0)
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.azzan {
+  --pulse-color: #0F52BA;
+}
+
 .azzan, .azzan .discard-pile, .azzan .deck {
   background-color: #0F52BA;
 }
 
 .azzan .cannot-draw-deck {
   font-weight: bold;
+}
+
+.blorp {
+  --pulse-color: #088B8B;
 }
 
 .blorp, .blorp .discard-pile, .blorp .deck {
@@ -269,6 +306,10 @@
   font-weight: bold;
 }
 
+.delilah-deathray {
+  --pulse-color: #7851A9;
+}
+
 .delilah-deathray, .delilah-deathray .discard-pile, .delilah-deathray .deck {
   background-color: #7851A9;
 }
@@ -277,12 +318,20 @@
   font-weight: bold;
 }
 
+.dr-tentaculous {
+  --pulse-color: #5D3A9B;
+}
+
 .dr-tentaculous, .dr-tentaculous .discard-pile, .dr-tentaculous .deck {
   background-color: #5D3A9B;
 }
 
 .dr-tentaculous .cannot-draw-deck {
   font-weight: bold;
+}
+
+.hoots-mcgoots {
+  --pulse-color: #FFBF00;
 }
 
 .hoots-mcgoots {
@@ -298,6 +347,10 @@
   font-weight: bold;
 }
 
+.lia {
+  --pulse-color: #DC143C;
+}
+
 .lia, .lia .discard-pile, .lia .deck {
   background-color: #DC143C;
 }
@@ -306,12 +359,20 @@
   font-weight: bold;
 }
 
+.lord-cinderpuff {
+  --pulse-color: #4B4B4B;
+}
+
 .lord-cinderpuff, .lord-cinderpuff .discard-pile, .lord-cinderpuff .deck {
   background-color: #4B4B4B;
 }
 
 .lord-cinderpuff .cannot-draw-deck {
   font-weight: bold;
+}
+
+.mimi-lechaise {
+  --pulse-color: #98FF98;
 }
 
 .mimi-lechaise {
@@ -332,12 +393,20 @@
   font-weight: bold;
 }
 
+.oriax {
+  --pulse-color: #5B5B5B;
+}
+
 .oriax, .oriax .discard-pile, .oriax .deck {
-  background-color: #1A1A1A;
+  background-color: #5B5B5B;
 }
 
 .oriax .cannot-draw-deck {
   font-weight: bold;
+}
+
+.sutha {
+  --pulse-color: #B7410E;
 }
 
 .sutha, .sutha .discard-pile, .sutha .deck {
