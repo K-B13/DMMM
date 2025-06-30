@@ -100,10 +100,10 @@ export const GameScreen = ({ allPlayers, setAllPlayers, exitGameScreen }: { allP
     }
 
     return (
-        <div>
+        <div className="game-screen">
             {
                 startGame ?
-                (!winner ? <div>
+                (!winner ? <div className="arena-div">
                     <Arena 
                     players={allPlayers} 
                     setPlayers={setAllPlayers}

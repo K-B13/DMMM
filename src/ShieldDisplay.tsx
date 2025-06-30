@@ -2,7 +2,7 @@ import { ActiveShields, Player } from "./classes/Player"
 
 export const ShieldDisplay = ({ player }: { player: Player }) => {
     return (
-        <div>
+        <div className="shield-display">
             {
                 player.activeShields.map((shield: ActiveShields, index: number) => {
                     return (

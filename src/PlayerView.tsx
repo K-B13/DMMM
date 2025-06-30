@@ -6,6 +6,7 @@ import { gameplayPlayerPath } from "./utility/firebasePaths"
 import { getUid } from "./utility/getUid"
 import { CurrentPlayerView } from "./CurrentPlayerView"
 import { OtherPlayersView } from "./OtherPlayersView"
+import { CardDisplay } from "./Arena"
 
 export const PlayerView = ({ 
     player, 
@@ -13,19 +14,21 @@ export const PlayerView = ({
     updateTurnIndex,
     currentPlayer,
     players,
+    cardPlayed
 }: { 
     player: Player, 
     turnIndex: number,
     updateTurnIndex: () => void,
     currentPlayer: Player,
     players: Player[],
+    cardPlayed: (c: CardDisplay | undefined, currentPlayer?: Player, targetPlayer?: Player) => void
 }) => {
     const [ canDraw, setCanDraw ] = useState(false)
     const [ attackDamage, setAttackDamage ] = useState(0)
 
     const nonAttackClick = async (card: Card) => {
         play(player, card)
-
+        cardPlayed({ currentCard: card, cardOwner: player })
         if (player.moves === 0) {
             updateTurnIndex()
         }
@@ -39,6 +42,7 @@ export const PlayerView = ({
 
     const drawCardFromDeck = async (player: Player) => {
         startTurn(player)
+        cardPlayed(undefined)
         await updateValue(gameplayPlayerPath(player.uid), player)
         setCanDraw(false)
     }
@@ -64,7 +68,7 @@ export const PlayerView = ({
     }
 
     return (
-        <div>
+        <>
             {
                 getUid() === player.uid ? 
                 <CurrentPlayerView 
@@ -79,12 +83,13 @@ export const PlayerView = ({
                 drawCardFromDeck={drawCardFromDeck}
                 handleGhostShieldAttack={handleGhostShieldAttack}
                 handleGhostAttack={handleGhostAttack}
+                cardPlayed={cardPlayed}
                 />
                 :
                 <OtherPlayersView 
                 player={player}
                 />
             }       
-        </div> 
+        </> 
     )
 }

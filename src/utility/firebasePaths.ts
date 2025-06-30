@@ -35,5 +35,9 @@ export const gameplayPlayerDeck = (uid: string) => `gameState/players/${uid}/dec
 export const gameplayPlayerActiveShields = (uid: string) => `gameState/players/${uid}/activeShields`
 // The turnIndex path
 export const turnIndexPath = () => `gameState/turnIndex`
+// Current Card Path
+export const currentCardPath = () => `gameState/currentCard`
+// card attack notification
+export const cardAttackNotificationPath = () => `gameState/attackCardMessage`
 // Winner
 export const winnerPath = () => `gameState/winner`

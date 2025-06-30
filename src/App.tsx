@@ -129,7 +129,7 @@ export const App = () => {
                     </button>
                 </div>    
                 :
-                <div>
+                <>
                 {
                     gameSetup ?
                         <SetupScreen 
@@ -146,7 +146,7 @@ export const App = () => {
                         exitGameScreen={exitSetupScreen}
                         />
                 }
-                </div>
+                </>
             }
         </main>
     );

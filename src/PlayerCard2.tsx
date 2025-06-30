@@ -1,11 +1,11 @@
-import { ActiveShields, Player } from "./classes/Player"
+import { Player } from "./classes/Player"
 
-export const PlayerCard2 = ({ player }: { player: Player }) => {
+export const PlayerCard2 = ({ player, isCurrentPlayer }: { player: Player, isCurrentPlayer: boolean }) => {
     return (
-        <div>
+        <div className="player-info">
             <h4>{`${player.name} - ${player.deck.character}`}</h4>
             <p>{player.active ? `HP: ${player.hitpoints}`: 'Dead' }</p>
-            <p>Moves: {player.moves}</p>
+            {isCurrentPlayer && <p>Moves: {player.moves}</p>}
         </div> 
     )
 }

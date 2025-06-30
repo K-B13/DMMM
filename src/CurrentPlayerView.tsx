@@ -6,6 +6,9 @@ import { Player } from "./classes/Player"
 import { PlayerCard2 } from "./PlayerCard2"
 import { ShieldDisplay } from "./ShieldDisplay"
 import { PlayerTarget } from "./PlayerTarget"
+import { CardDisplay } from "./Arena"
+import { CharacterName } from "./utility/characterBible"
+import { characterClasses } from "./utility/characterColor"
 
 export const CurrentPlayerView = ({ 
     player, 
@@ -18,7 +21,8 @@ export const CurrentPlayerView = ({
     setAttackDamage,
     drawCardFromDeck,
     handleGhostShieldAttack,
-    handleGhostAttack 
+    handleGhostAttack,
+    cardPlayed 
 }: { 
     player: Player, 
     currentPlayer: Player, 
@@ -30,26 +34,30 @@ export const CurrentPlayerView = ({
     setAttackDamage: Dispatch<SetStateAction<number>>,
     drawCardFromDeck: (player: Player) => void,
     handleGhostShieldAttack: (i: number, tG: Player) => void,
-    handleGhostAttack: (tG: Player) => void
+    handleGhostAttack: (tG: Player) => void,
+    cardPlayed: (c: CardDisplay | undefined) => void
 }) => {
     return (
         <div className="current-player-div">
             <div className="stat-window">
-                <PlayerCard2 player={player} />
+                <PlayerCard2 player={player} isCurrentPlayer={true}/>
                 <ShieldDisplay player={player} />
             </div>
             {
                 player.active ?
-                <div className="card-area-div">
-                    <div className="discard-pile-div">
-                        <button>Discard Pile{`\n${player.deck.discardPile.length} cards`}</button>
+                <div className="card-area-div current-player-card-area">
+                    <div className={`discard-pile-div ${characterClasses[player.deck.character as CharacterName]}`}>
+                        <button
+                        className="discard-pile"
+                        >Discard Pile {`${player.deck.discardPile.length} cards`}</button>
                     </div>
                     <div className="player-hand card-array-div">
                         {
                             player.active &&
                             player.hand.map((card: Card, pos: number) => {
+                                const characterName = card.character as CharacterName
                                 return (
-                                    <div key={pos} className="card-details">
+                                    <div key={pos} className={`card-details-player ${characterClasses[characterName]}`}>
                                         <CardDetails card={card} />
                                         {
                                             player.uid === currentPlayer.uid &&
@@ -64,6 +72,7 @@ export const CurrentPlayerView = ({
                                                     updateTurnIndex={updateTurnIndex}
                                                     attackDamage={attackDamage}
                                                     setAttackDamage={setAttackDamage}
+                                                    cardPlayed={cardPlayed}
                                                     />
                                                 </div>
                                                 :
@@ -80,16 +89,17 @@ export const CurrentPlayerView = ({
                             })
                         }
                     </div>
-                    <div className="deck-div">
+                    <div className={`deck-div ${characterClasses[player.deck.character as CharacterName]}`}>
                         {
                             player.uid === currentPlayer.uid &&
                             canDraw ?
                             <button
+                            className="deck"
                              onClick={() => drawCardFromDeck(player)}
                             >
                             Draw
                             </button>:
-                            <div className="">
+                            <div className="cannot-draw-deck">
                                 Deck{`\n${player.deck.cards.length}`} cards
                             </div>
                         }

@@ -4,6 +4,7 @@ import { Card } from "./classes/Card"
 import { updateValue, writeValue } from "./utility/firebaseActions"
 import { gameplayPlayerPath, winnerPath } from "./utility/firebasePaths"
 import { PlayerTarget } from "./PlayerTarget"
+import { CardDisplay } from "./Arena"
 
 export const AttackButton = ({ 
     player, 
@@ -12,6 +13,7 @@ export const AttackButton = ({
     updateTurnIndex,
     attackDamage,
     setAttackDamage,
+    cardPlayed
 }: { 
     player: Player, 
     card: Card, 
@@ -19,6 +21,7 @@ export const AttackButton = ({
     updateTurnIndex: () => void,
     attackDamage: number,
     setAttackDamage: Dispatch<SetStateAction<number>>,
+    cardPlayed: (c: CardDisplay | undefined) => void
 }) => {
     
     const [ hasAttackOptions, setHasAttackOptions ] = useState(false)
@@ -72,6 +75,7 @@ export const AttackButton = ({
             const leftoverDamage = Math.max(attackDamage - targetedShield.hp, 0)
             shieldDamage(index, attackDamage, targetedPlayer)
             play(player, card)
+            cardPlayed({ currentCard: card, cardOwner: player })
             await updateValue(gameplayPlayerPath(player.uid), player)
             await updateValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
             setAttackDamage(leftoverDamage)
@@ -82,6 +86,7 @@ export const AttackButton = ({
     const handleAttack = async (targetedPlayer: Player) => {
         takeDamage(attackDamage, targetedPlayer)
         play(player, card)
+        cardPlayed({ currentCard: card, cardOwner: player })
         await winCheck()
         await updateValue(gameplayPlayerPath(player.uid), player)
         await updateValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
@@ -97,6 +102,11 @@ export const AttackButton = ({
         }
     }
 
+    const cancelButton = () => {
+        setHasAttackOptions(false)
+        setAttackDamage(0)
+    }
+
 
 
     return (
@@ -109,26 +119,24 @@ export const AttackButton = ({
                     {
                         possibleTargets.map((target, i: number) => {
                             return (
-                                <div key={i}>
+                                <div 
+                                key={i}
+                                className="player-targets-div"
+                                >
                                     <PlayerTarget 
                                     playerInfo={target} 
                                     handleShieldAttack={handleShieldAttack}
                                     handleAttack={handleAttack}
+                                    cancelButton={cancelButton}
                                     />
                                 </div>
                             )
                         })
                     }
-                    {hasAttackOptions && <button 
-                    onClick={() => {
-                        setHasAttackOptions(false)
-                        setAttackDamage(0)
-                    }
-
-
-                    }>
+                    {/* {hasAttackOptions && <button 
+                    onClick={cancelButton}>
                         Cancel
-                    </button>}
+                    </button>} */}
                 </div>
                 :
                 !attackDamage &&
@@ -140,9 +148,6 @@ export const AttackButton = ({
                     Play
                 </button>
             }
-            <button
-            onClick={() => console.log(hasAttackOptions, 'attack options', attackDamage, 'attack damage', card, 'card')}
-            >Debug</button>
         </div>
     )
 }

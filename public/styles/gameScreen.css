@@ -1,7 +1,13 @@
 .game-screen {
-  height: 100%;
-  width: 100vw;
+  display: flex;
   position: relative;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.arena-div {
+  flex-grow: 1;
+  display: flex;
 }
 
 .begin-game-btn {
@@ -43,7 +49,7 @@
   grid-template-areas:
   "top-left top top-right"
   "left center right"
-  "bottom-left bottom bottom-right";
+  "bottom bottom bottom";
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto auto auto;
   width: 100%;
@@ -53,6 +59,11 @@
 
 .bottom {
   grid-area: bottom;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 }
 .top {
   grid-area: top;
@@ -83,6 +94,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-grow: 2;
+  justify-content: center;
+  height: 100%;
 }
 
 .stat-window {
@@ -90,23 +104,50 @@
   justify-content: space-around;
 }
 
-.card-area-div {
-  display: flex;
-  justify-content: space-between;
-}
 
 .card-array-div {
     display: flex;
+    justify-content: flex-start;
     flex-direction: row;
-    justify-content: center;
     margin: 0.5rem 0;
-    flex-grow: 1;
+    overflow-x: scroll;
+    padding: 0.5rem;
+}
+
+.other-card-array-div {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin: 0.5rem 0;
+    overflow-x: scroll;
+    padding: 0.5rem;
+    width: 35rem;
+}
+
+.current-player-card-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem;
+  max-width: 100vw;
 }
 
 .card-details {
     border: 1px solid black;
     margin: 0.2rem 0.5rem;
     padding: 0.3rem;
+}
+
+.card-details-player {
+    border: 1px solid black;
+    margin: 0.2rem 0.5rem;
+    padding: 0.3rem;
+    min-width: 160px;
+    max-width: 160px;
+}
+
+.card-details p {
+  margin: 0.3rem;
 }
 
 .dead-attack-options-div {
@@ -117,13 +158,196 @@
 
 .discard-pile-div {
   border: 2px black solid;
+  align-self: stretch;
+  justify-content: center;
+  align-items: center;
   display: flex;
+  width: 12rem;
+}
+
+.discard-pile-div button {
+  flex-grow: 1;
+  height: 100%;
+  padding: 0;
+}
+
+.other-player-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.current-turn-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  padding: 0 0.3rem 0.3rem 0.3rem;
+  margin: 0.5rem 0;
+}
+
+.current-turn-display h4, .current-turn-display p {
+  margin: 0.4rem;
 }
 
 .deck-div {
   border: 2px black solid;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  width: 12rem;
 }
+
+.deck {
+  flex-grow: 1;
+  height: 100%
+}
+
+.cannot-draw-deck {
+  flex-grow: 1;
+}
+
+
+.player-targets-div {
+  position: absolute;
+  display: flex;
+  width: 100vw;
+  height: 100%;
+  top: 0%;
+  left: 0%;
+  justify-content: center;
+  z-index: 4;
+  backdrop-filter: blur(0.8rem);
+  padding: 0.4rem;
+  align-items: center;
+}
+
+.player-target {
+  /* background-color:#5a4733; */
+  border-radius: 1.2rem;  
+  padding: 0.6rem;
+  height: 50vh;
+  min-width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bottom-target-player {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+.shield-div {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  max-height: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.azzan, .azzan .discard-pile, .azzan .deck {
+  background-color: #0F52BA;
+}
+
+.azzan .cannot-draw-deck {
+  font-weight: bold;
+}
+
+.blorp, .blorp .discard-pile, .blorp .deck {
+  background-color: #088B8B;
+}
+
+.blorp .cannot-draw-deck {
+  font-weight: bold;
+}
+
+.delilah-deathray, .delilah-deathray .discard-pile, .delilah-deathray .deck {
+  background-color: #7851A9;
+}
+
+.delilah-deathray .cannot-draw-deck {
+  font-weight: bold;
+}
+
+.dr-tentaculous, .dr-tentaculous .discard-pile, .dr-tentaculous .deck {
+  background-color: #5D3A9B;
+}
+
+.dr-tentaculous .cannot-draw-deck {
+  font-weight: bold;
+}
+
+.hoots-mcgoots {
+  background-color: #FFBF00;
+}
+
+.hoots-mcgoots .discard-pile, .hoots-mcgoots .deck {
+  background-color: #FFBF00;
+  color: black;
+}
+
+.hoots-mcgoots .cannot-draw-deck {
+  font-weight: bold;
+}
+
+.lia, .lia .discard-pile, .lia .deck {
+  background-color: #DC143C;
+}
+
+.lia .cannot-draw-deck {
+  font-weight: bold;
+}
+
+.lord-cinderpuff, .lord-cinderpuff .discard-pile, .lord-cinderpuff .deck {
+  background-color: #4B4B4B;
+}
+
+.lord-cinderpuff .cannot-draw-deck {
+  font-weight: bold;
+}
+
+.mimi-lechaise {
+  background-color: #98FF98;
+}
+
+.mimi-lechaise .discard-pile, .mimi-lechaise .deck {
+  color: black;
+  background-color: #98FF98;
+}
+
+.mimi-lechaise div p, .mimi-lechaise p, .mimi-lechaise .cannot-draw-deck, .hoots-mcgoots div p, .hoots-mcgoots p, .hoots-mcgoots .cannot-draw-deck {
+  color: black;
+  font-weight: bold;
+}
+
+.mimi-lechaise .cannot-draw-deck {
+  font-weight: bold;
+}
+
+.oriax, .oriax .discard-pile, .oriax .deck {
+  background-color: #1A1A1A;
+}
+
+.oriax .cannot-draw-deck {
+  font-weight: bold;
+}
+
+.sutha, .sutha .discard-pile, .sutha .deck {
+  background-color: #B7410E;
+}
+
+.sutha .cannot-draw-deck {
+  font-weight: bold;
+}
+
 
 
 

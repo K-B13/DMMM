@@ -5,8 +5,15 @@ import { positionMap } from "./utility/positionMap";
 import { getUid } from "./utility/getUid";
 import { onValue, ref } from "firebase/database";
 import { db } from "./firebaseConfig";
-import { gameplayPlayerDeck, gameplayPlayerHand, turnIndexPath } from "./utility/firebasePaths";
+import { currentCardPath, gameplayPlayerDeck, gameplayPlayerHand, turnIndexPath } from "./utility/firebasePaths";
 import { writeValue } from "./utility/firebaseActions";
+import { CurrentTurnDisplay } from "./CurrentTurnDisplay";
+import { Card } from "./classes/Card";
+
+export interface CardDisplay {
+    currentCard: Card,
+    cardOwner: Player
+}
 
 export const Arena = ({ 
     players,
@@ -17,8 +24,9 @@ export const Arena = ({
     setPlayers: Dispatch<SetStateAction<Player[]>>, 
     startGame: boolean,
 }) => {
-    const [ turnIndex, setTurnIndex ] = useState(0)
     
+    const [ turnIndex, setTurnIndex ] = useState(0)
+    const [ currentCardDisplay, setCurrentCardDisplay ] = useState<CardDisplay | undefined>(undefined)
 
     useEffect(() => {
         const initilizeHand = async () => {
@@ -46,6 +54,15 @@ export const Arena = ({
         return () => unsubscribe()
     }, [])
 
+    useEffect(() => {
+        const previousCardPlayedRef = ref(db, currentCardPath())
+        const unsubscribe = onValue(previousCardPlayedRef, (snapshot) => {
+            const data = snapshot.val() ;
+            setCurrentCardDisplay(data)
+        })
+        return () => unsubscribe()
+    }, [])
+
     const reframePlayers = (players: Player[]) => {
         const uid = getUid()
         if (!uid) return []
@@ -60,6 +77,14 @@ export const Arena = ({
         writeValue(turnIndexPath(), newIndex)
     }
 
+    const cardPlayed = async (data: CardDisplay | undefined) => {
+        if (data === undefined) {
+            await writeValue(currentCardPath(), null)
+            return
+        }
+        await writeValue(currentCardPath(), data)
+    }
+
     return (
         <div className="player-grid">
             {
@@ -72,10 +97,19 @@ export const Arena = ({
                             updateTurnIndex={updateTurnIndex}
                             currentPlayer={players[turnIndex]}
                             players={players}
+                            cardPlayed={cardPlayed}
                             />
                         </div>
                     )
                 })
+            }
+            {
+                currentCardDisplay &&
+                <div className="center">
+                    <CurrentTurnDisplay 
+                    currentCardDisplay={currentCardDisplay}
+                    />
+                </div>
             }
             <button
             onClick={() => console.log(players)}

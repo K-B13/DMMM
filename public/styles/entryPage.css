@@ -4,6 +4,8 @@ main {
     background-image: url('/images/dungeon_walls.jpg');
     background-size: cover;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 
