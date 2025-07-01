@@ -36,8 +36,10 @@ export const FirstTurn = ({
                     </button>
                 </div>
             }
-                <div>
-                    <p>{playerSetup[firstTurnPlayer].name} is going first.</p>
+                <div className="first-turn-display-div">
+                    <p className="first-turn-display">
+                        {playerSetup[firstTurnPlayer].name} is going first.
+                    </p>
                 </div>
             {
                 selectTurnOrder?

@@ -383,6 +383,9 @@
   color: black;
   background-color: #98FF98;
 }
+.cannot-draw-deck {
+  color: #fffbe6;
+}
 
 .mimi-lechaise div p, .mimi-lechaise p, .mimi-lechaise .cannot-draw-deck, .hoots-mcgoots div p, .hoots-mcgoots p, .hoots-mcgoots .cannot-draw-deck {
   color: black;

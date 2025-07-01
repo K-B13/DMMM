@@ -7,7 +7,7 @@ export const NameInput = ({ addPlayer, playerSetup }: { addPlayer: (name: string
         setNameInput(e.target.value)
     }
     return (
-        <div>
+        <div className="name-input-div">
             <input className="name-input" value={nameInput} onChange={handleChange}/>
             <button disabled={!(playerSetup.length < 6)} onClick={()=> addPlayer(nameInput)}>Join</button>
             {

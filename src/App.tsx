@@ -122,7 +122,7 @@ export const App = () => {
 
             {
                 showNameInput ?
-                <div>
+                <div className="entrance">
                     <NameInput addPlayer={addPlayer} playerSetup={playerSetup}/>
                     <button onClick={clearLobby}>
                     🧹 Clear Lobby

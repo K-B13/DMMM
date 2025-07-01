@@ -175,7 +175,6 @@ export const SetupScreen = ({
       writeValue(gameplayPlayerPath(player.uid), player)
     )
   );
-//   await writeValue('setup/gameStarted', true);
 };
 
     const handleCountDown = async () => {
@@ -228,7 +227,9 @@ export const SetupScreen = ({
             
             {
                 checkReadyToStart() ?
-                <p>Not all players are ready</p>
+                <p
+                className="not-all-ready"
+                >Not all players are ready</p>
                 : null
             }
                 <div>                 
@@ -244,11 +245,13 @@ export const SetupScreen = ({
                                 </button>
                         )
                         :
-                        <p>{countDown}</p>  
+                        <p className="countdown-number">{countDown}</p>  
                     }            
                     {
                         countDown < 6 && countDown > 1 && (
-                            <button onClick={cancelCountDown}>
+                            <button 
+                            className="cancel-countdown-button"
+                            onClick={cancelCountDown}>
                                 Cancel Countdown
                             </button>
                         )

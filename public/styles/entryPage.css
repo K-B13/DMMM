@@ -1,6 +1,4 @@
 main {
-    /* background-image: url('/images/parchment2.jpg'); */
-    /* background-size: cover; */
     background-image: url('/images/dungeon_walls.jpg');
     background-size: cover;
     min-height: 100vh;
@@ -45,8 +43,36 @@ h1 {
     100% { filter: drop-shadow(0 0 20px gold); }
 }
 
+.entrance {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.name-input-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background-image: url('/images/parchment2.jpg');
+    background-size: cover;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
 .name-input {
-    color: black;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: 2px solid #444;
+    background-color: #fffbe6;
+    color: #382e1c;
+    width: 250px;
 }
 
 .selection-screen {
@@ -72,7 +98,6 @@ h1 {
 }
 
 .status-div {
-    /* flex-grow: 1; */
     display: flex;
     justify-content: flex-start;
 }
@@ -93,10 +118,8 @@ h1 {
     display: grid;
     grid-template-columns: 100px 1fr 200px;
     align-items: center;
-    /* justify-content: space-between; */
     gap: 1rem;
     background-color: #f4e3d7;
-    /* border: 2px solid #382e1c; */
     border-radius: 12px;
     padding: 0.75rem 1rem;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
@@ -165,7 +188,6 @@ h1 {
 
 
 .firstPageBlocker {
-    /* flex-grow: 1.25; */
     width: 100px;
     display: flex;
     justify-content: flex-start;
@@ -195,7 +217,32 @@ h1 {
 }
 
 .choose-whose-first-div {
-    width: 100%;
+    width: 80%;
+    background-image: url('/images/parchment2.jpg');
+    padding: 0 0.3rem 0.3rem 0.3rem;
+    border-radius: 0.5rem; 
+}
+
+.first-turn-display-div {
+   padding: 0.75rem 1.5rem;
+   margin-top: 0.2rem;
+   border-radius: 10px;
+   font-weight: bold;
+   font-size: 1.1rem;
+   text-align: center;
+}
+
+.first-turn-display {
+    color: #382e1c;
+    margin: 0.2rem;
+}
+
+h4 {
+    color: #fffbe6;
+}
+
+p {
+    color: #fffbe6;
 }
 
 select {
@@ -228,9 +275,7 @@ button:disabled {
 }
 
 .choose-whose-first {
-    background-color: #e8d1b0;
     padding: 1rem;
-    border: 2px solid #382e1c;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
@@ -255,6 +300,41 @@ button:disabled {
 
 .whose-first-selection {
     margin: 0.2rem 0 0 0;
+}
+
+.not-all-ready {
+    font-size: 1.2rem;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    background-image: url('/images/parchment2.jpg');
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+/* Countdown display styling */
+.countdown-number {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ffe48c;
+  text-shadow: 2px 2px 6px #000;
+  margin: 1rem 0;
+  font-family: 'Bangers', cursive;
+}
+
+.cancel-countdown-button {
+  background-color: #a31717;
+  border: 2px solid #660000;
+  color: white;
+  font-size: 1.1rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.cancel-countdown-button:hover {
+  background-color: #8b0000;
 }
 
 .start-btn {
