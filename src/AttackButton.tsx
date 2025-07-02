@@ -42,11 +42,7 @@ export const AttackButton = ({
             right = (right + 1) % numPlayers;
             if (right === currentIndex) break;
         }
-
-        console.log("Targeting from index:", currentIndex);
-        console.log("Left index:", left, "active:", players[left].active);
-        console.log("Right index:", right, "active:", players[right].active);
-
+        
         if (left === right) {
             return [players[left]]
         }
@@ -118,14 +114,13 @@ export const AttackButton = ({
 
             {
                 hasAttackOptions ?
-                <div>
+                <div className="player-targets-div">
                     <p>Attack Strength: {attackDamage}</p>
                     {
                         possibleTargets.map((target, i: number) => {
                             return (
                                 <div 
                                 key={i}
-                                className="player-targets-div"
                                 >
                                     <PlayerTarget 
                                     playerInfo={target} 
