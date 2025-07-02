@@ -43,6 +43,10 @@ export const AttackButton = ({
             if (right === currentIndex) break;
         }
 
+        console.log("Targeting from index:", currentIndex);
+        console.log("Left index:", left, "active:", players[left].active);
+        console.log("Right index:", right, "active:", players[right].active);
+
         if (left === right) {
             return [players[left]]
         }
