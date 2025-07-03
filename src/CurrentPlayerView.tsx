@@ -106,14 +106,14 @@ export const CurrentPlayerView = ({
                     </div>
                 </div>:
                 player.uid === currentPlayer.uid &&
-                <div>
+                <div className="dead-attack-options-div">
                     {
                         players.filter(player => {
                             return player.active &&
                             (player.hitpoints > 1 || player.activeShields.length > 0)
                         }).map((player: Player, index: number) => {
                             return (
-                                <div className="dead-attack-options-div" key={index}>
+                                <div key={index}>
                                     <PlayerTarget
                                     playerInfo={player}
                                     handleShieldAttack={handleGhostShieldAttack}
