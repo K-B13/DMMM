@@ -78,7 +78,9 @@ export const CurrentPlayerView = ({
                                                 :
                                                 !attackDamage &&
                                                 <div>
-                                                    <button onClick={() => nonAttackClick(card)}>
+                                                    <button onClick={() => nonAttackClick(card)}
+                                                    className="card-play"    
+                                                    >
                                                         Play
                                                     </button>
                                                 </div>

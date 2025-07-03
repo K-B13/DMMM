@@ -103,14 +103,14 @@ export const Arena = ({
                     )
                 })
             }
-            {
-                currentCardDisplay &&
-                <div className="center">
+            <div className="center">
+                {
+                    currentCardDisplay &&
                     <CurrentTurnDisplay 
                     currentCardDisplay={currentCardDisplay}
                     />
-                </div>
-            }
+                }
+            </div>
             <button
             onClick={() => console.log(players)}
             >Log</button>

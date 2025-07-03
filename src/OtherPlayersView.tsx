@@ -26,7 +26,6 @@ export const OtherPlayersView = ({ player }: { player: Player }) => {
                     })
                 }
             </div>
-            <p>{player.hand.length} Cards</p>
         </div>
     )
 }

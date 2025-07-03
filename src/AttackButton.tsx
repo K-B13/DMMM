@@ -139,7 +139,9 @@ export const AttackButton = ({
                 </div>
                 :
                 !attackDamage &&
-                <button onClick={() => {
+                <button 
+                className="card-play"
+                onClick={() => {
                 setHasAttackOptions(true)
                 setAttackDamage((card.attack as number))
                 }

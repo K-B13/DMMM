@@ -53,6 +53,8 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto auto auto;
   width: 100%;
+  height: 100%;
+  overflow: hidden;
   position: relative;
   place-items: center;
 }
@@ -88,6 +90,10 @@
 }
 .center {
   grid-area: center;
+  min-height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .current-player-div {
@@ -111,19 +117,33 @@
   border-radius: 1.2rem;
   background-color: rgba(128, 128, 128, 0.8);
   box-sizing: border-box;
-  height: 9rem;
-  width: 9rem;
+  height: 7.5rem;
+  width: 8.2rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .player-info h4, .player-info p {
   margin: 0.2rem;
+  font-size: 0.9rem;
 }
 
 .shield-display h4 {
   margin: 0;
+  font-size: 0.9rem;
+}
+
+.card-play {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.8rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #7a5f3d;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
 .shield-scroll {
@@ -165,16 +185,34 @@
 }
 
 .card-details-player {
-    border: 1px solid black;
-    margin: 0.2rem 0.5rem;
-    padding: 0.3rem;
-    min-width: 160px;
-    max-width: 160px;
+    /* border: 1px solid black; */
+    margin: 0rem 0.25rem;
+    padding: 0.5rem;
+    width: 160px;
+    height: 185px;
     border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card-details p {
   margin: 0.3rem;
+}
+
+.card-name {
+  margin: 0.1rem 0 0.45rem 0;
+  min-height: 2.2rem;
+}
+
+.card-icon-row {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  /* gap: 0.3rem; */
+  margin: 0.2rem 0;
+  flex-wrap: nowrap;
 }
 
 .dead-attack-options-div {
@@ -215,6 +253,7 @@
   background-color: rgba(128, 128, 128, 0.8);
   padding: 0 0.3rem 0.3rem 0.3rem;
   margin: 0.5rem 0;
+  max-height: 200px;
 }
 
 .current-turn-display h4, .current-turn-display p {
