@@ -1,8 +1,8 @@
-import { PlayerState } from "./App"
+import { PlayerState } from "../App"
 import { CharacterSelection } from "./CharacterSelection"
-import { auth } from "./firebaseConfig"
-import { isCurrentPlayerHost } from "./utility/checkCurrentPlayerHost"
-import { getUid } from "./utility/getUid"
+import { auth } from "../firebaseConfig"
+import { isCurrentPlayerHost } from "../utility/checkCurrentPlayerHost"
+import { getUid } from "../utility/getUid"
 
 export const EntryPlayer = ({ 
     player, 

@@ -9,6 +9,8 @@ import { currentCardPath, gameplayPlayerDeck, gameplayPlayerHand, turnIndexPath 
 import { writeValue } from "./utility/firebaseActions";
 import { CurrentTurnDisplay } from "./CurrentTurnDisplay";
 import { Card } from "./classes/Card";
+import { findPlayerIndex } from "./utility/findPlayer";
+import { isCurrentPlayerHost } from "./utility/checkCurrentPlayerHost";
 
 export interface CardDisplay {
     currentCard: Card,
@@ -19,10 +21,12 @@ export const Arena = ({
     players,
     setPlayers, 
     startGame,
+    firstTurnPlayer
 }: { 
     players: Player[], 
     setPlayers: Dispatch<SetStateAction<Player[]>>, 
     startGame: boolean,
+    firstTurnPlayer: string
 }) => {
     
     const [ turnIndex, setTurnIndex ] = useState(0)
@@ -62,6 +66,13 @@ export const Arena = ({
         })
         return () => unsubscribe()
     }, [])
+
+    useEffect(() => {
+        if (isCurrentPlayerHost(players)) {
+            const playerIndex = findPlayerIndex(players, firstTurnPlayer)
+            writeValue(turnIndexPath(), playerIndex)
+        }
+    }, [startGame])
 
     const reframePlayers = (players: Player[]) => {
         const uid = getUid()
@@ -112,7 +123,7 @@ export const Arena = ({
                 }
             </div>
             <button
-            onClick={() => console.log(players)}
+            onClick={() => console.log(players, 'players', turnIndex, 'turnIndex')}
             >Log</button>
         </div>
     )

@@ -1,17 +1,17 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
-import { PlayerState } from "./App"
+import { PlayerState } from "../App"
 import { EntryPlayer } from "./EntryPlayer"
 import { FirstTurn } from "./FirstTurn"
-import { loadCharacterData } from "./utility/load"
-import { CharacterName } from "./utility/characterBible"
-import { createDeck } from "./classes/Deck"
-import { createPlayer, Player } from "./classes/Player"
-import { removeValue, writeValue } from "./utility/firebaseActions"
-import { countdownStart, firstPlayer, gameplayPlayerPath, playerCharacterPath, playerPath, playerReadyPath, turnIndexPath } from "./utility/firebasePaths"
-import { getUid } from "./utility/getUid"
+import { loadCharacterData } from "../utility/load"
+import { CharacterName } from "../utility/characterBible"
+import { createDeck } from "../classes/Deck"
+import { createPlayer, Player } from "../classes/Player"
+import { removeValue, writeValue } from "../utility/firebaseActions"
+import { countdownStart, firstPlayer, gameplayPlayerPath, playerCharacterPath, playerPath, playerReadyPath, turnIndexPath } from "../utility/firebasePaths"
+import { getUid } from "../utility/getUid"
 import { onValue, ref } from "@firebase/database"
-import { db } from "./firebaseConfig"
-import { isCurrentPlayerHost } from "./utility/checkCurrentPlayerHost"
+import { db } from "../firebaseConfig"
+import { isCurrentPlayerHost } from "../utility/checkCurrentPlayerHost"
 
 export const SetupScreen = ({ 
     playerSetup, 
@@ -23,8 +23,8 @@ export const SetupScreen = ({
     playerSetup: PlayerState[], 
     setPlayerSetup: Dispatch<SetStateAction<PlayerState[]>>,
     exitSetupScreen: () => void,
-    firstTurnPlayer: number,
-    setFirstTurnPlayer: Dispatch<SetStateAction<number>>
+    firstTurnPlayer: string,
+    setFirstTurnPlayer: Dispatch<SetStateAction<string>>
 }) => {
     const [ countDown, setCountDown ] = useState(6)
 
@@ -35,9 +35,7 @@ export const SetupScreen = ({
     useEffect(() => {
         const unsubscribe = onValue(ref(db, firstPlayer()), (snapshot) => {
         const index = snapshot.val();
-        if (typeof index === 'number') {
-            setFirstTurnPlayer(index);
-        }
+        setFirstTurnPlayer(index);
     });
     return () => unsubscribe();
     }, [])
@@ -85,6 +83,7 @@ export const SetupScreen = ({
         const uid = getUid()
         if(!uid) return;
         await writeValue(playerCharacterPath(uid), e.target.value)
+        // maybe remove this setting of the state
         setPlayerSetup(prevState => {
             return prevState.map(indivPrevState => {
                 return indivPrevState.uid === uid ? { ...indivPrevState, character: e.target.value } : indivPrevState
@@ -93,8 +92,8 @@ export const SetupScreen = ({
     }
 
      const handleFirstPlayerSelect = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-        await writeValue(firstPlayer(), parseInt(e.target.value))
-        setFirstTurnPlayer(parseInt(e.target.value))
+        await writeValue(firstPlayer(), e.target.value)
+        setFirstTurnPlayer(e.target.value)
     }
 
     const getDisabledCharacters = (index: number) => {
@@ -125,14 +124,6 @@ export const SetupScreen = ({
         })
     }
 
-    const reorderBasedOnTurnOrder = () => {
-        if (firstTurnPlayer === 0) return [...playerSetup]
-        const firstGrouping = playerSetup.slice(firstTurnPlayer)
-        const secondGrouping = playerSetup.slice(0, firstTurnPlayer)
-        const newOrder = [...firstGrouping, ...secondGrouping]
-        return [...newOrder]
-    }
-
     const createDecks = async (character: CharacterName) => {
         const characterCards = await loadCharacterData(character)
         return createDeck({cards: characterCards, character})
@@ -145,7 +136,7 @@ export const SetupScreen = ({
 
     const taken = playerSetup.map(p => p.character).filter(Boolean);
     const available = allCharacters.filter(c => !taken.includes(c));
-    const orderedPlayers = reorderBasedOnTurnOrder();
+    const orderedPlayers = [...playerSetup]
 
     const createdPlayers = await Promise.all(
       orderedPlayers.map(async (player) => {

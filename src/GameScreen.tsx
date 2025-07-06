@@ -6,7 +6,7 @@ import { onValue, ref } from "firebase/database"
 import { db } from "./firebaseConfig"
 import { Arena } from "./Arena"
 
-export const GameScreen = ({ allPlayers, setAllPlayers, exitGameScreen }: { allPlayers: Player[], setAllPlayers: Dispatch<SetStateAction<Player[]>>, exitGameScreen: () => void }) => {
+export const GameScreen = ({ allPlayers, setAllPlayers, exitGameScreen, firstTurnPlayer }: { allPlayers: Player[], setAllPlayers: Dispatch<SetStateAction<Player[]>>, exitGameScreen: () => void, firstTurnPlayer: string }) => {
     const [ startGame, setGameStart ] = useState(false)
     const [ doorOpenStep, setDoorOpenStep ] = useState(0)
     const [ winner, setWinner ] = useState<Player | undefined>(undefined)
@@ -108,7 +108,7 @@ export const GameScreen = ({ allPlayers, setAllPlayers, exitGameScreen }: { allP
                     players={allPlayers} 
                     setPlayers={setAllPlayers}
                     startGame={startGame}
-                    
+                    firstTurnPlayer={firstTurnPlayer}
                     />
                 </div>:
                 <div>

@@ -1,6 +1,7 @@
 import { useState } from "react"
-import { PlayerState } from "./App"
-import { isCurrentPlayerHost } from "./utility/checkCurrentPlayerHost"
+import { PlayerState } from "../App"
+import { isCurrentPlayerHost } from "../utility/checkCurrentPlayerHost"
+import { findPlayer } from "../utility/findPlayer"
 
 export const FirstTurn = ({
     handleFirstPlayerSelect,
@@ -10,7 +11,7 @@ export const FirstTurn = ({
 }: {
     handleFirstPlayerSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void,
     playerSetup: PlayerState[],
-    firstTurnPlayer: number
+    firstTurnPlayer: string
 }) => {
     const [ selectTurnOrder, setSelectTurnOrder ] = useState(false)
 
@@ -20,6 +21,12 @@ export const FirstTurn = ({
 
     const characterSelectionDisplay = (playerCharacter: string) => {
         return playerCharacter ? playerCharacter : 'Not Chosen'
+    }
+
+    const displayFirstPlayer = () => {
+        const player = findPlayer(playerSetup, firstTurnPlayer)
+        if (player) return `${player.name} is going first.`
+        return 'Random player will go first'
     }
 
     
@@ -38,7 +45,7 @@ export const FirstTurn = ({
             }
                 <div className="first-turn-display-div">
                     <p className="first-turn-display">
-                        {playerSetup[firstTurnPlayer].name} is going first.
+                        { displayFirstPlayer() }
                     </p>
                 </div>
             {
@@ -48,7 +55,7 @@ export const FirstTurn = ({
                         <option>Please Select..</option>
                         {
                             playerSetup.map((player: PlayerState, index: number) => {
-                                return <option value={index} key={index}>{`${index + 1}. ${player.name} (${characterSelectionDisplay(player.character)})`}</option>
+                                return <option value={player.uid} key={index}>{`${index + 1}. ${player.name} (${characterSelectionDisplay(player.character)})`}</option>
                             })
                         }
                     </select>

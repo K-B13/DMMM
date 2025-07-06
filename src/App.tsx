@@ -2,8 +2,8 @@ import { signInAnonymously } from "firebase/auth";
 import { get, onDisconnect, onValue, ref, set } from "firebase/database"
 import { auth, db } from "./firebaseConfig";
 import { useState, useEffect } from "react";
-import { NameInput } from "./NameInput";
-import { SetupScreen } from "./SetupScreen";
+import { NameInput } from "./lobby/NameInput";
+import { SetupScreen } from "./lobby/SetupScreen";
 import { Player } from "./classes/Player";
 import { updateValue } from "./utility/firebaseActions";
 import { allPlayersPath, countdownStart, playerPath, startDoor, turnIndexPath } from "./utility/firebasePaths";
@@ -24,7 +24,7 @@ export const App = () => {
     const [ showNameInput, setShowNameInput ] = useState(true)
     const [ allPlayers, setAllPlayers ] = useState<Player[]>([])
     const [ gameSetup, setGameSetup ] = useState(true)
-    const [ firstTurnPlayer, setFirstTurnPlayer ] = useState(0)
+    const [ firstTurnPlayer, setFirstTurnPlayer ] = useState('something')
 
     const exitSetupScreen = () => {
         setGameSetup(!gameSetup)
@@ -82,10 +82,14 @@ export const App = () => {
                 const firstPlayerUid = playerList[0].uid;
                 await updateValue(playerPath(firstPlayerUid), { host: true })
             }
-            if (!playerSetup[firstTurnPlayer]) {
-                setFirstTurnPlayer(0)
-            }
-            setPlayerSetup(playerList)
+            
+
+            // const playerStillInLobby = findPlayer(playerList, firstTurnPlayer)
+            // if (!playerStillInLobby) {
+            //     setFirstTurnPlayer(playerStillInLobby)
+            // }
+
+            setPlayerSetup([...playerList])
         });
         return () => unsubscribe()
     }, [])
@@ -144,6 +148,7 @@ export const App = () => {
                         allPlayers={allPlayers} 
                         setAllPlayers={setAllPlayers} 
                         exitGameScreen={exitSetupScreen}
+                        firstTurnPlayer={firstTurnPlayer}
                         />
                 }
                 </>

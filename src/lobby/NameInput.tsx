@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { PlayerState } from "./App"
+import { PlayerState } from "../App"
 
 export const NameInput = ({ addPlayer, playerSetup }: { addPlayer: (name: string) => void, playerSetup: PlayerState[] }) => {
     const [ nameInput, setNameInput ] = useState('')
