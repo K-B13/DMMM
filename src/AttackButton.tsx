@@ -115,27 +115,25 @@ export const AttackButton = ({
             {
                 hasAttackOptions ?
                 <div className="player-targets-div">
+                    <div className="target-interface">
                     <p>Attack Strength: {attackDamage}</p>
-                    {
-                        possibleTargets.map((target, i: number) => {
-                            return (
-                                <div 
-                                key={i}
-                                >
-                                    <PlayerTarget 
-                                    playerInfo={target} 
-                                    handleShieldAttack={handleShieldAttack}
-                                    handleAttack={handleAttack}
-                                    cancelButton={cancelButton}
-                                    />
-                                </div>
-                            )
-                        })
-                    }
-                    {/* {hasAttackOptions && <button 
-                    onClick={cancelButton}>
-                        Cancel
-                    </button>} */}
+                        {
+                            possibleTargets.map((target, i: number) => {
+                                return (
+                                    <div 
+                                    key={i}
+                                    >
+                                        <PlayerTarget 
+                                        playerInfo={target} 
+                                        handleShieldAttack={handleShieldAttack}
+                                        handleAttack={handleAttack}
+                                        cancelButton={cancelButton}
+                                        />
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                 </div>
                 :
                 !attackDamage &&
