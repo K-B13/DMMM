@@ -167,7 +167,7 @@
     margin: 0.5rem 0;
     overflow-x: scroll;
     padding: 0.5rem;
-    width: 35rem;
+    width: 28rem;
 }
 
 .current-player-card-area {
@@ -293,6 +293,12 @@
   padding: 0.4rem;
 }
 
+.target-interface {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .player-target {
   border-radius: 1.2rem;  
   padding: 0.6rem;
@@ -303,6 +309,7 @@
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
+  flex-grow: 1;
 }
 
 .bottom-target-player {
