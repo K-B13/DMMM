@@ -1,10 +1,15 @@
 import { Card } from "../classes/Card";
 import { discard, draw, grabFromDiscard, grabTopCardFromDiscard } from "../classes/Deck";
-import { heal, play, Player } from "../classes/Player";
+import { ActiveShields, heal, Player, takeDamage } from "../classes/Player";
 import { writeValue } from "./firebaseActions";
 import { allGameplayPlayers, gameplayPlayerHitpoints, gameplayPlayerPath } from "./firebasePaths";
 
-export const specialMoves = {
+export const specialMoves: Record<string, any> = {
+    "Clever Disguise": async (currentPlayer: Player) => {
+        currentPlayer.targetable = false
+        currentPlayer.moves -= 1
+        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+    },
     "Sneak Attack": async (currentPlayer: Player, targetPlayer: Player, position: number) => {
         currentPlayer.moves += 1
         const targetedShield = targetPlayer.activeShields[position]
@@ -22,6 +27,16 @@ export const specialMoves = {
     //     await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
     //     await writeValue(gameplayPlayerPath(targetPlayer.uid), targetPlayer)
     // },
+    "Charm": async (currentPlayer: Player, targetPlayer: Player, position: number) => {
+        const targetPlayerShields = [...targetPlayer.activeShields]
+        const selectedShield = targetPlayerShields.splice(position, 1)[0]
+        selectedShield.hp = selectedShield.card.shield as number
+        currentPlayer.activeShields = [...currentPlayer.activeShields, selectedShield]
+        targetPlayer.activeShields = [...targetPlayerShields]
+        currentPlayer.moves -= 1
+        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+        await writeValue(gameplayPlayerPath(targetPlayer.uid), targetPlayer)
+    },
     "Vamperic Touch": async (currentPlayer: Player, player: Player) => {
         const currentPlayerHp = currentPlayer.hitpoints
         const targetPlayerHp = player.hitpoints
@@ -54,8 +69,9 @@ export const specialMoves = {
         const newPlayerState = players.map(p => {
             if (!p.active) return p
             const hand = [...p.hand]
-            p.hand = []
-            p.deck.discardPile.push(...hand)
+            // p.hand = []
+            // p.deck.discardPile.push(...hand)
+            p = { ...p, hand: [], deck: { ...p.deck, discardPile: [...p.deck.discardPile, ...hand]}}
             for(let i = 1; i <= 3; i ++) {
                 const cardDrawn = draw(p.deck)
                 if (cardDrawn) p.hand.push(cardDrawn)
@@ -124,7 +140,55 @@ export const specialMoves = {
             { ...p, hand: [...p.hand, ...currentPlayerDraws] } : p
         })
 
+        currentPlayer.moves -= 1
         await writeValue(allGameplayPlayers(), finalPlayers)
     },
-    "": async () => {}
+    "For my Next Trick": async (currentPlayer: Player) => {
+        currentPlayer.hitAll = true
+        currentPlayer.moves -= 1
+        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+    },
+    "Charm Ray": async (currentPlayer: Player, targetPlayer: Player) => {
+        targetPlayer.onlyTarget = true
+        currentPlayer.moves -= 1
+        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+        await writeValue(gameplayPlayerPath(targetPlayer.uid), targetPlayer)
+    },
+    "Death Ray": async (currentPlayer: Player, players: Player[]) => {
+        const updatedPlayers = [...players].map(p => {
+            if (p.activeShields.length > 0) {
+                const destroyedShields = [...p.activeShields]
+                destroyedShields.forEach(shield => {
+                    discard(shield.card, p.deck)
+                })
+                p.activeShields = []
+                return p
+            }
+            takeDamage(2, p)
+            return p
+        })
+        currentPlayer.moves -= 1
+        await writeValue(allGameplayPlayers(), updatedPlayers)
+    },
+    "It's Not a Trap": async (currentPlayer: Player, targetPlayerHpChanging: Player, targetPlayerHpUnchanging: Player) => {
+        targetPlayerHpChanging.hitpoints = targetPlayerHpUnchanging.hitpoints
+        currentPlayer.moves -= 1
+        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+        await writeValue(gameplayPlayerPath(targetPlayerHpChanging.uid), targetPlayerHpChanging)
+    },
+    "Definitely Just a Mirror": async (currentPlayer: Player, shield: ActiveShields) => {
+        shield.hp = shield.card.shield as number
+        currentPlayer.activeShields = [...currentPlayer.activeShields, shield]
+        currentPlayer.moves -= 1
+        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+    },
+    "Hugs": async (currentPlayer: Player, targetPlayer: Player, shield: ActiveShields, position: number) => {
+        heal(currentPlayer, shield.card.shield as number)
+        const targetPlayerShields = [...targetPlayer.activeShields]
+        targetPlayerShields.splice(position, 1)
+        targetPlayer.activeShields = [...targetPlayerShields]
+        currentPlayer.moves -= 1
+        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+        await writeValue(gameplayPlayerPath(targetPlayer.uid), targetPlayer)
+    }
 }

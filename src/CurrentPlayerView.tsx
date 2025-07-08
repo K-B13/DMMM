@@ -9,6 +9,7 @@ import { PlayerTarget } from "./PlayerTarget"
 import { CardDisplay } from "./Arena"
 import { CharacterName } from "./utility/characterBible"
 import { characterClasses } from "./utility/characterColor"
+import { PowerCard } from "./PowerCard"
 
 export const CurrentPlayerView = ({ 
     player, 
@@ -63,27 +64,34 @@ export const CurrentPlayerView = ({
                                             player.uid === currentPlayer.uid &&
                                             !canDraw &&
                                             (
-                                                card.attack ?
-                                                <div>
-                                                    <AttackButton
-                                                    player={player}
+                                                card.type === 'normal' ?
+                                                    card.attack ?
+                                                    <div>
+                                                        <AttackButton
+                                                        player={player}
+                                                        card={card}
+                                                        players={players}
+                                                        updateTurnIndex={updateTurnIndex}
+                                                        attackDamage={attackDamage}
+                                                        setAttackDamage={setAttackDamage}
+                                                        cardPlayed={cardPlayed}
+                                                        />
+                                                    </div>
+                                                    :
+                                                    !attackDamage &&
+                                                    <div>
+                                                        <button onClick={() => nonAttackClick(card)}
+                                                        className="card-play"    
+                                                        >
+                                                            Play
+                                                        </button>
+                                                    </div> :
+                                                    <PowerCard
+                                                    currentPlayer={currentPlayer} 
                                                     card={card}
                                                     players={players}
                                                     updateTurnIndex={updateTurnIndex}
-                                                    attackDamage={attackDamage}
-                                                    setAttackDamage={setAttackDamage}
-                                                    cardPlayed={cardPlayed}
                                                     />
-                                                </div>
-                                                :
-                                                !attackDamage &&
-                                                <div>
-                                                    <button onClick={() => nonAttackClick(card)}
-                                                    className="card-play"    
-                                                    >
-                                                        Play
-                                                    </button>
-                                                </div>
                                             )
                                         }
                                     </div>
