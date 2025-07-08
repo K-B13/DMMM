@@ -98,6 +98,10 @@ export const removeFromHand = (card: Card, player: Player) => {
     }
 }
 
+export const heal = (player: Player, healAmount: number) => {
+    player.hitpoints = Math.min(player.hitpoints + healAmount, 10)
+}
+
 export const play = (player: Player, card: Card) => {
     if (!player.active) {
         player.moves--
@@ -105,7 +109,7 @@ export const play = (player: Player, card: Card) => {
     }
 
     if (card.heal) {
-        player.hitpoints = Math.min(player.hitpoints + card.heal, 10)
+        heal(player, card.heal)
     }
 
     if (card.draw) {
@@ -129,7 +133,6 @@ export const play = (player: Player, card: Card) => {
     }
 
     removeFromHand(card, player)
-
     if (card.attack) {
         player.moves--
         return card.attack
