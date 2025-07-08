@@ -1,5 +1,9 @@
-import { SneakAttack } from "../powerComponents/SneakAttack";
+import { SingleShieldTargetComponent } from "../powerComponents/SingleShieldTargetComponent";
 
 export const componentIndex: Record<string, any> = {
-    "Sneak Attack": SneakAttack
+    "Sneak Attack": SingleShieldTargetComponent,
+    "Charm": SingleShieldTargetComponent,
+    "Mighty Toss": SingleShieldTargetComponent,
+    "Definitely Just a Mirror": SingleShieldTargetComponent,
+    "Hugs": SingleShieldTargetComponent
 }

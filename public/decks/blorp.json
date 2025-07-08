@@ -123,5 +123,20 @@
         "draw": 1,
         "heal": 1,
         "attack": 1
+    },
+    {
+        "name": "Hugs",
+        "character": "Blorp",
+        "type": "special"
+    },
+    {
+        "name": "Hugs",
+        "character": "Blorp",
+        "type": "special"
+    },
+    {
+        "name": "Hugs",
+        "character": "Blorp",
+        "type": "special"
     }
 ]

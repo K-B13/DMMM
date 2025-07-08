@@ -114,5 +114,20 @@
         "name": "Two Axes are Better Tahn One",
         "character": "Sutha",
         "extra": 2
+    },
+    {
+        "name": "Mighty Toss",
+        "character": "Sutha",
+        "type": "special"
+    },
+    {
+        "name": "Mighty Toss",
+        "character": "Sutha",
+        "type": "special"
+    },
+    {
+        "name": "Mighty Toss",
+        "character": "Sutha",
+        "type": "special"
     }
 ]

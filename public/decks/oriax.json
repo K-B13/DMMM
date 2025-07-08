@@ -118,5 +118,20 @@
         "character": "Oriax",
         "attack": 1,
         "extra": 1
+    },
+    {
+        "name": "Sneak Attack",
+        "character": "Oriax",
+        "type": "special"
+    },
+    {
+        "name": "Sneak Attack",
+        "character": "Oriax",
+        "type": "special"
+    },
+    {
+        "name": "Sneak Attack",
+        "character": "Oriax",
+        "type": "special"
     }
 ]

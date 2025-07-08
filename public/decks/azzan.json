@@ -115,5 +115,20 @@
         "character": "Azzan",
         "extra": 1,
         "attack": 1
+    },
+    {
+        "name": "Charm",
+        "character": "Azzan",
+        "type": "special"
+    },
+    {
+        "name": "Charm",
+        "character": "Azzan",
+        "type": "special"
+    },
+    {
+        "name": "Charm",
+        "character": "Azzan",
+        "type": "special"
     }
 ]

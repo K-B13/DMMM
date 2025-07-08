@@ -114,6 +114,20 @@
         "name": "Just Another Coat Rack",
         "character": "Mimi LeChaise",
         "heal": 2
+    },
+    {
+        "name": "Definitely Just a Mirror",
+        "character": "Mimi LeChaise",
+        "type": "special"
+    },
+    {
+        "name": "Definitely Just a Mirror",
+        "character": "Mimi LeChaise",
+        "type": "special"
+    },
+    {
+        "name": "Definitely Just a Mirror",
+        "character": "Mimi LeChaise",
+        "type": "special"
     }
-
 ]
