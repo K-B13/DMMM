@@ -1,7 +1,10 @@
 import { Card } from "../classes/Card"
-import { Player } from "../classes/Player"
+import { discard } from "../classes/Deck"
+import { Player, removeFromHand } from "../classes/Player"
 import { CharacterName } from "../utility/characterBible"
 import { characterClasses } from "../utility/characterColor"
+import { writeValue } from "../utility/firebaseActions"
+import { gameplayPlayerPath } from "../utility/firebasePaths"
 import { specialMoves } from "../utility/specialMoves"
 
 export const SingleShieldTargetComponent = ({ 
@@ -25,54 +28,68 @@ export const SingleShieldTargetComponent = ({
         if (currentPlayer.moves === 0) updateTurnIndex()
     }
 
-    // const validTargets = players.filter(
-    //     p => p.active && p.uid !== currentPlayer.uid && p.activeShields.length > 0
-    // )
+    const validTargets = players.filter(
+        p => p.active && p.uid !== currentPlayer.uid && p.activeShields.length > 0
+    )
+
+    const handleNoTargets = async () => {
+        currentPlayer.moves -= 1
+        if (currentPlayer.moves === 0) updateTurnIndex()
+        discard(card, currentPlayer.deck)
+        removeFromHand(card, currentPlayer)
+        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+    }
 
     return (
         <div className="player-targets-div">
             <div className="target-interface">
                 {
-                    players.map(playerInfo => {
-                        if (playerInfo.active && playerInfo.activeShields.length > 0 && playerInfo.uid !== currentPlayer.uid) {
-                            return (
-                                <div key={playerInfo.uid} className={`player-target ${characterClasses[playerInfo.deck.character as CharacterName]}`}>
-                                    <div className="target-player-data">
-                                        <p>{playerInfo.name} - {playerInfo.deck.character}</p>
-                                        <p>HP: {playerInfo.hitpoints}</p>
-                                    </div>
-                                    <div className="shield-div card-array-div">
-                                        {
-                                            playerInfo.activeShields.map((shield, index: number) => {
-                                                return (
-                                                    <div key={index} className="target-shields">
-                                                        <p>{shield.card.name}</p>
-                                                        <div className="shields">
-                                                        {[...Array(shield.card.shield).keys()].map(num => {
-                                                            if (num < shield.hp) {
-                                                                return <img key={num} src={`images/shield_alive.png`} height='30rem' width='30rem' />
-                                                            }
-                                                        return <img key={num} src={`images/shield_dead.png`} height='30rem' width='30rem' />
-                                                        })}
-                                                        </div>
-                                                            <button
-                                                            onClick={() => handleSpecialFunction(playerInfo, index)}
-                                                            >Choose</button>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
+                    validTargets.map(playerInfo => {
+                        return (
+                            <div key={playerInfo.uid} className={`player-target ${characterClasses[playerInfo.deck.character as CharacterName]}`}>
+                                <div className="target-player-data">
+                                    <p>{playerInfo.name} - {playerInfo.deck.character}</p>
+                                    <p>HP: {playerInfo.hitpoints}</p>
                                 </div>
-                            )
-                        }
+                                <div className="shield-div card-array-div">
+                                    {
+                                        playerInfo.activeShields.map((shield, index: number) => {
+                                            return (
+                                                <div key={index} className="target-shields">
+                                                    <p>{shield.card.name}</p>
+                                                    <div className="shields">
+                                                    {[...Array(shield.card.shield).keys()].map(num => {
+                                                        if (num < shield.hp) {
+                                                            return <img key={num} src={`images/shield_alive.png`} height='30rem' width='30rem' />
+                                                        }
+                                                    return <img key={num} src={`images/shield_dead.png`} height='30rem' width='30rem' />
+                                                    })}
+                                                    </div>
+                                                        <button
+                                                        onClick={() => handleSpecialFunction(playerInfo, index)}
+                                                        >Choose</button>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        )
                     })
                 }
                 {
-                    <button onClick={cancel}>
-                        Cancel
-                    </button>
+                    validTargets.length === 0 && (
+                        <div>
+                            <p>No valid targets available.</p>
+                            <button onClick={handleNoTargets}>
+                                Play Anyway
+                            </button>
+                        </div>
+                    )
                 }
+                <button onClick={cancel}>
+                    Cancel
+                </button>
             </div>
         </div>
     )
