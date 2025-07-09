@@ -135,5 +135,20 @@
         "name": "Fluffy",
         "character": "Lia",
         "shield": 2
+    },
+    {
+        "name": "Divine Inspiration",
+        "character": "Lia",
+        "type": "special"
+    },
+    {
+        "name": "Divine Inspiration",
+        "character": "Lia",
+        "type": "special"
+    },
+    {
+        "name": "Divine Inspiration",
+        "character": "Lia",
+        "type": "special"
     }
 ]

@@ -37,7 +37,7 @@ export const SingleShieldTargetComponent = ({
     const handleNoTargets = async () => {
         currentPlayer.moves -= 1
         if (currentPlayer.moves === 0) updateTurnIndex()
-        discard(card, currentPlayer.deck)
+        // discard(card, currentPlayer.deck)
         removeFromHand(card, currentPlayer)
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
     }

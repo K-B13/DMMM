@@ -44,12 +44,9 @@ export const discard = (card: Card, deck: Deck) => {
     deck.discardPile.push(card)
 }
 
-export const grabFromDiscard = (card: Card, deck: Deck, position: number) => {
+export const grabFromDiscard = (deck: Deck, position: number) => {
     if(deck.discardPile.length > 0) {
-        deck.discardPile.splice(position, 1)
-        // deck.discardPile = deck.discardPile.filter(c => {
-        //     return c !== card
-        // })
+        const card = deck.discardPile.splice(position, 1)[0]
         return card
     }
     return false

@@ -17,7 +17,7 @@ export const specialMoves: Record<string, any> = {
         const targetedShield = targetPlayer.activeShields[position]
         discard(targetedShield.card, targetPlayer.deck)
         targetPlayer.activeShields.splice(position, 1)
-        discard(card, currentPlayer.deck)
+        // discard(card, currentPlayer.deck)
         removeFromHand(card, currentPlayer)
         currentPlayer.moves -= 1
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
@@ -37,7 +37,7 @@ export const specialMoves: Record<string, any> = {
         selectedShield.hp = selectedShield.card.shield as number
         currentPlayer.activeShields = [...currentPlayer.activeShields, selectedShield]
         targetPlayer.activeShields = [...targetPlayerShields]
-        discard(card, currentPlayer.deck)
+        // discard(card, currentPlayer.deck)
         removeFromHand(card, currentPlayer)
         currentPlayer.moves -= 1
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
@@ -48,7 +48,7 @@ export const specialMoves: Record<string, any> = {
         const targetPlayerHp = targetPlayer.hitpoints
         currentPlayer.hitpoints = targetPlayerHp
         targetPlayer.hitpoints = currentPlayerHp
-        discard(card, currentPlayer.deck)
+        // discard(card, currentPlayer.deck)
         removeFromHand(card, currentPlayer)
         currentPlayer.moves -= 1
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
@@ -62,18 +62,19 @@ export const specialMoves: Record<string, any> = {
             p.activeShields = []
             p.deck.discardPile = [ ...p.deck.discardPile, ...playersShields ]
         })
-        discard(card, currentPlayer.deck)
+        // discard(card, currentPlayer.deck)
         removeFromHand(card, currentPlayer)
         currentPlayer.moves -= 1
         await writeValue(allGameplayPlayers(), newPlayerState)
     },
-    "Divine Inspiration": async (currentPlayer: Player, chosenCard: Card, position: number, card: Card) => {
-        grabFromDiscard(chosenCard, currentPlayer.deck, position)
-        currentPlayer.hand.push(chosenCard)
+    "Divine Inspiration": async (currentPlayer: Player, position: number, card: Card) => {
+        const cardFromDiscard = grabFromDiscard(currentPlayer.deck, position) as Card
+        currentPlayer.hand = [...currentPlayer.hand, cardFromDiscard]
         heal(currentPlayer, 2)
-        discard(card, currentPlayer.deck)
+        // discard(card, currentPlayer.deck)
         removeFromHand(card, currentPlayer)
         currentPlayer.moves -= 1
+        console.log('here')
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
     },
     "Battle Roar": async (players: Player[], currentPlayer: Player, card: Card) => {
@@ -98,7 +99,7 @@ export const specialMoves: Record<string, any> = {
         targetPlayer.activeShields.splice(position, 1)
         const cardDrawn = draw(currentPlayer.deck)
         if (cardDrawn) currentPlayer.hand.push(cardDrawn)
-        discard(card, currentPlayer.deck)
+        // discard(card, currentPlayer.deck)
         removeFromHand(card, currentPlayer)
         currentPlayer.moves -= 1
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
@@ -123,7 +124,7 @@ export const specialMoves: Record<string, any> = {
         await writeValue(allGameplayPlayers(), finalPlayers)
     },
     "Mind Games": async (currentPlayer: Player, targetPlayer: Player, card: Card) => {
-        discard(card, currentPlayer.deck)
+        // discard(card, currentPlayer.deck)
         removeFromHand(card, currentPlayer)
         const currentPlayerHand = [...currentPlayer.hand]
         const targetedPlayerHand = [...targetPlayer.hand]
@@ -207,7 +208,7 @@ export const specialMoves: Record<string, any> = {
         const shield = targetPlayer.activeShields[position]
         shield.hp = shield.card.shield as number
         currentPlayer.activeShields = [...currentPlayer.activeShields, shield]
-        discard(card, currentPlayer.deck)
+        // discard(card, currentPlayer.deck)
         removeFromHand(card, currentPlayer)
         currentPlayer.moves -= 1
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
@@ -218,7 +219,7 @@ export const specialMoves: Record<string, any> = {
         const targetPlayerShields = [...targetPlayer.activeShields]
         targetPlayerShields.splice(position, 1)
         targetPlayer.activeShields = [...targetPlayerShields]
-        discard(card, currentPlayer.deck)
+        // discard(card, currentPlayer.deck)
         removeFromHand(card, currentPlayer)
         currentPlayer.moves -= 1
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
