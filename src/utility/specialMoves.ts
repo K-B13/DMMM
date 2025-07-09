@@ -43,16 +43,16 @@ export const specialMoves: Record<string, any> = {
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
         await writeValue(gameplayPlayerPath(targetPlayer.uid), targetPlayer)
     },
-    "Vamperic Touch": async (currentPlayer: Player, player: Player, card: Card) => {
+    "Vamperic Touch": async (currentPlayer: Player, targetPlayer: Player, card: Card) => {
         const currentPlayerHp = currentPlayer.hitpoints
-        const targetPlayerHp = player.hitpoints
+        const targetPlayerHp = targetPlayer.hitpoints
         currentPlayer.hitpoints = targetPlayerHp
-        player.hitpoints = currentPlayerHp
+        targetPlayer.hitpoints = currentPlayerHp
         discard(card, currentPlayer.deck)
         removeFromHand(card, currentPlayer)
         currentPlayer.moves -= 1
-        await writeValue(gameplayPlayerHitpoints(currentPlayer.uid), currentPlayer.hitpoints)
-        await writeValue(gameplayPlayerHitpoints(player.uid), player.hitpoints)
+        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+        await writeValue(gameplayPlayerPath(targetPlayer.uid), targetPlayer)
     },
     "Banishing Smite": async (players: Player[], currentPlayer: Player, card: Card) => {
         currentPlayer.moves += 1
@@ -123,12 +123,12 @@ export const specialMoves: Record<string, any> = {
         await writeValue(allGameplayPlayers(), finalPlayers)
     },
     "Mind Games": async (currentPlayer: Player, targetPlayer: Player, card: Card) => {
+        discard(card, currentPlayer.deck)
+        removeFromHand(card, currentPlayer)
         const currentPlayerHand = [...currentPlayer.hand]
         const targetedPlayerHand = [...targetPlayer.hand]
         currentPlayer.hand = targetedPlayerHand
         targetPlayer.hand = currentPlayerHand
-        discard(card, currentPlayer.deck)
-        removeFromHand(card, currentPlayer)
         currentPlayer.moves -= 1
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
         await writeValue(gameplayPlayerPath(targetPlayer.uid), targetPlayer)

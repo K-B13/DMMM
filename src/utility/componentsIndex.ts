@@ -1,3 +1,4 @@
+import { SinglePlayerTargetComponent } from "../powerComponents/SinglePlayerTargetComponent";
 import { SingleShieldTargetComponent } from "../powerComponents/SingleShieldTargetComponent";
 
 export const componentIndex: Record<string, any> = {
@@ -5,5 +6,7 @@ export const componentIndex: Record<string, any> = {
     "Charm": SingleShieldTargetComponent,
     "Mighty Toss": SingleShieldTargetComponent,
     "Definitely Just a Mirror": SingleShieldTargetComponent,
-    "Hugs": SingleShieldTargetComponent
+    "Hugs": SingleShieldTargetComponent,
+    "Vamperic Touch": SinglePlayerTargetComponent,
+    "Mind Games": SinglePlayerTargetComponent
 }

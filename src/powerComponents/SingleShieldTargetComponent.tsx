@@ -1,11 +1,13 @@
 import { Card } from "../classes/Card"
 import { discard } from "../classes/Deck"
 import { Player, removeFromHand } from "../classes/Player"
+import { PowerPlayerCard } from "./powerHelperComponents/PowerPlayerCard"
 import { CharacterName } from "../utility/characterBible"
 import { characterClasses } from "../utility/characterColor"
 import { writeValue } from "../utility/firebaseActions"
 import { gameplayPlayerPath } from "../utility/firebasePaths"
 import { specialMoves } from "../utility/specialMoves"
+import { PowerShieldComponent } from "./powerHelperComponents/PowerShieldCard"
 
 export const SingleShieldTargetComponent = ({ 
     currentPlayer,
@@ -47,32 +49,8 @@ export const SingleShieldTargetComponent = ({
                     validTargets.map(playerInfo => {
                         return (
                             <div key={playerInfo.uid} className={`player-target ${characterClasses[playerInfo.deck.character as CharacterName]}`}>
-                                <div className="target-player-data">
-                                    <p>{playerInfo.name} - {playerInfo.deck.character}</p>
-                                    <p>HP: {playerInfo.hitpoints}</p>
-                                </div>
-                                <div className="shield-div card-array-div">
-                                    {
-                                        playerInfo.activeShields.map((shield, index: number) => {
-                                            return (
-                                                <div key={index} className="target-shields">
-                                                    <p>{shield.card.name}</p>
-                                                    <div className="shields">
-                                                    {[...Array(shield.card.shield).keys()].map(num => {
-                                                        if (num < shield.hp) {
-                                                            return <img key={num} src={`images/shield_alive.png`} height='30rem' width='30rem' />
-                                                        }
-                                                    return <img key={num} src={`images/shield_dead.png`} height='30rem' width='30rem' />
-                                                    })}
-                                                    </div>
-                                                        <button
-                                                        onClick={() => handleSpecialFunction(playerInfo, index)}
-                                                        >Choose</button>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
+                                <PowerPlayerCard playerInfo={playerInfo} />
+                                <PowerShieldComponent playerInfo={playerInfo} handleSpecialFunction={handleSpecialFunction} />
                             </div>
                         )
                     })

@@ -119,5 +119,20 @@
         "name": "PHD in Psychology",
         "character": "Dr Tentaculous",
         "extra": 2
+    },
+    {
+        "name": "Mind Games",
+        "character": "Dr Tentaculous",
+        "type": "special"
+    },
+    {
+        "name": "Mind Games",
+        "character": "Dr Tentaculous",
+        "type": "special"
+    },
+    {
+        "name": "Mind Games",
+        "character": "Dr Tentaculous",
+        "type": "special"
     }
 ]
