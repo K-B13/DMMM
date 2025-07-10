@@ -113,5 +113,20 @@
         "character": "Delilah Deathray",
         "draw": 1,
         "heal": 2
+    },
+    {
+        "name": "Death Ray",
+        "character": "Delilah Deathray",
+        "type": "special"
+    },
+    {
+        "name": "Death Ray",
+        "character": "Delilah Deathray",
+        "type": "special"
+    },
+    {
+        "name": "Death Ray",
+        "character": "Delilah Deathray",
+        "type": "special"
     }
 ]

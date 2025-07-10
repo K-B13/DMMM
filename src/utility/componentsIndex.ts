@@ -10,5 +10,10 @@ export const componentIndex: Record<string, any> = {
     "Hugs": SingleShieldTargetComponent,
     "Vamperic Touch": SinglePlayerTargetComponent,
     "Mind Games": SinglePlayerTargetComponent,
-    "Divine Inspiration": DiscardTargetComponent
+    "Divine Inspiration": DiscardTargetComponent,
+    "Banishing Smite": null,
+    "Battle Roar": null,
+    "Tell me about your Mother": null,
+    "Owl Bear Boogie": null,
+    "Death Ray": null
 }

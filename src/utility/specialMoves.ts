@@ -54,18 +54,23 @@ export const specialMoves: Record<string, any> = {
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
         await writeValue(gameplayPlayerPath(targetPlayer.uid), targetPlayer)
     },
-    "Banishing Smite": async (players: Player[], currentPlayer: Player, card: Card) => {
-        currentPlayer.moves += 1
+    "Banishing Smite": async ( currentPlayer: Player, players: Player[], card: Card) => {
         const newPlayerState = players.map(p => {
             if (!p.active) return p
+            if (currentPlayer.uid === p.uid) { p.moves += 1 }
             const playersShields = [...p.activeShields.map(s => s.card)]
             p.activeShields = []
             p.deck.discardPile = [ ...p.deck.discardPile, ...playersShields ]
+            return p
         })
-        // discard(card, currentPlayer.deck)
-        removeFromHand(card, currentPlayer)
-        currentPlayer.moves -= 1
-        await writeValue(allGameplayPlayers(), newPlayerState)
+        
+        for (const player of newPlayerState) {
+            if (player.uid === currentPlayer.uid) {
+                removeFromHand(card, player)
+                player.moves -= 1
+            }
+            await writeValue(gameplayPlayerPath(player.uid), player)
+        }
     },
     "Divine Inspiration": async (currentPlayer: Player, position: number, card: Card) => {
         const cardFromDiscard = grabFromDiscard(currentPlayer.deck, position) as Card
@@ -74,10 +79,9 @@ export const specialMoves: Record<string, any> = {
         // discard(card, currentPlayer.deck)
         removeFromHand(card, currentPlayer)
         currentPlayer.moves -= 1
-        console.log('here')
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
     },
-    "Battle Roar": async (players: Player[], currentPlayer: Player, card: Card) => {
+    "Battle Roar": async (currentPlayer: Player, players: Player[], card: Card) => {
         currentPlayer.moves += 1
         const newPlayerState = players.map(p => {
             if (!p.active) return p
@@ -87,11 +91,16 @@ export const specialMoves: Record<string, any> = {
                 const cardDrawn = draw(p.deck)
                 if (cardDrawn) p.hand.push(cardDrawn)
             }
+        return p
         })
-        discard(card, currentPlayer.deck)
-        removeFromHand(card, currentPlayer)
-        currentPlayer.moves -= 1
-        await writeValue(allGameplayPlayers(), newPlayerState)
+        
+        for (const player of newPlayerState) {
+            if (currentPlayer.uid === player.uid) {
+                removeFromHand(card, player)
+                player.moves -= 1
+            }
+            await writeValue(gameplayPlayerPath(player.uid), player)
+        }
     },
     "Mighty Toss": async (currentPlayer: Player, targetPlayer: Player, position: number, card: Card) => {
         const targetedShield = targetPlayer.activeShields[position]
@@ -107,8 +116,9 @@ export const specialMoves: Record<string, any> = {
     },
     "Tell me about your Mother": async (currentPlayer: Player, players: Player[], card: Card) => {
         const newHand = [...currentPlayer.hand]
-        const updatedPlayers = players.map(p => {
-            if (p.uid === currentPlayer.uid || !p.active) return p
+        const updatedPlayers = players.map((p, i) => {
+            if (!p.active) return p
+            if (p.uid === currentPlayer.uid) return p
             const chosenCard = grabTopCardFromDiscard(p.deck)
             if (!chosenCard) return p
             newHand.push(chosenCard[0])
@@ -116,12 +126,19 @@ export const specialMoves: Record<string, any> = {
             return p
         })
         const finalPlayers = updatedPlayers.map(p => {
-            return p.uid === currentPlayer.uid ? { ...p, hand: newHand } : p
+            if (p.uid === currentPlayer.uid) {
+                return { ...p, hand: newHand }
+            }
+            return p
         })
-        discard(card, currentPlayer.deck)
-        removeFromHand(card, currentPlayer)
-        currentPlayer.moves -= 1
-        await writeValue(allGameplayPlayers(), finalPlayers)
+        
+        for (const player of finalPlayers) {
+            if (player.uid === currentPlayer.uid) {
+                removeFromHand(card, player)
+                player.moves -= 1
+            }
+            await writeValue(gameplayPlayerPath(player.uid), player)
+        }
     },
     "Mind Games": async (currentPlayer: Player, targetPlayer: Player, card: Card) => {
         // discard(card, currentPlayer.deck)
@@ -153,15 +170,20 @@ export const specialMoves: Record<string, any> = {
 
             return updatedOpponent
         })
-
         const finalPlayers = updatedPlayers.map(p => {
-            return p.uid === currentPlayer.uid ?
-            { ...p, hand: [...p.hand, ...currentPlayerDraws] } : p
+            if (p.uid === currentPlayer.uid) {
+                p.hand = [...p.hand, ...currentPlayerDraws]
+            }
+            return p
         })
-        discard(card, currentPlayer.deck)
-        removeFromHand(card, currentPlayer)
-        currentPlayer.moves -= 1
-        await writeValue(allGameplayPlayers(), finalPlayers)
+        
+        for (const player of finalPlayers) {
+            if (player.uid === currentPlayer.uid) {
+                removeFromHand(card, player)
+                player.moves -= 1
+            }
+            await writeValue(gameplayPlayerPath(player.uid), player)
+        }
     },
     "For my Next Trick": async (currentPlayer: Player, card: Card) => {
         currentPlayer.hitAll = true
@@ -188,13 +210,17 @@ export const specialMoves: Record<string, any> = {
                 p.activeShields = []
                 return p
             }
-            takeDamage(2, p)
+            else takeDamage(2, p)
             return p
         })
-        discard(card, currentPlayer.deck)
-        removeFromHand(card, currentPlayer)
-        currentPlayer.moves -= 1
-        await writeValue(allGameplayPlayers(), updatedPlayers)
+        
+        for (const player of updatedPlayers) {
+            if (currentPlayer.uid === player.uid) {
+                removeFromHand(card, player)
+                player.moves -= 1
+            }
+            await writeValue(gameplayPlayerPath(player.uid), player)
+        }
     },
     "It's Not a Trap": async (currentPlayer: Player, targetPlayerHpChanging: Player, targetPlayerHpUnchanging: Player, card: Card) => {
         targetPlayerHpChanging.hitpoints = targetPlayerHpUnchanging.hitpoints

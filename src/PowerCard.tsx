@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Card } from "./classes/Card"
 import { Player } from "./classes/Player"
 import { componentIndex } from "./utility/componentsIndex"
+import { specialMoves } from "./utility/specialMoves"
 
 export const PowerCard = ({
     currentPlayer,
@@ -23,6 +24,13 @@ export const PowerCard = ({
     const cancelButton = () => {
         setHasOptions(false)
     }
+
+    const handleSpecialFunction = async () => {
+        const specialFunction = specialMoves[card.name]
+        await specialFunction(currentPlayer, players, card)
+        console.log(currentPlayer, 'currentPlayer')
+        if (currentPlayer.moves === 0) updateTurnIndex()
+    }
     const Component = componentIndex[card.name]
     return (
         <div>
@@ -36,11 +44,17 @@ export const PowerCard = ({
                     updateTurnIndex={updateTurnIndex}
                     />
                     :
-                    <button
-                    onClick={handleOptions}
-                    >
-                        Play
-                    </button>
+                    (
+                        Component ?
+                        <button
+                        onClick={handleOptions}
+                        >
+                            Play
+                        </button>:
+                        <button onClick={handleSpecialFunction}>
+                            Play
+                        </button>
+                    )
             }
             
         </div>

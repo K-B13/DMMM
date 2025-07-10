@@ -120,5 +120,20 @@
         "character": "Hoots McGoots",
         "extra": 1,
         "shield": 1
+    },
+    {
+        "name": "Owl Bear Boogie",
+        "character": "Hoots McGoots",
+        "type": "special"
+    },
+    {
+        "name": "Owl Bear Boogie",
+        "character": "Hoots McGoots",
+        "type": "special"
+    },
+    {
+        "name": "Owl Bear Boogie",
+        "character": "Hoots McGoots",
+        "type": "special"
     }
 ]
