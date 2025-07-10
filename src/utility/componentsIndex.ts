@@ -1,4 +1,5 @@
 import { DiscardTargetComponent } from "../powerComponents/DiscardTargetComponent";
+import { MultipleTargetComponent } from "../powerComponents/MultipleTargetComponent";
 import { SinglePlayerTargetComponent } from "../powerComponents/SinglePlayerTargetComponent";
 import { SingleShieldTargetComponent } from "../powerComponents/SingleShieldTargetComponent";
 
@@ -15,5 +16,6 @@ export const componentIndex: Record<string, any> = {
     "Battle Roar": null,
     "Tell me about your Mother": null,
     "Owl Bear Boogie": null,
-    "Death Ray": null
+    "Death Ray": null,
+    "It's Not a Trap": MultipleTargetComponent
 }
