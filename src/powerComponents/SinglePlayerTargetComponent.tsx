@@ -1,3 +1,4 @@
+import { CardDisplay } from "../Arena";
 import { Card } from "../classes/Card";
 import { Player } from "../classes/Player";
 import { CharacterName } from "../utility/characterBible";
@@ -10,7 +11,8 @@ export const SinglePlayerTargetComponent = ({
     card,
     players,
     cancel,
-    updateTurnIndex
+    updateTurnIndex,
+    cardPlayed
 }: {
     currentPlayer: Player, 
     card: Card,
@@ -18,6 +20,7 @@ export const SinglePlayerTargetComponent = ({
     player: Player,
     cancel: () => void,
     updateTurnIndex: () => void,
+    cardPlayed: (c: CardDisplay | undefined) => void
 }) => {
     const validTargets = players.filter(
         p => p.active && p.uid !== currentPlayer.uid

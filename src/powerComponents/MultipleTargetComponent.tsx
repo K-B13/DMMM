@@ -5,14 +5,15 @@ import { CharacterName } from "../utility/characterBible";
 import { characterClasses } from "../utility/characterColor";
 import { specialMoves } from "../utility/specialMoves";
 import { PowerPlayerCard } from "./powerHelperComponents/PowerPlayerCard";
-import { PowerShieldComponent } from "./powerHelperComponents/PowerShieldCard";
+import { CardDisplay } from "../Arena";
 
 export const MultipleTargetComponent = ({ 
     currentPlayer,
     card,
     players,
     cancel,
-    updateTurnIndex
+    updateTurnIndex,
+    cardPlayed
 }: {
     currentPlayer: Player, 
     card: Card,
@@ -20,6 +21,7 @@ export const MultipleTargetComponent = ({
     player: Player,
     cancel: () => void,
     updateTurnIndex: () => void,
+    cardPlayed: (c: CardDisplay | undefined) => void
 }) => {
     const [ firstOption, setFirstOption ] = useState<Player | null>(null)
     const validTargets = players.filter(

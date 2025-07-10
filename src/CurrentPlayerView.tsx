@@ -91,6 +91,7 @@ export const CurrentPlayerView = ({
                                                     card={card}
                                                     players={players}
                                                     updateTurnIndex={updateTurnIndex}
+                                                    cardPlayed={cardPlayed}
                                                     />
                                             )
                                         }

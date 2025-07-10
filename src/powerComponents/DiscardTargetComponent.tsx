@@ -1,3 +1,4 @@
+import { CardDisplay } from "../Arena"
 import { CardDetails } from "../CardDetails"
 import { Card } from "../classes/Card"
 import { discard } from "../classes/Deck"
@@ -15,13 +16,16 @@ export const DiscardTargetComponent = ({
     player,
     cancel,
     updateTurnIndex,
+    cardPlayed
 }: {
     currentPlayer: Player, 
     card: Card,
     players: Player[],
     player: Player,
     cancel: () => void,
-    updateTurnIndex: () => void,}) => {
+    updateTurnIndex: () => void,
+    cardPlayed: (c: CardDisplay | undefined) => void
+}) => {
 
     const handleSpecialFunction = async (position: number) => {
         const specialFunction = specialMoves[card.name]

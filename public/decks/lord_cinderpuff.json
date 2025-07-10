@@ -112,5 +112,20 @@
         "name": "Mob of Lawyers",
         "character": "Lord Cinderpuff",
         "shield": 3
+    },
+    {
+        "name": "Liquidate Assets",
+        "character": "Lord Cinderpuff",
+        "type": "special"
+    },
+    {
+        "name": "Liquidate Assets",
+        "character": "Lord Cinderpuff",
+        "type": "special"
+    },
+    {
+        "name": "Liquidate Assets",
+        "character": "Lord Cinderpuff",
+        "type": "special"
     }
 ]

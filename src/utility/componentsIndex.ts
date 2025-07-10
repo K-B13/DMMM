@@ -1,3 +1,5 @@
+import { LiquidateAssets } from "../powerComponents/attackPowerComponents/LiquidateAssetsComponents";
+import { MindBlastComponent } from "../powerComponents/attackPowerComponents/MindBlastComponent";
 import { DiscardTargetComponent } from "../powerComponents/DiscardTargetComponent";
 import { MultipleTargetComponent } from "../powerComponents/MultipleTargetComponent";
 import { SinglePlayerTargetComponent } from "../powerComponents/SinglePlayerTargetComponent";
@@ -17,5 +19,7 @@ export const componentIndex: Record<string, any> = {
     "Tell me about your Mother": null,
     "Owl Bear Boogie": null,
     "Death Ray": null,
-    "It's Not a Trap": MultipleTargetComponent
+    "It's Not a Trap": MultipleTargetComponent,
+    "Mind Blast": MindBlastComponent,
+    "Liquidate Assets": LiquidateAssets
 }

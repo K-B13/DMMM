@@ -8,13 +8,15 @@ import { writeValue } from "../utility/firebaseActions"
 import { gameplayPlayerPath } from "../utility/firebasePaths"
 import { specialMoves } from "../utility/specialMoves"
 import { PowerShieldComponent } from "./powerHelperComponents/PowerShieldCard"
+import { CardDisplay } from "../Arena"
 
 export const SingleShieldTargetComponent = ({ 
     currentPlayer,
     card,
     players,
     cancel,
-    updateTurnIndex 
+    updateTurnIndex,
+    cardPlayed 
 }: {
     currentPlayer: Player, 
     card: Card,
@@ -22,6 +24,7 @@ export const SingleShieldTargetComponent = ({
     player: Player,
     cancel: () => void,
     updateTurnIndex: () => void,
+    cardPlayed: (c: CardDisplay | undefined) => void
 }) => {
 
     const handleSpecialFunction = async (playerInfo: Player, position: number) => {
@@ -37,7 +40,6 @@ export const SingleShieldTargetComponent = ({
     const handleNoTargets = async () => {
         currentPlayer.moves -= 1
         if (currentPlayer.moves === 0) updateTurnIndex()
-        // discard(card, currentPlayer.deck)
         removeFromHand(card, currentPlayer)
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
     }

@@ -1,52 +1,33 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
-import { play, Player, shieldDamage, takeDamage } from "./classes/Player"
-import { Card } from "./classes/Card"
-import { updateValue, writeValue } from "./utility/firebaseActions"
-import { gameplayPlayerPath, winnerPath } from "./utility/firebasePaths"
-import { PlayerTarget } from "./PlayerTarget"
-import { CardDisplay } from "./Arena"
+import { useEffect, useState } from "react"
+import { play, Player, shieldDamage, takeDamage } from "../../classes/Player"
+import { Card } from "../../classes/Card"
+import { CardDisplay } from "../../Arena"
+import { writeValue } from "../../utility/firebaseActions"
+import { gameplayPlayerPath, winnerPath } from "../../utility/firebasePaths"
+import { PlayerTarget } from "../../PlayerTarget"
 
-export const AttackButton = ({ 
-    player, 
-    card, 
-    players, 
+export const LiquidateAssets = ({
+    currentPlayer,
+    card,
+    players,
+    cancel,
     updateTurnIndex,
-    attackDamage,
-    setAttackDamage,
-    cardPlayed,
-}: { 
-    player: Player, 
-    card: Card, 
-    players: Player[], 
+    cardPlayed
+}: {
+    currentPlayer: Player, 
+    card: Card,
+    players: Player[],
+    player: Player,
+    cancel: () => void,
     updateTurnIndex: () => void,
-    attackDamage: number,
-    setAttackDamage: Dispatch<SetStateAction<number>>,
-    cardPlayed: (c: CardDisplay | undefined) => void,
+    cardPlayed: (c: CardDisplay | undefined) => void
 }) => {
-    
+    const [ attackDamage, setAttackDamage ] = useState(0)
     const [ hasAttackOptions, setHasAttackOptions ] = useState(false)
     const [ possibleTargets, setPossibleTargets ] = useState<Player[]>([])
-
+    
     const getTargetIndexes = () => {
-        const currentIndex = players.findIndex(p => p.uid === player.uid)
-        const numPlayers = players.length
-
-        let left = (currentIndex - 1 + numPlayers) % numPlayers;
-        let right = (currentIndex + 1) % numPlayers;
-
-        while (!players[left].active) {
-            left = (left - 1 + numPlayers) % numPlayers;
-            if (left === currentIndex) break;
-        }
-        while (!players[right].active) {
-            right = (right + 1) % numPlayers;
-            if (right === currentIndex) break;
-        }
-        
-        if (left === right) {
-            return [players[left]]
-        }
-        return [players[right], players[left]]
+        return players.filter(p => p.uid !== currentPlayer.uid && p.active)
     }
 
     useEffect(() => {
@@ -64,7 +45,15 @@ export const AttackButton = ({
         setPossibleTargets([target])
     }
 
+    const discardEntireHand = () => {
+        if (currentPlayer.hand.length > 1) {
+            currentPlayer.deck.discardPile = [...currentPlayer.deck.discardPile, ...currentPlayer.hand]
+            currentPlayer.hand = []
+        }
+    }
+
     const handleShieldAttack = async (index: number, targetedPlayer: Player) => {
+        discardEntireHand()
         const targetedShield = targetedPlayer.activeShields[index]
         if (attackDamage > targetedShield.hp) {
             const leftoverDamage = attackDamage - targetedShield.hp
@@ -74,24 +63,25 @@ export const AttackButton = ({
         else {
             const leftoverDamage = Math.max(attackDamage - targetedShield.hp, 0)
             shieldDamage(index, attackDamage, targetedPlayer)
-            play(player, card)
-            cardPlayed({ currentCard: card, cardOwner: player })
-            await updateValue(gameplayPlayerPath(player.uid), player)
-            await updateValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
+            play(currentPlayer, card)
+            cardPlayed({ currentCard: card, cardOwner: currentPlayer })
+            await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+            await writeValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
             setAttackDamage(leftoverDamage)
-            if (player.moves === 0) updateTurnIndex()
+            if (currentPlayer.moves === 0) updateTurnIndex()
         }
     }
 
     const handleAttack = async (targetedPlayer: Player) => {
+        discardEntireHand()
         takeDamage(attackDamage, targetedPlayer)
-        play(player, card)
-        cardPlayed({ currentCard: card, cardOwner: player })
+        play(currentPlayer, card)
+        cardPlayed({ currentCard: card, cardOwner: currentPlayer })
         await winCheck()
-        await updateValue(gameplayPlayerPath(player.uid), player)
-        await updateValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
+        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+        await writeValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
         setAttackDamage(0)
-        if (player.moves === 0) updateTurnIndex()
+        if (currentPlayer.moves === 0) updateTurnIndex()
     }
 
     const winCheck = async () => {
@@ -106,8 +96,6 @@ export const AttackButton = ({
         setHasAttackOptions(false)
         setAttackDamage(0)
     }
-
-
 
     return (
         <div>
@@ -140,8 +128,8 @@ export const AttackButton = ({
                 <button 
                 className="card-play"
                 onClick={() => {
-                setHasAttackOptions(true)
-                setAttackDamage((card.attack as number))
+                    setHasAttackOptions(true)
+                    setAttackDamage(Math.min(currentPlayer.hand.length, 5) - 1)
                 }
                 }>
                     Play

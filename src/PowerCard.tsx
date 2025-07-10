@@ -3,17 +3,20 @@ import { Card } from "./classes/Card"
 import { Player } from "./classes/Player"
 import { componentIndex } from "./utility/componentsIndex"
 import { specialMoves } from "./utility/specialMoves"
+import { CardDisplay } from "./Arena"
 
 export const PowerCard = ({
     currentPlayer,
     card,
     players,
-    updateTurnIndex
+    updateTurnIndex,
+    cardPlayed
 }: {
     currentPlayer: Player,
     card: Card,
     players: Player[],
     updateTurnIndex: () => void,
+    cardPlayed: (c: CardDisplay | undefined) => void
 }) => {
     const [ hasOptions, setHasOptions ] = useState(false)
 
@@ -42,6 +45,7 @@ export const PowerCard = ({
                     players={players}
                     cancel={cancelButton}
                     updateTurnIndex={updateTurnIndex}
+                    cardPlayed={cardPlayed}
                     />
                     :
                     (
