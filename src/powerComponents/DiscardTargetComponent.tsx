@@ -2,7 +2,7 @@ import { CardDisplay } from "../Arena"
 import { CardDetails } from "../CardDetails"
 import { Card } from "../classes/Card"
 import { discard } from "../classes/Deck"
-import { Player, removeFromHand } from "../classes/Player"
+import { heal, Player, removeFromHand } from "../classes/Player"
 import { CharacterName } from "../utility/characterBible"
 import { characterClasses } from "../utility/characterColor"
 import { writeValue } from "../utility/firebaseActions"
@@ -35,6 +35,7 @@ export const DiscardTargetComponent = ({
 
     const handleNoTargets = async () => {
         currentPlayer.moves -= 1
+        heal(currentPlayer, 2)
         if (currentPlayer.moves === 0) updateTurnIndex()
         // discard(card, currentPlayer.deck)
         removeFromHand(card, currentPlayer)
