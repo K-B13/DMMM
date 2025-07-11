@@ -29,7 +29,7 @@ export const MindBlastComponent = ({
     const [ lockInChoice, setLockInChoice ] = useState(false)
     
     const getTargetIndexes = () => {
-        return players.filter(p => p.uid !== currentPlayer.uid && p.active)
+        return players.filter(p => p.uid !== currentPlayer.uid && p.active && p.targetable)
     }
 
     useEffect(() => {

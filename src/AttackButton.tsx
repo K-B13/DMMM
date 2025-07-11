@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { play, Player, shieldDamage, takeDamage } from "./classes/Player"
 import { Card } from "./classes/Card"
 import { updateValue, writeValue } from "./utility/firebaseActions"
@@ -110,7 +110,7 @@ export const AttackButton = ({
     const handleCannotAttack = async () => {
         play(player, card)
         await writeValue(gameplayPlayerPath(player.uid), player)
-        if (player.moves) updateTurnIndex()
+        if (player.moves === 0) updateTurnIndex()
         
     }
 
@@ -144,9 +144,14 @@ export const AttackButton = ({
                         }
                     {
                         possibleTargets.length === 1 && possibleTargets[0].targetable === false &&
+                        <div>
                         <button onClick={handleCannotAttack}>
                             Play Without Attack
                         </button>
+                        <button onClick={cancelButton}>
+                            Cancel
+                        </button>
+                        </div>
                     }
                     </div>
                 </div>

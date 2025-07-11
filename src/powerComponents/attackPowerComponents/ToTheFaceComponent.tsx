@@ -29,7 +29,7 @@ export const ToTheFaceComponent = ({
     const [ possibleTargets, setPossibleTargets ] = useState<Player[]>([])
     
     const getTargetIndexes = () => {
-        return players.filter(p => p.uid !== currentPlayer.uid && p.active)
+        return players.filter(p => p.uid !== currentPlayer.uid && p.active && p.targetable)
     }
 
     useEffect(() => {
@@ -44,13 +44,6 @@ export const ToTheFaceComponent = ({
     const handleTargetSelectedForCard = (target: Player, leftoverDamage: number) => {
         setAttackDamage(leftoverDamage)
         setPossibleTargets([target])
-    }
-
-    const discardEntireHand = () => {
-        if (currentPlayer.hand.length > 1) {
-            currentPlayer.deck.discardPile = [...currentPlayer.deck.discardPile, ...currentPlayer.hand]
-            currentPlayer.hand = []
-        }
     }
 
     const shieldTargets = () => {

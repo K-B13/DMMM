@@ -27,7 +27,7 @@ export const WhirlingAxesComponent = ({
     // const [ alivePlayers, setAlivePlayers ] = useState<Player[]>([])
 
     const allAlivePlayers = () => {
-        return [...players.filter(p => p.active && p.uid !== currentPlayer.uid)]
+        return [...players.filter(p => p.active && p.uid !== currentPlayer.uid && p.targetable)]
     }
 
     const alivePlayers = allAlivePlayers()

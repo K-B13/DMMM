@@ -36,6 +36,7 @@ export const SinglePlayerTargetComponent = ({
             <div className="target-interface">
                 {
                     validTargets.map(player => {
+                        if (!player.targetable) return
                         return (
                             <div key={player.uid} className={`player-target ${characterClasses[player.deck.character as CharacterName]}`}>
                                 <PowerPlayerCard playerInfo={player} />

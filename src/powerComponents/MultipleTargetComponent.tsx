@@ -40,6 +40,7 @@ export const MultipleTargetComponent = ({
                 {firstOption ? <p>{firstOption.name} selected to change</p>: <p>Select whose HP you want to change</p>}
                 {
                     validTargets.map(player => {
+                        if (!player.targetable) return
                         return (
                             <div key={player.uid} className={`player-target ${characterClasses[player.deck.character as CharacterName]}`}>
                                 <PowerPlayerCard playerInfo={player} />

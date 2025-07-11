@@ -27,7 +27,7 @@ export const PraiseMeComponent = ({
     const [currentTargetIndex, setCurrentTargetIndex] = useState(0);
 
     const allAlivePlayers = () => {
-        return [...players.filter(p => p.active && p.uid !== currentPlayer.uid)]
+        return players.filter(p => p.active && p.uid !== currentPlayer.uid && p.targetable)
     }
 
     const handleTargetSelectedForCard = (leftoverDamage: number) => {

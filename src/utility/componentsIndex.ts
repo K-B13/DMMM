@@ -29,5 +29,6 @@ export const componentIndex: Record<string, any> = {
     "To the Face!": ToTheFaceComponent,
     "Fireball": FireballComponent,
     "Whirling Axes": WhirlingAxesComponent,
-    "Praise Me": PraiseMeComponent
+    "Praise Me": PraiseMeComponent,
+    "Clever Disguise": null,
 }

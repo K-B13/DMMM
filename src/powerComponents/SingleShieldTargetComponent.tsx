@@ -34,7 +34,7 @@ export const SingleShieldTargetComponent = ({
     }
 
     const validTargets = players.filter(
-        p => p.active && p.uid !== currentPlayer.uid && p.activeShields.length > 0
+        p => p.active && p.uid !== currentPlayer.uid && p.activeShields.length > 0 && p.targetable
     )
 
     const handleNoTargets = async () => {

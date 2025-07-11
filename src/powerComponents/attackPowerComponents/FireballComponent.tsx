@@ -27,7 +27,7 @@ export const FireballComponent = ({
     // const [ alivePlayers, setAlivePlayers ] = useState<Player[]>([])
 
     const allAlivePlayers = () => {
-         return [...players.filter(p => p.active)]
+         return [...players.filter(p => p.active && p.targetable)]
     }
 
     const handleTargetSelectedForCard = (leftoverDamage: number) => {
