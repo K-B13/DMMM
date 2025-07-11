@@ -1,7 +1,9 @@
 import { FireballComponent } from "../powerComponents/attackPowerComponents/FireballComponent";
 import { LiquidateAssets } from "../powerComponents/attackPowerComponents/LiquidateAssetsComponent";
 import { MindBlastComponent } from "../powerComponents/attackPowerComponents/MindBlastComponent";
+import { PraiseMeComponent } from "../powerComponents/attackPowerComponents/PraiseMeComponent";
 import { ToTheFaceComponent } from "../powerComponents/attackPowerComponents/ToTheFaceComponent";
+import { WhirlingAxesComponent } from "../powerComponents/attackPowerComponents/WhirlingAxesComponent";
 import { DiscardTargetComponent } from "../powerComponents/DiscardTargetComponent";
 import { MultipleTargetComponent } from "../powerComponents/MultipleTargetComponent";
 import { SinglePlayerTargetComponent } from "../powerComponents/SinglePlayerTargetComponent";
@@ -25,5 +27,7 @@ export const componentIndex: Record<string, any> = {
     "Mind Blast": MindBlastComponent,
     "Liquidate Assets": LiquidateAssets,
     "To the Face!": ToTheFaceComponent,
-    "Fireball": FireballComponent
+    "Fireball": FireballComponent,
+    "Whirling Axes": WhirlingAxesComponent,
+    "Praise Me": PraiseMeComponent
 }

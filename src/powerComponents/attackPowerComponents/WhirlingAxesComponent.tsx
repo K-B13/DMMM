@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { play, Player, shieldDamage, takeDamage } from "../../classes/Player"
+import { heal, play, Player, shieldDamage, takeDamage } from "../../classes/Player"
 import { Card } from "../../classes/Card"
 import { CardDisplay } from "../../Arena"
 import { writeValue } from "../../utility/firebaseActions"
 import { gameplayPlayerPath, winnerPath } from "../../utility/firebasePaths"
 import { PlayerTarget } from "../../PlayerTarget"
 
-export const FireballComponent = ({
+export const WhirlingAxesComponent = ({
     currentPlayer,
     card,
     players,
@@ -22,32 +22,36 @@ export const FireballComponent = ({
     updateTurnIndex: () => void,
     cardPlayed: (c: CardDisplay | undefined) => void
 }) => {
-    const [ attackDamage, setAttackDamage ] = useState(3)
+    const [ attackDamage, setAttackDamage ] = useState(1)
     const [currentTargetIndex, setCurrentTargetIndex] = useState(0);
     // const [ alivePlayers, setAlivePlayers ] = useState<Player[]>([])
 
     const allAlivePlayers = () => {
-         return [...players.filter(p => p.active)]
+        return [...players.filter(p => p.active && p.uid !== currentPlayer.uid)]
     }
+
+    const alivePlayers = allAlivePlayers()
 
     const handleTargetSelectedForCard = (leftoverDamage: number) => {
         setAttackDamage(leftoverDamage)
     }
+
     // useEffect(() => {
     //     allAlivePlayers()
     // }, [])
-    const alivePlayers = allAlivePlayers()
 
     const nextPlayer = async () => {
         const player = alivePlayers[currentTargetIndex]
         await writeValue(gameplayPlayerPath(player.uid), player)
+        heal(currentPlayer, 1)
+        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
         if (currentTargetIndex === alivePlayers.length - 1) {
             play(currentPlayer, card)
             if (currentPlayer.moves === 0) updateTurnIndex()
             await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
         return
         }
-        setAttackDamage(3)
+        setAttackDamage(1)
         setCurrentTargetIndex(prevIndex => prevIndex + 1)
     }
 
@@ -88,7 +92,7 @@ export const FireballComponent = ({
         <div>
             <div className="player-targets-div">
                 <div className="target-interface">
-                    <p>You have {attackDamage} attack damage</p>
+                    <p>You have 1 attack damage</p>
                     {
                         <div className="player-target">
                             <PlayerTarget 
@@ -100,7 +104,6 @@ export const FireballComponent = ({
                     }
                     {
                         currentTargetIndex === 0 &&
-                        attackDamage === 3 &&
                         <button onClick={cancel}>Cancel</button>
                     }
                 </div>

@@ -126,11 +126,6 @@
         "type": "special"
     },
     {
-        "name": "Mighty Toss",
-        "character": "Sutha",
-        "type": "special"
-    },
-    {
         "name": "Battle Roar",
         "character": "Sutha",
         "type": "special"
@@ -141,7 +136,12 @@
         "type": "special"
     },
     {
-        "name": "Battle Roar",
+        "name": "Whirling Axes",
+        "character": "Sutha",
+        "type": "special"
+    },
+    {
+        "name": "Whirling Axes",
         "character": "Sutha",
         "type": "special"
     }
