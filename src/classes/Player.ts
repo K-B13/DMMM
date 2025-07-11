@@ -55,6 +55,8 @@ export const startingHand = ({ player }: { player: Player }) => {
 
 export const startTurn = (player: Player) => {
     player.moves = 1
+    if (player.targetable !== true) player.targetable = true
+    if (player.hitAll !== false) player.hitAll = false
     const newCard = draw(player.deck)
     if(newCard) {
         player.hand.push(newCard)

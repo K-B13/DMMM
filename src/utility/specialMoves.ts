@@ -5,7 +5,7 @@ import { writeValue } from "./firebaseActions";
 import { allGameplayPlayers, gameplayPlayerHitpoints, gameplayPlayerPath } from "./firebasePaths";
 
 export const specialMoves: Record<string, any> = {
-    "Clever Disguise": async (currentPlayer: Player, card: Card) => {
+    "Clever Disguise": async (currentPlayer: Player, _: Player[], card: Card) => {
         currentPlayer.targetable = false
         removeFromHand(card, currentPlayer)
         currentPlayer.moves -= 1
@@ -183,7 +183,7 @@ export const specialMoves: Record<string, any> = {
             await writeValue(gameplayPlayerPath(player.uid), player)
         }
     },
-    "For my Next Trick": async (currentPlayer: Player, card: Card) => {
+    "For my Next Trick": async (currentPlayer: Player, _: Player[], card: Card) => {
         currentPlayer.hitAll = true
         currentPlayer.moves -= 1
         removeFromHand(card, currentPlayer)

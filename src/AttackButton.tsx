@@ -107,7 +107,12 @@ export const AttackButton = ({
         setAttackDamage(0)
     }
 
-
+    const handleCannotAttack = async () => {
+        play(player, card)
+        await writeValue(gameplayPlayerPath(player.uid), player)
+        if (player.moves) updateTurnIndex()
+        
+    }
 
     return (
         <div>
@@ -123,16 +128,26 @@ export const AttackButton = ({
                                     <div 
                                     key={i}
                                     >
-                                        <PlayerTarget 
-                                        playerInfo={target} 
-                                        handleShieldAttack={handleShieldAttack}
-                                        handleAttack={handleAttack}
-                                        cancelButton={cancelButton}
-                                        />
+                                        {
+                                        target.targetable ?
+                                            <PlayerTarget 
+                                            playerInfo={target} 
+                                            handleShieldAttack={handleShieldAttack}
+                                            handleAttack={handleAttack}
+                                            cancelButton={cancelButton}
+                                            />
+                                            : null
+                                        }
                                     </div>
                                 )
                             })
                         }
+                    {
+                        possibleTargets.length === 1 && possibleTargets[0].targetable === false &&
+                        <button onClick={handleCannotAttack}>
+                            Play Without Attack
+                        </button>
+                    }
                     </div>
                 </div>
                 :

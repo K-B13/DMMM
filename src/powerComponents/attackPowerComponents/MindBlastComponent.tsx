@@ -5,7 +5,6 @@ import { CardDisplay } from "../../Arena"
 import { writeValue } from "../../utility/firebaseActions"
 import { gameplayPlayerPath, winnerPath } from "../../utility/firebasePaths"
 import { PlayerTarget } from "../../PlayerTarget"
-import { specialMoves } from "../../utility/specialMoves"
 import { PowerPlayerCard } from "../powerHelperComponents/PowerPlayerCard"
 
 export const MindBlastComponent = ({
@@ -50,6 +49,7 @@ export const MindBlastComponent = ({
     const handleShieldAttack = async (index: number, targetedPlayer: Player) => {
         const targetedShield = targetedPlayer.activeShields[index]
         if (attackDamage > targetedShield.hp) {
+            setLockInChoice(true)
             const leftoverDamage = attackDamage - targetedShield.hp
             shieldDamage(index, targetedShield.hp, targetedPlayer)
             handleTargetSelectedForCard(targetedPlayer, leftoverDamage)
@@ -86,12 +86,7 @@ export const MindBlastComponent = ({
     }
 
     const cancelButton = () => {
-        // setHasAttackOptions(false)
-        setAttackDamage(0)
-    }
-    const cancelBeforeFirstAttack = () => {
         setSelectedPlayer(null)
-        setLockInChoice(true)
     }
 
     return (
@@ -112,7 +107,7 @@ export const MindBlastComponent = ({
                                                 <button
                                                 onClick={() => {
                                                     setSelectedPlayer(target)
-                                                    setAttackDamage(Math.min(target.hand.length, 5)) 
+                                                    if (!lockInChoice) setAttackDamage(Math.min(target.hand.length, 5))
                                                 }}>
                                                     Choose
                                                 </button>
@@ -124,7 +119,7 @@ export const MindBlastComponent = ({
                                 {
                                     !lockInChoice &&
                                     <button
-                                    onClick={cancelBeforeFirstAttack}>
+                                    onClick={cancel}>
                                         Cancel
                                     </button>
                                 }
