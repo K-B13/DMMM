@@ -1,5 +1,7 @@
-import { LiquidateAssets } from "../powerComponents/attackPowerComponents/LiquidateAssetsComponents";
+import { FireballComponent } from "../powerComponents/attackPowerComponents/FireballComponent";
+import { LiquidateAssets } from "../powerComponents/attackPowerComponents/LiquidateAssetsComponent";
 import { MindBlastComponent } from "../powerComponents/attackPowerComponents/MindBlastComponent";
+import { ToTheFaceComponent } from "../powerComponents/attackPowerComponents/ToTheFaceComponent";
 import { DiscardTargetComponent } from "../powerComponents/DiscardTargetComponent";
 import { MultipleTargetComponent } from "../powerComponents/MultipleTargetComponent";
 import { SinglePlayerTargetComponent } from "../powerComponents/SinglePlayerTargetComponent";
@@ -21,5 +23,7 @@ export const componentIndex: Record<string, any> = {
     "Death Ray": null,
     "It's Not a Trap": MultipleTargetComponent,
     "Mind Blast": MindBlastComponent,
-    "Liquidate Assets": LiquidateAssets
+    "Liquidate Assets": LiquidateAssets,
+    "To the Face!": ToTheFaceComponent,
+    "Fireball": FireballComponent
 }

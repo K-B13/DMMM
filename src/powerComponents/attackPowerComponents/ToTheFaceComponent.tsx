@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react"
-import { play, Player, shieldDamage, takeDamage } from "../../classes/Player"
+import { play, Player, removeFromHand, shieldDamage, takeDamage } from "../../classes/Player"
 import { Card } from "../../classes/Card"
 import { CardDisplay } from "../../Arena"
 import { writeValue } from "../../utility/firebaseActions"
 import { gameplayPlayerPath, winnerPath } from "../../utility/firebasePaths"
 import { PlayerTarget } from "../../PlayerTarget"
-import { specialMoves } from "../../utility/specialMoves"
 import { PowerPlayerCard } from "../powerHelperComponents/PowerPlayerCard"
+import { PowerShieldComponent } from "../powerHelperComponents/PowerShieldCard"
+import { discard } from "../../classes/Deck"
 
-export const MindBlastComponent = ({
+export const ToTheFaceComponent = ({
     currentPlayer,
     card,
     players,
@@ -26,8 +27,6 @@ export const MindBlastComponent = ({
 }) => {
     const [ attackDamage, setAttackDamage ] = useState(0)
     const [ possibleTargets, setPossibleTargets ] = useState<Player[]>([])
-    const [ selectedPlayer, setSelectedPlayer ] = useState<Player | null>(null)
-    const [ lockInChoice, setLockInChoice ] = useState(false)
     
     const getTargetIndexes = () => {
         return players.filter(p => p.uid !== currentPlayer.uid && p.active)
@@ -45,6 +44,19 @@ export const MindBlastComponent = ({
     const handleTargetSelectedForCard = (target: Player, leftoverDamage: number) => {
         setAttackDamage(leftoverDamage)
         setPossibleTargets([target])
+    }
+
+    const discardEntireHand = () => {
+        if (currentPlayer.hand.length > 1) {
+            currentPlayer.deck.discardPile = [...currentPlayer.deck.discardPile, ...currentPlayer.hand]
+            currentPlayer.hand = []
+        }
+    }
+
+    const shieldTargets = () => {
+        return players.filter(p => {
+            return p.activeShields.length > 0
+        })
     }
 
     const handleShieldAttack = async (index: number, targetedPlayer: Player) => {
@@ -86,62 +98,67 @@ export const MindBlastComponent = ({
     }
 
     const cancelButton = () => {
-        // setHasAttackOptions(false)
         setAttackDamage(0)
     }
-    const cancelBeforeFirstAttack = () => {
-        setSelectedPlayer(null)
-        setLockInChoice(true)
+
+    const handleShieldSelection = async (targetPlayer: Player, position: number) => {
+        const selectedShield = targetPlayer.activeShields.splice(position, 1)[0]
+        discard(selectedShield.card, targetPlayer.deck)
+        setAttackDamage(selectedShield.card.shield as number)
+        await writeValue(gameplayPlayerPath(targetPlayer.uid), targetPlayer)
+    }
+
+    const handleNoTargets = async () => {
+        currentPlayer.moves -= 1
+        if (currentPlayer.moves === 0) updateTurnIndex()
+        removeFromHand(card, currentPlayer)
+        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
     }
 
     return (
         <div>
-
-            {
-                <div className="player-targets-div">
-                    <div className="target-interface">                    
+            <div className="player-targets-div">
+                <div className="target-interface">
+                {
+                    attackDamage ?
+                    <>
+                        <p>Attack Strength: {attackDamage}</p>
                         {
-                            !selectedPlayer ?
-                            <>
-                                <div className="player-target">
-                                {
-                                    possibleTargets.map((target, i: number) => {
-                                        return (
-                                            <div key={i}>
-                                                <PowerPlayerCard playerInfo={target} showTotalShields={true}/>
-                                                <button
-                                                onClick={() => {
-                                                    setSelectedPlayer(target)
-                                                    setAttackDamage(Math.min(target.hand.length, 5)) 
-                                                }}>
-                                                    Choose
-                                                </button>
-                                            </div>
-                                        )
-                                    })
-                                }
-                                </div>
-                                {
-                                    !lockInChoice &&
-                                    <button
-                                    onClick={cancelBeforeFirstAttack}>
-                                        Cancel
-                                    </button>
-                                }
-                            </>:
-                            <div>
-                                <p>Attack Strength: {attackDamage}</p>
-                                <PlayerTarget 
-                                playerInfo={selectedPlayer} 
-                                handleShieldAttack={handleShieldAttack}
-                                handleAttack={handleAttack}
-                                cancelButton={cancelButton}
-                                />
-                            </div>
+                            possibleTargets.map((target, i: number) => {
+                                return (
+                                    <div 
+                                    key={i}
+                                    >
+                                        <PlayerTarget 
+                                        playerInfo={target} 
+                                        handleShieldAttack={handleShieldAttack}
+                                        handleAttack={handleAttack}
+                                        cancelButton={cancelButton}
+                                        />
+                                    </div>
+                                )
+                            })
                         }
-                    </div>
+                    </>:
+                    <>
+                        <div className="player-target">
+                            {
+                                shieldTargets().map(player => {
+                                    return (
+                                        <div key={player.uid}>
+                                            <PowerPlayerCard playerInfo={player}/>
+                                            <PowerShieldComponent playerInfo={player} handleSpecialFunction={handleShieldSelection}/>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                        <button onClick={handleNoTargets}>Play Anyway</button>
+                        <button onClick={cancel}>Cancel</button>
+                    </>
+                    }
                 </div>
-            }
+            </div>
         </div>
     )
 }

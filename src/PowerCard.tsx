@@ -31,7 +31,6 @@ export const PowerCard = ({
     const handleSpecialFunction = async () => {
         const specialFunction = specialMoves[card.name]
         await specialFunction(currentPlayer, players, card)
-        console.log(currentPlayer, 'currentPlayer')
         if (currentPlayer.moves === 0) updateTurnIndex()
     }
     const Component = componentIndex[card.name]

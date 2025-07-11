@@ -127,11 +127,6 @@
         "type": "special"
     },
     {
-        "name": "Charm",
-        "character": "Azzan",
-        "type": "special"
-    },
-    {
         "name": "Vamperic Touch",
         "character": "Azzan",
         "type": "special"
@@ -142,7 +137,12 @@
         "type": "special"
     },
     {
-        "name": "Vamperic Touch",
+        "name": "Fireball",
+        "character": "Azzan",
+        "type": "special"
+    },
+    {
+        "name": "Fireball",
         "character": "Azzan",
         "type": "special"
     }

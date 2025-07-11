@@ -22,8 +22,8 @@ export const LiquidateAssets = ({
     updateTurnIndex: () => void,
     cardPlayed: (c: CardDisplay | undefined) => void
 }) => {
-    const [ attackDamage, setAttackDamage ] = useState(0)
-    const [ hasAttackOptions, setHasAttackOptions ] = useState(false)
+    const [ attackDamage, setAttackDamage ] = useState(Math.min(currentPlayer.hand.length, 5) - 1)
+    // const [ hasAttackOptions, setHasAttackOptions ] = useState(false)
     const [ possibleTargets, setPossibleTargets ] = useState<Player[]>([])
     
     const getTargetIndexes = () => {
@@ -36,7 +36,7 @@ export const LiquidateAssets = ({
     }, [])
 
     useEffect(() => {
-        setHasAttackOptions(false);
+        // setHasAttackOptions(false);
         setPossibleTargets(getTargetIndexes())
     }, [card])
 
@@ -93,7 +93,6 @@ export const LiquidateAssets = ({
     }
 
     const cancelButton = () => {
-        setHasAttackOptions(false)
         setAttackDamage(0)
     }
 
@@ -101,7 +100,6 @@ export const LiquidateAssets = ({
         <div>
 
             {
-                hasAttackOptions ?
                 <div className="player-targets-div">
                     <div className="target-interface">
                     <p>Attack Strength: {attackDamage}</p>
@@ -123,17 +121,6 @@ export const LiquidateAssets = ({
                         }
                     </div>
                 </div>
-                :
-                !attackDamage &&
-                <button 
-                className="card-play"
-                onClick={() => {
-                    setHasAttackOptions(true)
-                    setAttackDamage(Math.min(currentPlayer.hand.length, 5) - 1)
-                }
-                }>
-                    Play
-                </button>
             }
         </div>
     )
