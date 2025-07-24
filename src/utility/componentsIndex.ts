@@ -1,4 +1,5 @@
 import { FireballComponent } from "../powerComponents/attackPowerComponents/FireballComponent";
+import { ForMyNextTrick } from "../powerComponents/attackPowerComponents/ForMyNextTrick";
 import { LiquidateAssets } from "../powerComponents/attackPowerComponents/LiquidateAssetsComponent";
 import { MindBlastComponent } from "../powerComponents/attackPowerComponents/MindBlastComponent";
 import { PraiseMeComponent } from "../powerComponents/attackPowerComponents/PraiseMeComponent";
@@ -31,4 +32,5 @@ export const componentIndex: Record<string, any> = {
     "Whirling Axes": WhirlingAxesComponent,
     "Praise Me": PraiseMeComponent,
     "Clever Disguise": null,
+    "For my Next Trick": ForMyNextTrick
 }

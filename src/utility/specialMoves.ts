@@ -181,6 +181,7 @@ export const specialMoves: Record<string, any> = {
         }
     },
     "For my Next Trick": async (currentPlayer: Player, _: Player[], card: Card) => {
+        currentPlayer.moves += 1
         currentPlayer.hitAll = true
         currentPlayer.moves -= 1
         removeFromHand(card, currentPlayer)
