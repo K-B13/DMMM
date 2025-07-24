@@ -10,6 +10,7 @@ import { CardDisplay } from "./Arena"
 import { CharacterName } from "./utility/characterBible"
 import { characterClasses } from "./utility/characterColor"
 import { PowerCard } from "./PowerCard"
+import { AttackAllButton } from "./AttackAllButton"
 
 export const CurrentPlayerView = ({ 
     player, 
@@ -66,26 +67,44 @@ export const CurrentPlayerView = ({
                                             (
                                                 card.type === 'normal' ?
                                                     card.attack ?
-                                                    <div>
-                                                        <AttackButton
-                                                        player={player}
-                                                        card={card}
-                                                        players={players}
-                                                        updateTurnIndex={updateTurnIndex}
-                                                        attackDamage={attackDamage}
-                                                        setAttackDamage={setAttackDamage}
-                                                        cardPlayed={cardPlayed}
-                                                        />
-                                                    </div>
-                                                    :
-                                                    !attackDamage &&
-                                                    <div>
-                                                        <button onClick={() => nonAttackClick(card)}
-                                                        className="card-play"    
-                                                        >
-                                                            Play
-                                                        </button>
-                                                    </div> :
+                                                        <>
+                                                            {
+                                                                !currentPlayer.hitAll ?
+                                                                    <div>
+                                                                        <AttackButton
+                                                                        player={player}
+                                                                        card={card}
+                                                                        players={players}
+                                                                        updateTurnIndex={updateTurnIndex}
+                                                                        attackDamage={attackDamage}
+                                                                        setAttackDamage={setAttackDamage}
+                                                                        cardPlayed={cardPlayed}
+                                                                        />
+                                                                    </div>
+                                                                :
+                                                                    <div>
+                                                                        <AttackAllButton 
+                                                                        player={player}
+                                                                        card={card}
+                                                                        players={players}
+                                                                        updateTurnIndex={updateTurnIndex}
+                                                                        attackDamage={attackDamage}
+                                                                        setAttackDamage={setAttackDamage}
+                                                                        cardPlayed={cardPlayed}
+                                                                        />
+                                                                    </div>
+                                                            }
+                                                        </>
+                                                        :
+                                                        !attackDamage &&
+                                                        <div>
+                                                            <button onClick={() => nonAttackClick(card)}
+                                                            className="card-play"    
+                                                            >
+                                                                Play
+                                                            </button>
+                                                        </div> 
+                                                :
                                                     <PowerCard
                                                     currentPlayer={currentPlayer} 
                                                     card={card}

@@ -109,9 +109,6 @@ export const specialMoves: Record<string, any> = {
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
         await writeValue(gameplayPlayerPath(targetPlayer.uid), targetPlayer)
     },
-    // "Mind Blast": async (currentPlayer: Player) => {
-    //     return Math.min(currentPlayer.hand.length, 5)
-    // },
     "Tell me about your Mother": async (currentPlayer: Player, players: Player[], card: Card) => {
         const newHand = [...currentPlayer.hand]
         const updatedPlayers = players.map((p, i) => {
@@ -218,9 +215,6 @@ export const specialMoves: Record<string, any> = {
             await writeValue(gameplayPlayerPath(player.uid), player)
         }
     },
-    // "Liquidate Assets": async (currentPlayer: Player) => {
-    //     return Math.min(currentPlayer.hand.length, 5)
-    // },
     "It's Not a Trap": async (currentPlayer: Player, targetPlayerHpChanging: Player, targetPlayerHpUnchanging: Player, card: Card) => {
         targetPlayerHpChanging.hitpoints = targetPlayerHpUnchanging.hitpoints
         removeFromHand(card, currentPlayer)

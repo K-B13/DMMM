@@ -42,6 +42,9 @@ export const PlayerView = ({
 
     const drawCardFromDeck = async (player: Player) => {
         startTurn(player)
+        player.hitAll = false
+        player.targetable = true
+        player.onlyTarget = false
         cardPlayed(undefined)
         await updateValue(gameplayPlayerPath(player.uid), player)
         setCanDraw(false)

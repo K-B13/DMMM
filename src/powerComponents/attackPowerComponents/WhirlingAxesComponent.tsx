@@ -23,8 +23,7 @@ export const WhirlingAxesComponent = ({
     cardPlayed: (c: CardDisplay | undefined) => void
 }) => {
     const [ attackDamage, setAttackDamage ] = useState(1)
-    const [currentTargetIndex, setCurrentTargetIndex] = useState(0);
-    // const [ alivePlayers, setAlivePlayers ] = useState<Player[]>([])
+    const [ currentTargetIndex, setCurrentTargetIndex ] = useState(0);
 
     const allAlivePlayers = () => {
         return [...players.filter(p => p.active && p.uid !== currentPlayer.uid && p.targetable)]
@@ -35,10 +34,6 @@ export const WhirlingAxesComponent = ({
     const handleTargetSelectedForCard = (leftoverDamage: number) => {
         setAttackDamage(leftoverDamage)
     }
-
-    // useEffect(() => {
-    //     allAlivePlayers()
-    // }, [])
 
     const nextPlayer = async () => {
         const player = alivePlayers[currentTargetIndex]

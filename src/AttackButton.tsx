@@ -122,26 +122,26 @@ export const AttackButton = ({
                 <div className="player-targets-div">
                     <div className="target-interface">
                     <p>Attack Strength: {attackDamage}</p>
-                        {
-                            possibleTargets.map((target, i: number) => {
-                                return (
-                                    <div 
-                                    key={i}
-                                    >
-                                        {
-                                        target.targetable ?
-                                            <PlayerTarget 
-                                            playerInfo={target} 
-                                            handleShieldAttack={handleShieldAttack}
-                                            handleAttack={handleAttack}
-                                            cancelButton={cancelButton}
-                                            />
-                                            : null
-                                        }
-                                    </div>
-                                )
-                            })
-                        }
+                    {
+                        possibleTargets.map((target, i: number) => {
+                            return (
+                                <div 
+                                key={i}
+                                >
+                                    {
+                                    target.targetable ?
+                                        <PlayerTarget 
+                                        playerInfo={target} 
+                                        handleShieldAttack={handleShieldAttack}
+                                        handleAttack={handleAttack}
+                                        cancelButton={cancelButton}
+                                        />
+                                        : null
+                                    }
+                                </div>
+                            )
+                        })
+                    }
                     {
                         possibleTargets.length === 1 && possibleTargets[0].targetable === false &&
                         <div>
