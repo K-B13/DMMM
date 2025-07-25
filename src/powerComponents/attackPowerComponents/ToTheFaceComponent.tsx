@@ -75,10 +75,10 @@ export const ToTheFaceComponent = ({
         takeDamage(attackDamage, targetedPlayer)
         play(currentPlayer, card)
         cardPlayed({ currentCard: card, cardOwner: currentPlayer })
+        setAttackDamage(0)
         await winCheck()
         await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
         await writeValue(gameplayPlayerPath(targetedPlayer.uid), targetedPlayer)
-        setAttackDamage(0)
         if (currentPlayer.moves === 0) updateTurnIndex()
     }
 
@@ -101,8 +101,7 @@ export const ToTheFaceComponent = ({
         await writeValue(gameplayPlayerPath(targetPlayer.uid), targetPlayer)
     }
 
-    const handleNoTargets = async () => {
-        
+    const handleNoTargets = async () => {     
         currentPlayer.moves -= 1
         if (currentPlayer.moves === 0) updateTurnIndex()
         removeFromHand(card, currentPlayer)
@@ -147,8 +146,13 @@ export const ToTheFaceComponent = ({
                                 })
                             }
                         </div>
-                        <button onClick={handleNoTargets}>Play Anyway</button>
-                        <button onClick={cancel}>Cancel</button>
+                        {
+                            attackDamage === 0 && 
+                            <>
+                                <button onClick={handleNoTargets}>Play Anyway</button>
+                                <button onClick={cancel}>Cancel</button>
+                            </>
+                        }
                     </>
                     }
                 </div>
