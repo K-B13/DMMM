@@ -108,6 +108,7 @@ export const AttackButton = ({
     }
 
     const handleCannotAttack = async () => {
+        setAttackDamage(0)
         play(player, card)
         await writeValue(gameplayPlayerPath(player.uid), player)
         if (player.moves === 0) updateTurnIndex()
@@ -121,38 +122,38 @@ export const AttackButton = ({
                 hasAttackOptions ?
                 <div className="player-targets-div">
                     <div className="target-interface">
-                    <p>Attack Strength: {attackDamage}</p>
-                    {
-                        possibleTargets.map((target, i: number) => {
-                            return (
-                                <div 
-                                key={i}
-                                >
-                                    {
-                                    target.targetable ?
-                                        <PlayerTarget 
-                                        playerInfo={target} 
-                                        handleShieldAttack={handleShieldAttack}
-                                        handleAttack={handleAttack}
-                                        cancelButton={cancelButton}
-                                        />
-                                        : null
-                                    }
-                                </div>
-                            )
-                        })
-                    }
-                    {
-                        possibleTargets.length === 1 && possibleTargets[0].targetable === false &&
-                        <div>
-                        <button onClick={handleCannotAttack}>
-                            Play Without Attack
-                        </button>
-                        <button onClick={cancelButton}>
-                            Cancel
-                        </button>
-                        </div>
-                    }
+                        <p>Attack Strength: {attackDamage}</p>
+                        {
+                            possibleTargets.map((target, i: number) => {
+                                return (
+                                    <div 
+                                    key={i}
+                                    >
+                                        {
+                                        target.targetable ?
+                                            <PlayerTarget 
+                                            playerInfo={target} 
+                                            handleShieldAttack={handleShieldAttack}
+                                            handleAttack={handleAttack}
+                                            cancelButton={cancelButton}
+                                            />
+                                            : null
+                                        }
+                                    </div>
+                                )
+                            })
+                        }
+                        {
+                            possibleTargets.length === 1 && possibleTargets[0].targetable === false &&
+                            <div>
+                            <button onClick={handleCannotAttack}>
+                                Play Without Attack
+                            </button>
+                            <button onClick={cancelButton}>
+                                Cancel
+                            </button>
+                            </div>
+                        }
                     </div>
                 </div>
                 :

@@ -102,6 +102,7 @@ export const ToTheFaceComponent = ({
     }
 
     const handleNoTargets = async () => {
+        
         currentPlayer.moves -= 1
         if (currentPlayer.moves === 0) updateTurnIndex()
         removeFromHand(card, currentPlayer)

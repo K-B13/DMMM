@@ -17,7 +17,6 @@ export const WhirlingAxesComponent = ({
     currentPlayer: Player, 
     card: Card,
     players: Player[],
-    player: Player,
     cancel: () => void,
     updateTurnIndex: () => void,
     cardPlayed: (c: CardDisplay | undefined) => void

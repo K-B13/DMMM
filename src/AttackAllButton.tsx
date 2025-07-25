@@ -95,28 +95,42 @@ export const AttackAllButton = ({
         setHasAttackOptions(false)
         setAttackDamage(0)
     }
+
+    const playAnywayFunction = async () => {
+        setAttackDamage(0)
+        play(player, card)
+        if (player.moves === 0) updateTurnIndex()
+        await writeValue(gameplayPlayerPath(player.uid), player)
+    }
     return (
         <div>
             {
                 hasAttackOptions ?
-                <div className="player-targets-div">
-                    <div className="target-interface">
-                        <p>Attack Strength: {tempAttackDamage}</p>
-                        {
-                            <div className="player-target">
-                                <PlayerTarget 
-                                playerInfo={validTargets[currentTargetIndex]}
-                                handleShieldAttack={handleShieldAttack}
-                                handleAttack={handleAttack}
-                                />
-                            </div>
-                        }
-                        {
-                            currentTargetIndex === 0 &&
-                            <button onClick={cancelButton}>Cancel</button>
-                        }
+                    <div className="player-targets-div">
+                        <div className="target-interface">
+                            {
+                                validTargets.length >= 1 ?
+                                <>
+                                    <p>Attack Strength: {tempAttackDamage}</p>
+                                    <div className="player-target">
+                                        <PlayerTarget 
+                                        playerInfo={validTargets[currentTargetIndex]}
+                                        handleShieldAttack={handleShieldAttack}
+                                        handleAttack={handleAttack}
+                                        />
+                                    </div>
+                                </>
+                                :   
+                                <button onClick={playAnywayFunction}>
+                                    Play Anyway
+                                </button>
+                            }
+                            {
+                                currentTargetIndex === 0 &&
+                                <button onClick={cancelButton}>Cancel</button>
+                            } 
+                        </div>
                     </div>
-                </div>
                 :
                 !attackDamage && 
                 <button

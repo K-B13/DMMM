@@ -1,31 +1,32 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "../../classes/Card"; 
-import { play, Player, shieldDamage, takeDamage } from "../../classes/Player";
+import { Player, removeFromHand, shieldDamage, takeDamage } from "../../classes/Player";
 import { CardDisplay } from "../../Arena";
 import { PlayerTarget } from "../../PlayerTarget";
 import { writeValue } from "../../utility/firebaseActions";
 import { gameplayPlayerPath, winnerPath } from "../../utility/firebasePaths";
 
 export const ForMyNextTrick = ({ 
-    player, 
-    card, 
-    players, 
+    currentPlayer,
+    card,
+    players,
+    cancel,
     updateTurnIndex,
-    cardPlayed,
+    cardPlayed
 }: {
-    player: Player, 
-    card: Card, 
-    players: Player[], 
+    currentPlayer: Player, 
+    card: Card,
+    players: Player[],
+    cancel: () => void,
     updateTurnIndex: () => void,
-    cardPlayed: (c: CardDisplay | undefined) => void,
+    cardPlayed: (c: CardDisplay | undefined) => void
  }) => {
-    const [ hasAttackOptions, setHasAttackOptions ] = useState(false)
     const [ attackDamage, setAttackDamage ] = useState(1)
     const [ currentTargetIndex, setCurrentTargetIndex ] = useState(0);
 
     const getAllValidTargets = () => {
         const options = players.filter(p => {
-            return p.uid !== player.uid && p.targetable && p.active
+            return p.uid !== currentPlayer.uid && p.targetable && p.active
         })
         return options
     }
@@ -36,12 +37,12 @@ export const ForMyNextTrick = ({
     const nextPlayer = async () => {
         const targetPlayer = validTargets[currentTargetIndex]
         await writeValue(gameplayPlayerPath(targetPlayer.uid), targetPlayer)
-        await writeValue(gameplayPlayerPath(player.uid), player)
-        if (currentTargetIndex === validTargets.length - 1) {
-            setAttackDamage(0)
-            play(player, card)
-            if (player.moves === 0) updateTurnIndex()
-            await writeValue(gameplayPlayerPath(player.uid), player)
+        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+        if (currentTargetIndex === validTargets.length - 1) {            
+            currentPlayer.moves -= 1
+            removeFromHand(card, currentPlayer)
+            if (currentPlayer.moves === 0) updateTurnIndex()
+            await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
         return
         }
         setCurrentTargetIndex(prevIndex => prevIndex + 1)
@@ -67,45 +68,52 @@ export const ForMyNextTrick = ({
             await writeValue(winnerPath(), alivePlayers[0])
         }
     }
+    useEffect(() => {
+        currentPlayer.moves += 1
+        currentPlayer.hitAll = true
+    }, [])
 
-    const cancelButton = () => {
-        setHasAttackOptions(false)
-        setAttackDamage(0)
+    const cancelCard = () => {
+        currentPlayer.moves -= 1
+        currentPlayer.hitAll = false
+        cancel()
     }
+    const playAnywayFunction = async () => {
+        currentPlayer.moves -= 1
+        removeFromHand(card, currentPlayer)
+        if (currentPlayer.moves === 0) updateTurnIndex()
+        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+    }
+
     return (
         <div>
-            {
-                hasAttackOptions ?
-                <div className="player-targets-div">
-                    <div className="target-interface">
-                        <p>Attack Strength: {attackDamage}</p>
-                        {
-                            <div className="player-target">
-                                <PlayerTarget 
-                                playerInfo={validTargets[currentTargetIndex]}
-                                handleShieldAttack={handleShieldAttack}
-                                handleAttack={handleAttack}
-                                />
-                            </div>
-                        }
-                        {
-                            currentTargetIndex === 0 &&
-                            <button onClick={cancelButton}>Cancel</button>
-                        }
-                    </div>
+            <div className="player-targets-div">
+                <div className="target-interface">
+                    {
+                        validTargets.length >= 1 ?
+                        <>
+                            <p>Attack Strength: {attackDamage}</p>
+                            {
+                                <div className="player-target">
+                                    <PlayerTarget 
+                                    playerInfo={validTargets[currentTargetIndex]}
+                                    handleShieldAttack={handleShieldAttack}
+                                    handleAttack={handleAttack}
+                                    />
+                                </div>
+                            }
+                        </>
+                        :   
+                        <button onClick={playAnywayFunction}>
+                            Play Anyway
+                        </button>                        
+                    }
+                    {
+                        currentTargetIndex === 0 &&
+                        <button onClick={cancelCard}>Cancel</button>
+                    }
                 </div>
-                :
-                !attackDamage && 
-                <button
-                className="card-play"
-                onClick={() => {
-                    setHasAttackOptions(true)
-                    setAttackDamage(card.attack as number)
-                }}
-                >
-                    Play
-                </button>
-            }
+            </div>            
         </div>
     )
 }
