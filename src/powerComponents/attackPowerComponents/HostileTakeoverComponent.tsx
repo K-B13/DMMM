@@ -6,7 +6,7 @@ import { gameplayPlayerPath, winnerPath } from "../../utility/firebasePaths"
 import { writeValue } from "../../utility/firebaseActions"
 import { PlayerTarget } from "../../PlayerTarget"
 
-export const HostileTakeoverComponent2 = ({
+export const HostileTakeoverComponent = ({
     currentPlayer,
     card,
     players,
