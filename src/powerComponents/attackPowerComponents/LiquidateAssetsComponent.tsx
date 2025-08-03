@@ -25,6 +25,7 @@ export const LiquidateAssets = ({
     const [ attackDamage, setAttackDamage ] = useState(Math.min(currentPlayer.hand.length - 1, 5))
     // const [ hasAttackOptions, setHasAttackOptions ] = useState(false)
     const [ possibleTargets, setPossibleTargets ] = useState<Player[]>([])
+    const [ canCancel, setCanCancel ] = useState(true)
     
     const getTargetIndexes = () => {
         return players.filter(p => p.uid !== currentPlayer.uid && p.active && p.targetable)
@@ -46,6 +47,7 @@ export const LiquidateAssets = ({
     }
 
     const discardEntireHand = () => {
+        setCanCancel(false)
         if (currentPlayer.hand.length > 1) {
             currentPlayer.deck.discardPile = [...currentPlayer.deck.discardPile, ...currentPlayer.hand]
             currentPlayer.hand = []
@@ -92,11 +94,6 @@ export const LiquidateAssets = ({
         }
     }
 
-    const cancelButton = () => {
-        setAttackDamage(0)
-        cancel()
-    }
-
     return (
         <div>
 
@@ -114,13 +111,16 @@ export const LiquidateAssets = ({
                                         playerInfo={target} 
                                         handleShieldAttack={handleShieldAttack}
                                         handleAttack={handleAttack}
-                                        cancelButton={cancelButton}
                                         />
                                     </div>
                                 )
                             })
                         }
                     </div>
+                    {
+                        canCancel &&
+                        <button onClick={cancel}>Cancel</button>
+                    }
                 </div>
             }
         </div>
