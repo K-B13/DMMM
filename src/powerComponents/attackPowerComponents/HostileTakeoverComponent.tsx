@@ -43,9 +43,9 @@ export const HostileTakeoverComponent = ({
     const handleTargetSelectedForCard = async (leftoverDamage: number, targetPlayer: Player) => {
         setAttackDamage(leftoverDamage)
         await writeValue(gameplayPlayerPath(targetPlayer.uid), targetPlayer)
-        if (phase === 'phase1') {
-            setAttackDamage(1)
+        if (phase === 'phase1' && (leftoverDamage === 0 || !targetPlayer.active)) {
             setPhase1Target(targetPlayer)
+            setAttackDamage(1)
             setPhase('phase2')
         }
         if (phase === 'phase2') {
@@ -168,7 +168,7 @@ export const HostileTakeoverComponent = ({
             </div>
 
             {
-                currentTargetIndex === 0 &&
+                currentTargetIndex === 0 && phase === 'initial' &&
                 <button onClick={cancel}>Cancel</button>
             }
 

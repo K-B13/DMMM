@@ -22,7 +22,7 @@ export const LiquidateAssets = ({
     updateTurnIndex: () => void,
     cardPlayed: (c: CardDisplay | undefined) => void
 }) => {
-    const [ attackDamage, setAttackDamage ] = useState(Math.min(currentPlayer.hand.length, 5) - 1)
+    const [ attackDamage, setAttackDamage ] = useState(Math.min(currentPlayer.hand.length - 1, 5))
     // const [ hasAttackOptions, setHasAttackOptions ] = useState(false)
     const [ possibleTargets, setPossibleTargets ] = useState<Player[]>([])
     
@@ -94,6 +94,7 @@ export const LiquidateAssets = ({
 
     const cancelButton = () => {
         setAttackDamage(0)
+        cancel()
     }
 
     return (
