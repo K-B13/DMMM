@@ -111,6 +111,7 @@ export const LiquidateAssets = ({
                                         playerInfo={target} 
                                         handleShieldAttack={handleShieldAttack}
                                         handleAttack={handleAttack}
+                                        ignoreShields={currentPlayer.ignoreShields as boolean}
                                         />
                                     </div>
                                 )

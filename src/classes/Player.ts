@@ -19,6 +19,7 @@ export interface Player {
     targetable?: boolean;
     hitAll?: boolean;
     onlyTarget?: boolean;
+    ignoreShields?: boolean;
 }
 
 export type PlayerCreationType = ({ name, host, deck, uid }: { name: string, host?: boolean, deck: Deck, uid: string }) => Player
@@ -38,6 +39,7 @@ export const createPlayer: PlayerCreationType = ({ name, host, deck, uid }) => {
         targetable: true,
         hitAll: false,
         onlyTarget: false,
+        ignoreShields: false,
     }
 
     return newPlayer

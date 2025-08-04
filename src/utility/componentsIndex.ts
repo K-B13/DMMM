@@ -34,5 +34,6 @@ export const componentIndex: Record<string, any> = {
     "Praise Me": PraiseMeComponent,
     "Clever Disguise": null,
     "For my Next Trick": ForMyNextTrick,
-    "Hostile Takeover": HostileTakeoverComponent
+    "Hostile Takeover": HostileTakeoverComponent,
+    "Here I Come!": null,
 }

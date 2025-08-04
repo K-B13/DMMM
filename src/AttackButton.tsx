@@ -136,6 +136,7 @@ export const AttackButton = ({
                                             handleShieldAttack={handleShieldAttack}
                                             handleAttack={handleAttack}
                                             cancelButton={cancelButton}
+                                            ignoreShields={player.ignoreShields as boolean}
                                             />
                                             : null
                                         }

@@ -127,6 +127,7 @@ export const ToTheFaceComponent = ({
                                         handleShieldAttack={handleShieldAttack}
                                         handleAttack={handleAttack}
                                         cancelButton={cancelButton}
+                                        ignoreShields={currentPlayer.ignoreShields as boolean}
                                         />
                                     </div>
                                 )

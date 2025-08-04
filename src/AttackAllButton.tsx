@@ -117,6 +117,7 @@ export const AttackAllButton = ({
                                         playerInfo={validTargets[currentTargetIndex]}
                                         handleShieldAttack={handleShieldAttack}
                                         handleAttack={handleAttack}
+                                        ignoreShields={player.ignoreShields as boolean}
                                         />
                                     </div>
                                 </>

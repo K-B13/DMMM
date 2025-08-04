@@ -45,6 +45,7 @@ export const PlayerView = ({
         player.hitAll = false
         player.targetable = true
         player.onlyTarget = false
+        player.ignoreShields = false
         cardPlayed(undefined)
         await updateValue(gameplayPlayerPath(player.uid), player)
         setCanDraw(false)

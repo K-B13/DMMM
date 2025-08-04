@@ -134,6 +134,7 @@ export const HostileTakeoverComponent = ({
                             playerInfo={target}
                             handleShieldAttack={handleShieldAttack}
                             handleAttack={handleAttack}
+                            ignoreShields={currentPlayer.ignoreShields as boolean}
                             />
                         </div>
                     </div>
@@ -154,6 +155,7 @@ export const HostileTakeoverComponent = ({
                         playerInfo={allTargets[currentTargetIndex]}
                         handleShieldAttack={handleShieldAttack}
                         handleAttack={handleAttack}
+                        ignoreShields={currentPlayer.ignoreShields as boolean}
                         />
                     </div>
                 }

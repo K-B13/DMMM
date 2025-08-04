@@ -101,6 +101,7 @@ export const PraiseMeComponent = ({
                             playerInfo={alivePlayers[currentTargetIndex]}
                             handleShieldAttack={handleShieldAttack}
                             handleAttack={handleAttack}
+                            ignoreShields={currentPlayer.ignoreShields as boolean}
                             />
                         </div>
                     }

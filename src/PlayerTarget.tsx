@@ -6,13 +6,15 @@ export const PlayerTarget = ({
     playerInfo,
     handleShieldAttack,
     handleAttack,
-    cancelButton
+    cancelButton,
+    ignoreShields
 }:
 {
     playerInfo: Player,
     handleShieldAttack: (index: number, target: Player) => void,
     handleAttack: (targetedPlayer: Player) => void,
-    cancelButton?: () => void
+    cancelButton?: () => void,
+    ignoreShields: boolean
 
 }) => {
     return (
@@ -23,34 +25,37 @@ export const PlayerTarget = ({
             </div>
             <div className="bottom-target-player">
                 {
-                    playerInfo.activeShields.length === 0 ?
+                    playerInfo.activeShields.length === 0 || ignoreShields ?
                     <button
                     onClick={() => handleAttack(playerInfo)}
                     >Attack</button>
                     :null
                 }
-                <div className="shield-div card-array-div">
-                    {
-                        playerInfo.activeShields.map((shield, index: number) => {
-                            return (
-                                <div key={index} className="target-shields">
-                                    <p>{shield.card.name}</p>
-                                    <div className="shields">
-                                    {[...Array(shield.card.shield).keys()].map(num => {
-                                        if (num < shield.hp) {
-                                            return <img key={num} src={`images/shield_alive.png`} height='30rem' width='30rem' />
-                                        }
-                                    return <img key={num} src={`images/shield_dead.png`} height='30rem' width='30rem' />
-                                    })}
+                {
+                    !ignoreShields &&
+                    <div className="shield-div card-array-div">
+                        {
+                            playerInfo.activeShields.map((shield, index: number) => {
+                                return (
+                                    <div key={index} className="target-shields">
+                                        <p>{shield.card.name}</p>
+                                        <div className="shields">
+                                        {[...Array(shield.card.shield).keys()].map(num => {
+                                            if (num < shield.hp) {
+                                                return <img key={num} src={`images/shield_alive.png`} height='30rem' width='30rem' />
+                                            }
+                                        return <img key={num} src={`images/shield_dead.png`} height='30rem' width='30rem' />
+                                        })}
+                                        </div>
+                                            <button
+                                            onClick={() => handleShieldAttack(index, playerInfo)}
+                                            >Attack</button>
                                     </div>
-                                        <button
-                                        onClick={() => handleShieldAttack(index, playerInfo)}
-                                        >Attack</button>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
+                                )
+                            })
+                        }
+                    </div>
+                }
                 {
                     cancelButton ?
                     <button

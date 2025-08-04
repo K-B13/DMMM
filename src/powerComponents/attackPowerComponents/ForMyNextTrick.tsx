@@ -99,6 +99,7 @@ export const ForMyNextTrick = ({
                                     playerInfo={validTargets[currentTargetIndex]}
                                     handleShieldAttack={handleShieldAttack}
                                     handleAttack={handleAttack}
+                                    ignoreShields={currentPlayer.ignoreShields as boolean}
                                     />
                                 </div>
                             }
