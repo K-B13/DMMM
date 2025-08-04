@@ -30,7 +30,7 @@ export const SetupScreen = ({
 
     const intervalIdRef = useRef<number | null>(null)
     // const allCharacters = ["Azzan", "Blorp", "Delilah Deathray", "Dr Tentaculous", "Hoots McGoots", "Lia", "Lord Cinderpuff", "Mimi LeChaise", "Oriax", "Sutha"]
-const allCharacters = ["Azzan", "Dr Tentaculous", "Hoots McGoots", "Lia", "Lord Cinderpuff", "Oriax", "Sutha"]
+    const allCharacters = ["Azzan", "Blorp", "Dr Tentaculous", "Hoots McGoots", "Lia", "Lord Cinderpuff", "Oriax", "Sutha"]
     // Conecting the the firstPlayer Index in firebase
     useEffect(() => {
         const unsubscribe = onValue(ref(db, firstPlayer()), (snapshot) => {
