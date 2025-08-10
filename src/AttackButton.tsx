@@ -29,9 +29,20 @@ export const AttackButton = ({
     const [ hasAttackOptions, setHasAttackOptions ] = useState(false)
     const [ possibleTargets, setPossibleTargets ] = useState<Player[]>([])
 
+    const getForcedTarget = (): Player | undefined => {
+        return players.find(p => p.onlyTarget === true && p.active && p.uid !== player.uid);
+    };
+
+
     const getTargetIndexes = () => {
         const currentIndex = players.findIndex(p => p.uid === player.uid)
         const numPlayers = players.length
+
+        const forcedTarget = getForcedTarget()
+        if (forcedTarget) {
+            if (forcedTarget.targetable) return [forcedTarget]
+            return []
+        }
 
         let left = (currentIndex - 1 + numPlayers) % numPlayers;
         let right = (currentIndex + 1) % numPlayers;

@@ -32,7 +32,16 @@ export const PowerAttackAll= ({
         setTempAttackDamage(attackDamage)
     }, [attackDamage])
 
+    const getForcedTarget = (): Player | undefined => {
+        return players.find(p => p.onlyTarget === true && p.active && p.uid !== player.uid);
+    };
+
     const getAllValidTargets = () => {
+        const forced = getForcedTarget()
+        if (forced) {
+            if (forced.targetable) return [forced]
+            return []
+        }
         const options = players.filter(p => {
             return p.uid !== player.uid && p.targetable && p.active
         })

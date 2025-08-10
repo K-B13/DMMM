@@ -243,7 +243,6 @@ export const specialMoves: Record<string, any> = {
         await writeValue(gameplayPlayerPath(targetPlayer.uid), targetPlayer)
     },
     "Here I Come!": async (currentPlayer: Player, _: Player[], card: Card) => {
-        currentPlayer.ignoreShields = true
-        // await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+        currentPlayer.ignoreShields = true// await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
     }
 }

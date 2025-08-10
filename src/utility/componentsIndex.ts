@@ -37,4 +37,5 @@ export const componentIndex: Record<string, any> = {
     "For my Next Trick": ForMyNextTrick,
     "Hostile Takeover": HostileTakeoverComponent,
     "Here I Come!": HereIComeComponent,
+    "Charm Ray": SinglePlayerTargetComponent
 }

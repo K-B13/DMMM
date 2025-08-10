@@ -22,20 +22,32 @@ export const SinglePlayerTargetComponent = ({
     updateTurnIndex: () => void,
     cardPlayed: (c: CardDisplay | undefined) => void
 }) => {
-    const validTargets = players.filter(
+
+    const getForcedTarget = (): Player | undefined => {
+        return players.find(p => p.onlyTarget === true && p.active && p.uid !== currentPlayer.uid);
+    };
+
+    const validTargets = () => {
+        const forced = getForcedTarget()
+        if (forced) {
+            if (forced.targetable) return [forced]
+            return []
+        }
+        return players.filter(
         p => p.active && p.uid !== currentPlayer.uid
-    )
+    )}
 
     const handleSpecialFunction = async (player: Player) => {
         const specialFunction = specialMoves[card.name]
         await specialFunction(currentPlayer, player, card)
         if (currentPlayer.moves === 0) updateTurnIndex()
     }
+
     return (
         <div className="player-targets-div">
             <div className="target-interface">
                 {
-                    validTargets.map(player => {
+                    validTargets().map(player => {
                         if (!player.targetable) return
                         return (
                             <div key={player.uid} className={`player-target ${characterClasses[player.deck.character as CharacterName]}`}>

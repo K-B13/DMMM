@@ -25,7 +25,16 @@ export const FireballComponent = ({
     const [currentTargetIndex, setCurrentTargetIndex] = useState(0);
     // const [ alivePlayers, setAlivePlayers ] = useState<Player[]>([])
 
+    const getForcedTarget = (): Player | undefined => {
+        return players.find(p => p.onlyTarget === true && p.active && p.uid !== currentPlayer.uid);
+    };
+
     const allAlivePlayers = () => {
+        const forced = getForcedTarget()
+        if (forced) {
+            if (forced.targetable) return [forced]
+            return []
+        }
          return [...players.filter(p => p.active && p.targetable)]
     }
 

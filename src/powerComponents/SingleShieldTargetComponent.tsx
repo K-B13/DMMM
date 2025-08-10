@@ -27,15 +27,25 @@ export const SingleShieldTargetComponent = ({
     cardPlayed: (c: CardDisplay | undefined) => void
 }) => {
 
+    const getForcedTarget = (): Player | undefined => {
+        return players.find(p => p.onlyTarget === true && p.active && p.uid !== currentPlayer.uid);
+    };
+
     const handleSpecialFunction = async (playerInfo: Player, position: number) => {
         const specialFunction = specialMoves[card.name]
         await specialFunction(currentPlayer, playerInfo, position, card)
         if (currentPlayer.moves === 0) updateTurnIndex()
     }
 
-    const validTargets = players.filter(
+    const validTargets = () => {
+        const forced = getForcedTarget()
+        if (forced) {
+            if (forced.targetable) return [forced]
+            return []
+        }
+        return players.filter(
         p => p.active && p.uid !== currentPlayer.uid && p.activeShields.length > 0 && p.targetable
-    )
+    )}
 
     const handleNoTargets = async () => {
         currentPlayer.moves -= 1
@@ -48,7 +58,7 @@ export const SingleShieldTargetComponent = ({
         <div className="player-targets-div">
             <div className="target-interface">
                 {
-                    validTargets.map(playerInfo => {
+                    validTargets().map(playerInfo => {
                         return (
                             <div key={playerInfo.uid} className={`player-target ${characterClasses[playerInfo.deck.character as CharacterName]}`}>
                                 <PowerPlayerCard playerInfo={playerInfo} />

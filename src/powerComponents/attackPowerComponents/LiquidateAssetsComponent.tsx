@@ -25,8 +25,17 @@ export const LiquidateAssets = ({
     // const [ hasAttackOptions, setHasAttackOptions ] = useState(false)
     const [ possibleTargets, setPossibleTargets ] = useState<Player[]>([])
     const [ canCancel, setCanCancel ] = useState(true)
+
+    const getForcedTarget = (): Player | undefined => {
+        return players.find(p => p.onlyTarget === true && p.active && p.uid !== currentPlayer.uid);
+    };
     
     const getTargetIndexes = () => {
+        const forced = getForcedTarget()
+        if (forced) {
+            if (forced.targetable) return [forced]
+            return []
+        }
         return players.filter(p => p.uid !== currentPlayer.uid && p.active && p.targetable)
     }
 

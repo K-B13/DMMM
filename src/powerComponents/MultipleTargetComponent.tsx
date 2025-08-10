@@ -24,9 +24,20 @@ export const MultipleTargetComponent = ({
     cardPlayed: (c: CardDisplay | undefined) => void
 }) => {
     const [ firstOption, setFirstOption ] = useState<Player | null>(null)
-    const validTargets = players.filter(
+
+    const getForcedTarget = (): Player | undefined => {
+        return players.find(p => p.onlyTarget === true && p.active && p.uid !== currentPlayer.uid);
+    };
+
+    const validTargets = () => {
+        const forced = getForcedTarget()
+        if (forced) {
+            if (forced.targetable) return [forced]
+            return []
+        }
+        return players.filter(
         p => p.active && (firstOption ? firstOption.uid !== p.uid: true)
-    )
+    )}
 
     const handleSpecialFunction = async (player: Player) => {
         const specialFunction = specialMoves[card.name]
@@ -39,7 +50,7 @@ export const MultipleTargetComponent = ({
             <div className="target-interface">
                 {firstOption ? <p>{firstOption.name} selected to change</p>: <p>Select whose HP you want to change</p>}
                 {
-                    validTargets.map(player => {
+                    validTargets().map(player => {
                         if (!player.targetable) return
                         return (
                             <div key={player.uid} className={`player-target ${characterClasses[player.deck.character as CharacterName]}`}>

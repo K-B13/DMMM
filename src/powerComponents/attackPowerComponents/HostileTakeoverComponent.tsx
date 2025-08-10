@@ -26,15 +26,18 @@ export const HostileTakeoverComponent = ({
     const [ attackDamage, setAttackDamage ] = useState(1)
     const [ phase1Target, setPhase1Target ] = useState<Player | null>(null)
     const [ currentTargetIndex, setCurrentTargetIndex ] = useState(0)
-    // Needs to loop through attacking all
-    // Need to have a cancel for the first loop option.
-    // Present all the options for the double attack
-    // Above needs to handle if there are no options
-    // Needs to store the option
-    // Present all options but the previously selected one
-    // Needs to handle if there are no options
+
+    const getForcedTarget = (): Player | undefined => {
+        return players.find(p => p.onlyTarget === true && p.active && p.uid !== currentPlayer.uid);
+    };
+
 
     const getValidTargets = () => {
+        const forced = getForcedTarget()
+        if (forced) {
+            if (forced.targetable) return [forced]
+            return []
+        }
         return players.filter(p => p.uid !== currentPlayer.uid && p.active && p.targetable && p.uid !== phase1Target?.uid)
     }
     

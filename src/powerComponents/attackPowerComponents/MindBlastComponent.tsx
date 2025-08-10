@@ -27,7 +27,16 @@ export const MindBlastComponent = ({
     const [ selectedPlayer, setSelectedPlayer ] = useState<Player | null>(null)
     const [ lockInChoice, setLockInChoice ] = useState(false)
     
+    const getForcedTarget = (): Player | undefined => {
+        return players.find(p => p.onlyTarget === true && p.active && p.uid !== currentPlayer.uid);
+    };
+
     const getTargetIndexes = () => {
+        const forced = getForcedTarget()
+        if (forced) {
+            if (forced.targetable) return [forced]
+            return []
+        }
         return players.filter(p => p.uid !== currentPlayer.uid && p.active && p.targetable)
     }
 
