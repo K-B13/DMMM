@@ -14,6 +14,7 @@ export const AttackButton = ({
     attackDamage,
     setAttackDamage,
     cardPlayed,
+    cancel
 }: { 
     player: Player, 
     card: Card, 
@@ -22,6 +23,7 @@ export const AttackButton = ({
     attackDamage: number,
     setAttackDamage: Dispatch<SetStateAction<number>>,
     cardPlayed: (c: CardDisplay | undefined) => void,
+    cancel?: () => void
 }) => {
     
     const [ hasAttackOptions, setHasAttackOptions ] = useState(false)
@@ -150,7 +152,7 @@ export const AttackButton = ({
                             <button onClick={handleCannotAttack}>
                                 Play Without Attack
                             </button>
-                            <button onClick={cancelButton}>
+                            <button onClick={cancel ? cancel: cancelButton}>
                                 Cancel
                             </button>
                             </div>

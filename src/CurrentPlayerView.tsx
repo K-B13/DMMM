@@ -148,6 +148,7 @@ export const CurrentPlayerView = ({
                                     playerInfo={player}
                                     handleShieldAttack={handleGhostShieldAttack}
                                     handleAttack={handleGhostAttack}
+                                    ignoreShields={false}
                                     />
                                 </div>
                             )

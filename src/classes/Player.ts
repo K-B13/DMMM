@@ -16,10 +16,10 @@ export interface Player {
     hand: Card[];
     active: boolean;
     uid: string;
-    targetable?: boolean;
-    hitAll?: boolean;
-    onlyTarget?: boolean;
-    ignoreShields?: boolean;
+    targetable: boolean;
+    hitAll: boolean;
+    onlyTarget: boolean;
+    ignoreShields: boolean;
 }
 
 export type PlayerCreationType = ({ name, host, deck, uid }: { name: string, host?: boolean, deck: Deck, uid: string }) => Player

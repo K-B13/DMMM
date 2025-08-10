@@ -3,7 +3,7 @@ import { Card } from "./classes/Card";
 import { play, Player, shieldDamage, takeDamage } from "./classes/Player";
 import { CardDisplay } from "./Arena";
 import { PlayerTarget } from "./PlayerTarget";
-import { updateValue, writeValue } from "./utility/firebaseActions";
+import { writeValue } from "./utility/firebaseActions";
 import { gameplayPlayerPath, winnerPath } from "./utility/firebasePaths";
 
 export const AttackAllButton = ({ 
@@ -14,6 +14,7 @@ export const AttackAllButton = ({
     attackDamage,
     setAttackDamage,
     cardPlayed,
+    cancel
 }: {
     player: Player, 
     card: Card, 
@@ -22,6 +23,7 @@ export const AttackAllButton = ({
     attackDamage: number,
     setAttackDamage: Dispatch<SetStateAction<number>>,
     cardPlayed: (c: CardDisplay | undefined) => void,
+    cancel?: () => void
  }) => {
     const [ hasAttackOptions, setHasAttackOptions ] = useState(false)
     const [ tempAttackDamage, setTempAttackDamage ] = useState(0)
@@ -128,7 +130,7 @@ export const AttackAllButton = ({
                             }
                             {
                                 currentTargetIndex === 0 &&
-                                <button onClick={cancelButton}>Cancel</button>
+                                <button onClick={cancel ? cancel: cancelButton}>Cancel</button>
                             } 
                         </div>
                     </div>

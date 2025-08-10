@@ -137,16 +137,19 @@
     {
         "name": "Here I Come!",
         "character": "Blorp",
-        "type": "special"
+        "type": "special",
+        "attack": 3
     },
     {
         "name": "Here I Come!",
         "character": "Blorp",
-        "type": "special"
+        "type": "special",
+        "attack": 3
     },
     {
         "name": "Here I Come!",
         "character": "Blorp",
-        "type": "special"
+        "type": "special",
+        "attack": 3
     }
 ]

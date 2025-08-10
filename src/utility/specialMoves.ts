@@ -244,8 +244,6 @@ export const specialMoves: Record<string, any> = {
     },
     "Here I Come!": async (currentPlayer: Player, _: Player[], card: Card) => {
         currentPlayer.ignoreShields = true
-        currentPlayer.moves -= 1
-        removeFromHand(card, currentPlayer)
-        await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
+        // await writeValue(gameplayPlayerPath(currentPlayer.uid), currentPlayer)
     }
 }

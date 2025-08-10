@@ -1,5 +1,6 @@
 import { FireballComponent } from "../powerComponents/attackPowerComponents/FireballComponent";
 import { ForMyNextTrick } from "../powerComponents/attackPowerComponents/ForMyNextTrick";
+import { HereIComeComponent } from "../powerComponents/attackPowerComponents/HereIComeComponent";
 import { HostileTakeoverComponent } from "../powerComponents/attackPowerComponents/HostileTakeoverComponent";
 import { LiquidateAssets } from "../powerComponents/attackPowerComponents/LiquidateAssetsComponent";
 import { MindBlastComponent } from "../powerComponents/attackPowerComponents/MindBlastComponent";
@@ -35,5 +36,5 @@ export const componentIndex: Record<string, any> = {
     "Clever Disguise": null,
     "For my Next Trick": ForMyNextTrick,
     "Hostile Takeover": HostileTakeoverComponent,
-    "Here I Come!": null,
+    "Here I Come!": HereIComeComponent,
 }

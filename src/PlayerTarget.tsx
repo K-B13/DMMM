@@ -11,7 +11,7 @@ export const PlayerTarget = ({
 }:
 {
     playerInfo: Player,
-    handleShieldAttack: (index: number, target: Player) => void,
+    handleShieldAttack?: (index: number, target: Player) => void,
     handleAttack: (targetedPlayer: Player) => void,
     cancelButton?: () => void,
     ignoreShields: boolean
@@ -32,7 +32,7 @@ export const PlayerTarget = ({
                     :null
                 }
                 {
-                    !ignoreShields &&
+                    !ignoreShields && handleShieldAttack &&
                     <div className="shield-div card-array-div">
                         {
                             playerInfo.activeShields.map((shield, index: number) => {
